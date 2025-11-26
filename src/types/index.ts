@@ -52,6 +52,7 @@ export interface UserStats {
   totalWords: number;
   learnedWords: number;
   learningWords: number;
+  wordsReviewed: number;
   totalXP: number;
   currentStreak: number;
   longestStreak: number;
