@@ -48,11 +48,7 @@ const NavItem: React.FC<NavItemProps> = ({ to, icon, label, badge }) => {
         )}
       </motion.div>
       {isActive && (
-        <motion.div
-          className="absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full"
-          layoutId="activeIndicator"
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
       )}
     </NavLink>
   );

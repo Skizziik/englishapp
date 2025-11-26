@@ -1079,12 +1079,13 @@ export class DatabaseManager {
     // Update daily stats
     const today = new Date().toISOString().split('T')[0];
     this.db.prepare(`
-      INSERT INTO daily_stats (date, words_reviewed, correct_answers, wrong_answers, time_spent, sessions_count)
-      VALUES (?, ?, ?, ?, ?, 1)
+      INSERT INTO daily_stats (date, words_reviewed, correct_answers, wrong_answers, xp_earned, time_spent, sessions_count)
+      VALUES (?, ?, ?, ?, ?, ?, 1)
       ON CONFLICT(date) DO UPDATE SET
         words_reviewed = words_reviewed + ?,
         correct_answers = correct_answers + ?,
         wrong_answers = wrong_answers + ?,
+        xp_earned = xp_earned + ?,
         time_spent = time_spent + ?,
         sessions_count = sessions_count + 1
     `).run(
@@ -1092,10 +1093,12 @@ export class DatabaseManager {
       stats.wordsCount || 0,
       stats.correctCount || 0,
       stats.wrongCount || 0,
+      stats.xpEarned || 0,
       stats.timeSpent || 0,
       stats.wordsCount || 0,
       stats.correctCount || 0,
       stats.wrongCount || 0,
+      stats.xpEarned || 0,
       stats.timeSpent || 0
     );
 
@@ -1119,11 +1122,23 @@ export class DatabaseManager {
 
   // Statistics methods
   getDailyStats(days?: number): any[] {
-    return this.db.prepare(`
+    const rows = this.db.prepare(`
       SELECT * FROM daily_stats
       ORDER BY date DESC
       LIMIT ?
-    `).all(days || 30);
+    `).all(days || 30) as any[];
+
+    // Map snake_case to camelCase for frontend
+    return rows.map(row => ({
+      date: row.date,
+      wordsLearned: row.words_learned || 0,
+      wordsReviewed: row.words_reviewed || 0,
+      correctAnswers: row.correct_answers || 0,
+      wrongAnswers: row.wrong_answers || 0,
+      xpEarned: row.xp_earned || 0,
+      timeSpent: row.time_spent || 0,
+      sessionsCount: row.sessions_count || 0,
+    }));
   }
 
   getWeeklyStats(): any {
