@@ -352,7 +352,23 @@ export class DatabaseManager {
   }
 
   private async seedWords(): Promise<void> {
-    // Comprehensive word list for different levels
+    // Try to load 8000+ words from external JSON file
+    const possiblePaths = [
+      path.join(__dirname, '..', 'data', 'words-8000.json'),
+      path.join(__dirname, '..', '..', 'data', 'words-8000.json'),
+      path.join(process.resourcesPath || '', 'data', 'words-8000.json'),
+    ];
+
+    for (const jsonPath of possiblePaths) {
+      if (fs.existsSync(jsonPath)) {
+        console.log(`Loading 8000+ words from: ${jsonPath}`);
+        this.seedWordsFromJson(jsonPath);
+        return;
+      }
+    }
+
+    // Fallback to basic vocabulary
+    console.log('Using basic vocabulary (external database not found)');
     const wordsData = [
       // A1 Level - Basic
       { word: 'hello', transcription: '/həˈləʊ/', pos: 'interjection', level: 'A1', freq: 100, translations: ['привет', 'здравствуйте'], examples: [{ en: 'Hello! How are you?', ru: 'Привет! Как дела?' }], tags: ['everyday'] },
@@ -543,6 +559,38 @@ export class DatabaseManager {
     });
 
     insertMany();
+  }
+
+  private seedWordsFromJson(jsonPath: string): void {
+    const content = fs.readFileSync(jsonPath, 'utf-8');
+    const wordsJson = JSON.parse(content) as Array<{ id: number; en: string; ru: string; tr: string }>;
+
+    const getCEFRLevel = (i: number) => i <= 500 ? 'A1' : i <= 1500 ? 'A2' : i <= 3500 ? 'B1' : i <= 6000 ? 'B2' : i <= 8000 ? 'C1' : 'C2';
+    const getPos = (w: string) => {
+      if (w.endsWith('tion') || w.endsWith('ness') || w.endsWith('ment')) return 'noun';
+      if (w.endsWith('ly')) return 'adverb';
+      if (w.endsWith('ful') || w.endsWith('ous') || w.endsWith('able')) return 'adjective';
+      return 'noun';
+    };
+
+    const insertWord = this.db.prepare(`INSERT INTO words (id, word, transcription, part_of_speech, level, frequency, forms, synonyms, antonyms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+    const insertTranslation = this.db.prepare(`INSERT INTO translations (id, word_id, translation, is_primary) VALUES (?, ?, ?, ?)`);
+
+    const transaction = this.db.transaction(() => {
+      let count = 0;
+      for (let i = 0; i < wordsJson.length; i++) {
+        const item = wordsJson[i];
+        if (!item.en || !item.ru) continue;
+        const wordId = uuidv4();
+        try {
+          insertWord.run(wordId, item.en.toLowerCase().trim(), item.tr || '', getPos(item.en), getCEFRLevel(i + 1), Math.max(1, 100 - Math.floor(i / 80)), '[]', '[]', '[]');
+          item.ru.split(/[,;]/).forEach((t, idx) => t.trim() && insertTranslation.run(uuidv4(), wordId, t.trim(), idx === 0 ? 1 : 0));
+          count++;
+        } catch (e) { /* skip duplicates */ }
+      }
+      console.log(`Inserted ${count} words`);
+    });
+    transaction();
   }
 
   // Word methods

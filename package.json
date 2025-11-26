@@ -79,6 +79,10 @@
       {
         "from": "public",
         "to": "public"
+      },
+      {
+        "from": "data",
+        "to": "data"
       }
     ],
     "win": {

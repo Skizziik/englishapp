@@ -15,7 +15,10 @@
       "Bash(npm run build:installer:*)",
       "Bash(npm run build:*)",
       "Bash(npm run electron:build:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(git checkout:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
