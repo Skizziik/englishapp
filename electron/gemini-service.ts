@@ -17,7 +17,7 @@ const store = new Store({
 
 export class GeminiService {
   private apiKey: string | null = null;
-  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent';
 
   constructor() {
     // Load API key from secure storage
@@ -96,16 +96,17 @@ export class GeminiService {
    * Explain a word in simple terms for Russian speakers
    */
   async explainWord(word: string): Promise<GeminiResponse> {
-    const prompt = `Объясни значение английского слова "${word}" для русскоязычного ученика.
+    const prompt = `You are an English teacher for Russian-speaking students. Explain the English word "${word}".
 
-Формат ответа:
-1. **Основное значение**: (краткое объяснение на русском)
-2. **Часть речи**: (noun/verb/adjective и т.д.)
-3. **Как запомнить**: (мнемоника или ассоциация)
-4. **Типичные ошибки**: (на что обратить внимание)
-5. **Похожие слова**: (синонимы или слова, которые часто путают)
+Respond in Russian. Format your answer as:
+1. **Основное значение**: (brief explanation in Russian)
+2. **Часть речи**: (noun/verb/adjective etc.)
+3. **Произношение**: (phonetic transcription)
+4. **Как запомнить**: (mnemonic or association)
+5. **Типичные ошибки**: (common mistakes to avoid)
+6. **Похожие слова**: (synonyms or commonly confused words)
 
-Отвечай кратко и понятно, используй простой русский язык.`;
+Be concise and use simple Russian language.`;
 
     return this.makeRequest(prompt);
   }
@@ -114,19 +115,19 @@ export class GeminiService {
    * Generate example sentences with translations
    */
   async generateExamples(word: string, count: number = 3): Promise<GeminiResponse> {
-    const prompt = `Создай ${count} примера предложений с английским словом "${word}".
+    const prompt = `You are an English teacher. Create ${count} example sentences using the word "${word}".
 
-Требования:
-- Предложения должны быть естественными и полезными
-- Разная сложность: простое, среднее, сложное
-- Показать разные контексты использования
+Requirements:
+- Natural, useful sentences
+- Different difficulty levels: easy, medium, advanced
+- Show different contexts of usage
 
-Формат каждого примера:
-🇬🇧 [английское предложение]
-🇷🇺 [перевод на русский]
-💡 [краткий комментарий о контексте]
+Format each example as:
+🇬🇧 [English sentence]
+🇷🇺 [Russian translation]
+💡 [brief context note in Russian]
 
-Начни сразу с примеров без лишних вступлений.`;
+Start directly with examples, no introduction needed.`;
 
     return this.makeRequest(prompt);
   }
@@ -135,19 +136,18 @@ export class GeminiService {
    * Check grammar and provide corrections
    */
   async checkGrammar(text: string): Promise<GeminiResponse> {
-    const prompt = `Проверь грамматику этого английского текста и дай обратную связь на русском языке:
+    const prompt = `You are an English grammar checker for Russian-speaking students. Check the grammar in this text:
 
 "${text}"
 
-Формат ответа:
+Respond in Russian. Format:
 1. **Оценка**: (хорошо/есть ошибки/нужна доработка)
-2. **Исправленный текст**: (если есть ошибки)
+2. **Исправленный текст**: (corrected version if needed)
 3. **Ошибки**:
-   - [ошибка 1]: объяснение и правило
-   - [ошибка 2]: объяснение и правило
-4. **Советы**: (как улучшить текст)
+   - [error]: explanation and grammar rule
+4. **Советы**: (tips to improve)
 
-Если ошибок нет, похвали и предложи как сделать текст ещё лучше.`;
+If no errors, praise and suggest improvements.`;
 
     return this.makeRequest(prompt);
   }
@@ -158,22 +158,23 @@ export class GeminiService {
   async chat(messages: GeminiMessage[]): Promise<GeminiResponse> {
     // Build conversation context
     const conversationHistory = messages
-      .map(m => `${m.role === 'user' ? 'Ученик' : 'Учитель'}: ${m.content}`)
+      .map(m => `${m.role === 'user' ? 'Student' : 'Teacher'}: ${m.content}`)
       .join('\n');
 
-    const systemPrompt = `Ты — дружелюбный учитель английского языка для русскоязычных учеников.
+    const systemPrompt = `You are a friendly English teacher for Russian-speaking students.
 
-Правила:
-- Отвечай на английском языке, но можешь добавлять пояснения на русском в скобках
-- Исправляй ошибки ученика мягко и с объяснениями
-- Поддерживай разговор, задавай вопросы
-- Используй словарный запас, соответствующий уровню ученика
-- Если ученик пишет на русском, попроси его перевести на английский
+Rules:
+- Respond primarily in English, but add brief Russian explanations in parentheses when helpful
+- Gently correct student errors with explanations
+- Keep the conversation going, ask follow-up questions
+- Adapt vocabulary to student's level
+- If student writes in Russian, encourage them to try in English
+- Be supportive and encouraging
 
-История разговора:
+Conversation history:
 ${conversationHistory}
 
-Продолжи разговор как учитель:`;
+Continue as the teacher:`;
 
     return this.makeRequest(systemPrompt);
   }
@@ -182,14 +183,14 @@ ${conversationHistory}
    * Generate a personalized word list based on user interests
    */
   async generateWordList(topic: string, level: string, count: number = 10): Promise<GeminiResponse> {
-    const prompt = `Создай список из ${count} английских слов по теме "${topic}" для уровня ${level}.
+    const prompt = `You are an English teacher. Create a list of ${count} English words about "${topic}" for ${level} level students.
 
-Формат для каждого слова:
-📝 **[слово]** /транскрипция/
-   Перевод: [русский перевод]
-   Пример: [короткое предложение]
+Format each word as:
+📝 **[word]** /phonetic transcription/
+   Перевод: [Russian translation]
+   Пример: [short example sentence]
 
-Выбирай полезные, часто используемые слова. Начни с более простых.`;
+Choose useful, commonly used words. Start with easier ones.`;
 
     return this.makeRequest(prompt);
   }
