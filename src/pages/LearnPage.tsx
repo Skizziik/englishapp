@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, BookOpen, Settings, Shuffle, Play } from 'lucide-react';
+import {
+  ArrowLeft,
+  BookOpen,
+  Settings,
+  Shuffle,
+  Play,
+  Sparkles,
+  BookMarked,
+  Clock,
+  CheckCircle,
+  GraduationCap,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -18,17 +29,73 @@ import { cn } from '@/lib/utils';
 
 type LearningPhase = 'setup' | 'preview' | 'quiz' | 'complete';
 type QuizType = 'multipleChoice' | 'typing' | 'reverse';
+type LearningMode = 'new' | 'learning' | 'review' | 'learned' | 'all';
 
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 const WORD_COUNTS = [5, 10, 15, 20];
+
+const LEARNING_MODES = [
+  {
+    id: 'new' as LearningMode,
+    label: 'Новые слова',
+    description: 'Слова, которые вы ещё не изучали',
+    icon: Sparkles,
+    color: 'text-blue-400',
+    bg: 'bg-blue-400/10',
+    border: 'border-blue-400/30',
+    gradient: 'from-blue-500/20 to-cyan-500/10',
+  },
+  {
+    id: 'learning' as LearningMode,
+    label: 'Изучаю',
+    description: 'Слова в процессе изучения',
+    icon: BookMarked,
+    color: 'text-yellow-400',
+    bg: 'bg-yellow-400/10',
+    border: 'border-yellow-400/30',
+    gradient: 'from-yellow-500/20 to-orange-500/10',
+  },
+  {
+    id: 'review' as LearningMode,
+    label: 'На повторении',
+    description: 'Слова, которые нужно повторить',
+    icon: Clock,
+    color: 'text-orange-400',
+    bg: 'bg-orange-400/10',
+    border: 'border-orange-400/30',
+    gradient: 'from-orange-500/20 to-red-500/10',
+  },
+  {
+    id: 'learned' as LearningMode,
+    label: 'Выученные',
+    description: 'Повторите выученные слова',
+    icon: CheckCircle,
+    color: 'text-green-400',
+    bg: 'bg-green-400/10',
+    border: 'border-green-400/30',
+    gradient: 'from-green-500/20 to-emerald-500/10',
+  },
+  {
+    id: 'all' as LearningMode,
+    label: 'Все слова',
+    description: 'Смешанный режим',
+    icon: GraduationCap,
+    color: 'text-purple-400',
+    bg: 'bg-purple-400/10',
+    border: 'border-purple-400/30',
+    gradient: 'from-purple-500/20 to-pink-500/10',
+  },
+];
 
 export const LearnPage: React.FC = () => {
   const { refreshData } = useAppStore();
 
   // Setup state
+  const [learningMode, setLearningMode] = useState<LearningMode>('new');
   const [selectedLevel, setSelectedLevel] = useState('A1');
   const [wordCount, setWordCount] = useState(10);
   const [includeTyping, setIncludeTyping] = useState(true);
+  const [statusCounts, setStatusCounts] = useState<Record<string, number>>({});
 
   // Session state
   const [phase, setPhase] = useState<LearningPhase>('setup');
@@ -42,25 +109,54 @@ export const LearnPage: React.FC = () => {
   const [sessionStartTime, setSessionStartTime] = useState<number | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
 
-  // Load words for options
+  // Load words for options and status counts
   useEffect(() => {
-    const loadAllWords = async () => {
+    const loadData = async () => {
       if (window.electronAPI) {
-        const words = await window.electronAPI.words.getAll({ limit: 100 });
+        const [words, counts] = await Promise.all([
+          window.electronAPI.words.getAll({ limit: 100 }),
+          window.electronAPI.words.getStatusCounts(),
+        ]);
         setAllWords(words);
+        // Convert counts array to object
+        const countsMap: Record<string, number> = {};
+        counts.forEach((c: { status: string; count: number }) => {
+          countsMap[c.status] = c.count;
+        });
+        setStatusCounts(countsMap);
       } else {
         // Mock data for development
         setAllWords(getMockWords());
+        setStatusCounts({ new: 100, learning: 25, review: 10, learned: 50 });
       }
     };
-    loadAllWords();
+    loadData();
   }, []);
 
   const startSession = async () => {
     let newCards: ReviewCard[] = [];
 
     if (window.electronAPI) {
-      newCards = await window.electronAPI.srs.getNewWords(wordCount, selectedLevel);
+      if (learningMode === 'new') {
+        // Get new words that haven't been studied yet
+        newCards = await window.electronAPI.srs.getNewWords(wordCount, selectedLevel);
+      } else if (learningMode === 'review') {
+        // Get words due for review (SRS)
+        newCards = await window.electronAPI.srs.getNextWords(wordCount);
+      } else {
+        // Get words by status (learning, learned, or all)
+        const statusFilter = learningMode === 'all' ? undefined : learningMode;
+        const wordsWithProgress = await window.electronAPI.words.getWithProgress({
+          status: statusFilter,
+          level: selectedLevel !== 'all' ? selectedLevel : undefined,
+          limit: wordCount,
+        });
+        newCards = wordsWithProgress.map((w: any) => ({
+          word: w,
+          progress: w.progress,
+          isNew: !w.progress,
+        }));
+      }
     } else {
       // Mock data for development
       newCards = getMockWords()
@@ -69,8 +165,9 @@ export const LearnPage: React.FC = () => {
         .map((w) => ({ word: w, progress: null, isNew: true }));
     }
 
+    const modeLabel = LEARNING_MODES.find(m => m.id === learningMode)?.label || 'слов';
     if (newCards.length === 0) {
-      alert('Нет новых слов для изучения на этом уровне');
+      alert(`Нет ${modeLabel.toLowerCase()} для изучения`);
       return;
     }
 
@@ -184,14 +281,77 @@ export const LearnPage: React.FC = () => {
                 </Button>
               </Link>
               <div>
-                <h1 className="text-2xl font-bold">Изучение новых слов</h1>
+                <h1 className="text-2xl font-bold">Обучение</h1>
                 <p className="text-muted-foreground">
-                  Выберите параметры сессии обучения
+                  Выберите режим и параметры сессии
                 </p>
               </div>
             </div>
 
             <div className="space-y-6">
+              {/* Learning Mode Selection */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5" />
+                    Режим обучения
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {LEARNING_MODES.map((mode) => {
+                      const Icon = mode.icon;
+                      const count = mode.id === 'all'
+                        ? Object.values(statusCounts).reduce((a, b) => a + b, 0)
+                        : statusCounts[mode.id] || 0;
+                      const isSelected = learningMode === mode.id;
+
+                      return (
+                        <button
+                          key={mode.id}
+                          onClick={() => setLearningMode(mode.id)}
+                          className={cn(
+                            'relative p-4 rounded-xl border-2 text-left transition-all',
+                            'hover:scale-[1.02] active:scale-[0.98]',
+                            isSelected
+                              ? `${mode.border} bg-gradient-to-br ${mode.gradient}`
+                              : 'border-border bg-card hover:border-muted-foreground/30'
+                          )}
+                        >
+                          <div className="flex items-start justify-between mb-2">
+                            <div className={cn(
+                              'w-10 h-10 rounded-lg flex items-center justify-center',
+                              mode.bg
+                            )}>
+                              <Icon className={cn('w-5 h-5', mode.color)} />
+                            </div>
+                            <span className={cn(
+                              'text-xs font-medium px-2 py-1 rounded-full',
+                              mode.bg, mode.color
+                            )}>
+                              {count}
+                            </span>
+                          </div>
+                          <h3 className="font-semibold mb-1">{mode.label}</h3>
+                          <p className="text-xs text-muted-foreground">{mode.description}</p>
+
+                          {isSelected && (
+                            <motion.div
+                              layoutId="selectedMode"
+                              className={cn(
+                                'absolute inset-0 rounded-xl border-2',
+                                mode.border
+                              )}
+                              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Level Selection */}
               <Card>
                 <CardHeader>
