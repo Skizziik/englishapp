@@ -12,6 +12,7 @@ import {
   BookOpen,
   MessageSquare,
   CheckCircle,
+  Trash2,
 } from 'lucide-react';
 import {
   Card,
@@ -21,6 +22,7 @@ import {
   Textarea,
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
+import { useAppStore } from '@/stores/appStore';
 
 interface Message {
   id: string;
@@ -33,12 +35,15 @@ type Mode = 'chat' | 'explain' | 'examples' | 'grammar';
 
 export const AssistantPage: React.FC = () => {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { chatMessages, addChatMessage, clearChatMessages } = useAppStore();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isConfigured, setIsConfigured] = useState(false);
   const [mode, setMode] = useState<Mode>('chat');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Use store messages for chat mode
+  const messages = chatMessages;
 
   useEffect(() => {
     checkConfiguration();
@@ -71,7 +76,7 @@ export const AssistantPage: React.FC = () => {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    addChatMessage(userMessage);
     setInput('');
     setIsLoading(true);
 
@@ -91,10 +96,10 @@ export const AssistantPage: React.FC = () => {
             break;
           default:
             response = await window.electronAPI.gemini.chat(
-              messages.map((m) => ({
+              [...chatMessages, userMessage].map((m) => ({
                 role: m.role === 'user' ? 'user' : 'model',
                 content: m.content,
-              })).concat([{ role: 'user', content: input }])
+              }))
             );
         }
       } else {
@@ -113,7 +118,7 @@ export const AssistantPage: React.FC = () => {
           content: response.data,
           timestamp: new Date(),
         };
-        setMessages((prev) => [...prev, assistantMessage]);
+        addChatMessage(assistantMessage);
       } else {
         throw new Error(response.error || 'Unknown error');
       }
@@ -124,7 +129,7 @@ export const AssistantPage: React.FC = () => {
         content: `Ошибка: ${error instanceof Error ? error.message : 'Не удалось получить ответ'}`,
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, errorMessage]);
+      addChatMessage(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -196,6 +201,17 @@ export const AssistantPage: React.FC = () => {
               <p className="text-xs text-muted-foreground">Powered by Gemini</p>
             </div>
           </div>
+          {messages.length > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={clearChatMessages}
+              className="text-muted-foreground hover:text-destructive"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Очистить
+            </Button>
+          )}
         </div>
 
         {/* Mode Selector */}

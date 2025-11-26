@@ -101,6 +101,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   gemini: {
     setApiKey: (apiKey: string) => ipcRenderer.invoke('gemini:setApiKey', apiKey),
     isConfigured: () => ipcRenderer.invoke('gemini:isConfigured'),
+    getMaskedApiKey: () => ipcRenderer.invoke('gemini:getMaskedApiKey'),
     explainWord: (word: string) => ipcRenderer.invoke('gemini:explainWord', word),
     generateExamples: (word: string, count?: number) =>
       ipcRenderer.invoke('gemini:generateExamples', word, count),

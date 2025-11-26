@@ -13,6 +13,8 @@ import {
   Save,
   Check,
   Sparkles,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import {
   Card,
@@ -33,6 +35,9 @@ export const SettingsPage: React.FC = () => {
   const [localSettings, setLocalSettings] = useState<Partial<Settings>>({});
   const [localProfile, setLocalProfile] = useState<Partial<UserProfile>>({});
   const [geminiKey, setGeminiKey] = useState('');
+  const [maskedKey, setMaskedKey] = useState<string | null>(null);
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [isEditingKey, setIsEditingKey] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -43,7 +48,16 @@ export const SettingsPage: React.FC = () => {
     if (profile) {
       setLocalProfile(profile);
     }
+    // Load masked API key
+    loadMaskedKey();
   }, [settings, profile]);
+
+  const loadMaskedKey = async () => {
+    if (window.electronAPI) {
+      const masked = await window.electronAPI.gemini.getMaskedApiKey();
+      setMaskedKey(masked);
+    }
+  };
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -61,6 +75,10 @@ export const SettingsPage: React.FC = () => {
         // Save Gemini API key if provided
         if (geminiKey && geminiKey.trim()) {
           await window.electronAPI.gemini.setApiKey(geminiKey.trim());
+          // Reload masked key and reset editing state
+          await loadMaskedKey();
+          setGeminiKey('');
+          setIsEditingKey(false);
         }
       }
 
@@ -378,12 +396,61 @@ export const SettingsPage: React.FC = () => {
                 <label className="text-sm text-muted-foreground mb-2 block">
                   API ключ Gemini
                 </label>
-                <Input
-                  type="password"
-                  value={geminiKey}
-                  onChange={(e) => setGeminiKey(e.target.value)}
-                  placeholder="Введите ваш API ключ"
-                />
+                {maskedKey && !isEditingKey ? (
+                  <div className="flex gap-2">
+                    <div className="flex-1 relative">
+                      <Input
+                        type="text"
+                        value={maskedKey}
+                        readOnly
+                        className="bg-secondary/50 font-mono text-sm"
+                      />
+                      <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                        <span className="text-xs text-green-400 bg-green-400/10 px-2 py-0.5 rounded">
+                          Настроен
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setIsEditingKey(true)}
+                      title="Изменить ключ"
+                    >
+                      <Key className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <div className="flex-1 relative">
+                      <Input
+                        type={showApiKey ? 'text' : 'password'}
+                        value={geminiKey}
+                        onChange={(e) => setGeminiKey(e.target.value)}
+                        placeholder={maskedKey ? 'Введите новый API ключ' : 'Введите ваш API ключ'}
+                        className="pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowApiKey(!showApiKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showApiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                    {maskedKey && (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setIsEditingKey(false);
+                          setGeminiKey('');
+                        }}
+                      >
+                        Отмена
+                      </Button>
+                    )}
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground mt-2">
                   Получите API ключ на{' '}
                   <a

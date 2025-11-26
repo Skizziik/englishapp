@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import type { UserStats, DailyGoal, Achievement, Settings, UserProfile, Word, ReviewCard } from '@/types';
 
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
 interface AppState {
   // User data
   stats: UserStats | null;
@@ -10,6 +17,9 @@ interface AppState {
   profile: UserProfile | null;
   userLevel: { level: number; xp: number; xpForNext: number } | null;
   streak: { current: number; longest: number; lastActivity: string | null } | null;
+
+  // Chat history
+  chatMessages: ChatMessage[];
 
   // Learning state
   currentSession: {
@@ -45,6 +55,11 @@ interface AppState {
   endSession: () => { correctCount: number; wrongCount: number; xpEarned: number; timeSpent: number };
   resetSession: () => void;
 
+  // Chat actions
+  addChatMessage: (message: ChatMessage) => void;
+  setChatMessages: (messages: ChatMessage[]) => void;
+  clearChatMessages: () => void;
+
   // Initialize
   initialize: () => Promise<void>;
   refreshData: () => Promise<void>;
@@ -53,6 +68,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   // Initial state
   stats: null,
+  chatMessages: [],
   dailyGoal: null,
   achievements: [],
   settings: null,
@@ -150,6 +166,21 @@ export const useAppStore = create<AppState>((set, get) => ({
         xpEarned: 0,
       },
     });
+  },
+
+  // Chat management
+  addChatMessage: (message) => {
+    set((state) => ({
+      chatMessages: [...state.chatMessages, message],
+    }));
+  },
+
+  setChatMessages: (messages) => {
+    set({ chatMessages: messages });
+  },
+
+  clearChatMessages: () => {
+    set({ chatMessages: [] });
   },
 
   // Initialize app data

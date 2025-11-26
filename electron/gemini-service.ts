@@ -39,6 +39,17 @@ export class GeminiService {
     return !!this.apiKey;
   }
 
+  getMaskedApiKey(): string | null {
+    if (!this.apiKey) return null;
+    // Show first 4 and last 4 characters, mask the rest
+    if (this.apiKey.length <= 8) {
+      return '••••••••';
+    }
+    const first = this.apiKey.slice(0, 4);
+    const last = this.apiKey.slice(-4);
+    return `${first}${'•'.repeat(20)}${last}`;
+  }
+
   private async makeRequest(prompt: string): Promise<GeminiResponse> {
     if (!this.apiKey) {
       return { success: false, error: 'API ключ не настроен' };

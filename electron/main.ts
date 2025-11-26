@@ -233,6 +233,10 @@ ipcMain.handle('gemini:isConfigured', async () => {
   return geminiService.isConfigured();
 });
 
+ipcMain.handle('gemini:getMaskedApiKey', async () => {
+  return geminiService.getMaskedApiKey();
+});
+
 ipcMain.handle('gemini:explainWord', async (_, word: string) => {
   return geminiService.explainWord(word);
 });
