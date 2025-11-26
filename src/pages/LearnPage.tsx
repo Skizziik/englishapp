@@ -108,6 +108,7 @@ export const LearnPage: React.FC = () => {
   const [xpEarned, setXpEarned] = useState(0);
   const [sessionStartTime, setSessionStartTime] = useState<number | null>(null);
   const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   // Load words for options and status counts
   useEffect(() => {
@@ -171,6 +172,13 @@ export const LearnPage: React.FC = () => {
       return;
     }
 
+    // Start session in database
+    let newSessionId: string | null = null;
+    if (window.electronAPI) {
+      newSessionId = await window.electronAPI.session.start(learningMode);
+      setSessionId(newSessionId);
+    }
+
     setCards(newCards);
     setCurrentIndex(0);
     setPreviewIndex(0);
@@ -219,6 +227,21 @@ export const LearnPage: React.FC = () => {
         ? Math.floor((Date.now() - sessionStartTime) / 1000)
         : 0;
 
+      const finalCorrectCount = correctCount + (correct ? 1 : 0);
+      const finalWrongCount = wrongCount + (correct ? 0 : 1);
+      const finalXpEarned = xpEarned + (correct ? 10 : 2);
+
+      // End session and save stats to database
+      if (window.electronAPI && sessionId) {
+        await window.electronAPI.session.end(sessionId, {
+          wordsCount: cards.length,
+          correctCount: finalCorrectCount,
+          wrongCount: finalWrongCount,
+          xpEarned: finalXpEarned,
+          timeSpent,
+        });
+      }
+
       // Update streak and check achievements
       let streakResult = null;
       let newAchievements: any[] = [];
@@ -230,9 +253,9 @@ export const LearnPage: React.FC = () => {
 
       setSessionResult({
         wordsCount: cards.length,
-        correctCount: correctCount + (correct ? 1 : 0),
-        wrongCount: wrongCount + (correct ? 0 : 1),
-        xpEarned: xpEarned + (correct ? 10 : 2),
+        correctCount: finalCorrectCount,
+        wrongCount: finalWrongCount,
+        xpEarned: finalXpEarned,
         timeSpent,
         newWordsLearned: cards.filter((c) => c.isNew).length,
         streak: streakResult || undefined,
@@ -249,6 +272,7 @@ export const LearnPage: React.FC = () => {
     setCards([]);
     setCurrentIndex(0);
     setPreviewIndex(0);
+    setSessionId(null);
     setCorrectCount(0);
     setWrongCount(0);
     setXpEarned(0);
