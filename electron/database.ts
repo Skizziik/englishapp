@@ -591,6 +591,98 @@ export class DatabaseManager {
     return rows.map(this.mapWordRow);
   }
 
+  // Get words with their learning progress
+  getWordsWithProgress(filters?: any): any[] {
+    let query = `
+      SELECT w.*,
+        GROUP_CONCAT(DISTINCT t.translation) as translations_str,
+        GROUP_CONCAT(DISTINCT tg.name) as tags_str,
+        up.status as progress_status,
+        up.correct_count,
+        up.wrong_count,
+        up.repetitions,
+        up.next_review,
+        up.last_review
+      FROM words w
+      LEFT JOIN translations t ON w.id = t.word_id
+      LEFT JOIN word_tags wt ON w.id = wt.word_id
+      LEFT JOIN tags tg ON wt.tag_id = tg.id
+      LEFT JOIN user_progress up ON w.id = up.word_id
+    `;
+
+    const conditions: string[] = [];
+    const params: any[] = [];
+
+    if (filters?.level) {
+      conditions.push('w.level = ?');
+      params.push(filters.level);
+    }
+    if (filters?.category) {
+      conditions.push('tg.id = ?');
+      params.push(filters.category);
+    }
+    if (filters?.search) {
+      conditions.push('(w.word LIKE ? OR t.translation LIKE ?)');
+      params.push(`%${filters.search}%`, `%${filters.search}%`);
+    }
+    if (filters?.status) {
+      if (filters.status === 'new') {
+        conditions.push('up.status IS NULL');
+      } else {
+        conditions.push('up.status = ?');
+        params.push(filters.status);
+      }
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' GROUP BY w.id ORDER BY w.frequency DESC';
+
+    if (filters?.limit) {
+      query += ' LIMIT ?';
+      params.push(filters.limit);
+    }
+    if (filters?.offset) {
+      query += ' OFFSET ?';
+      params.push(filters.offset);
+    }
+
+    const rows = this.db.prepare(query).all(...params) as any[];
+    return rows.map((row) => ({
+      ...this.mapWordRow(row),
+      progress: row.progress_status ? {
+        status: row.progress_status,
+        correctCount: row.correct_count || 0,
+        wrongCount: row.wrong_count || 0,
+        repetitions: row.repetitions || 0,
+        nextReview: row.next_review,
+        lastReview: row.last_review,
+      } : null,
+    }));
+  }
+
+  // Get word status counts for statistics
+  getWordStatusCounts(): { status: string; count: number }[] {
+    const result = this.db.prepare(`
+      SELECT
+        COALESCE(up.status, 'new') as status,
+        COUNT(*) as count
+      FROM words w
+      LEFT JOIN user_progress up ON w.id = up.word_id
+      GROUP BY COALESCE(up.status, 'new')
+      ORDER BY
+        CASE COALESCE(up.status, 'new')
+          WHEN 'new' THEN 1
+          WHEN 'learning' THEN 2
+          WHEN 'review' THEN 3
+          WHEN 'learned' THEN 4
+        END
+    `).all() as any[];
+    return result;
+  }
+
   getWordById(id: string): Word | null {
     const row = this.db.prepare(`
       SELECT w.*,

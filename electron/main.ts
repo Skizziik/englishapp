@@ -123,6 +123,14 @@ ipcMain.handle('db:words:getLevels', async () => {
   return database.getLevels();
 });
 
+ipcMain.handle('db:words:getWithProgress', async (_, filters) => {
+  return database.getWordsWithProgress(filters);
+});
+
+ipcMain.handle('db:words:getStatusCounts', async () => {
+  return database.getWordStatusCounts();
+});
+
 // User progress handlers
 ipcMain.handle('db:progress:get', async (_, wordId: string) => {
   return database.getWordProgress(wordId);

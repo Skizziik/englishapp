@@ -288,6 +288,7 @@ export const LearnPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            className="flex flex-col"
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
@@ -311,9 +312,13 @@ export const LearnPage: React.FC = () => {
               className="mb-6"
             />
 
-            <WordCard word={cards[previewIndex].word} variant="full" />
+            {/* Card container with min-height to prevent button jumping */}
+            <div className="min-h-[350px]">
+              <WordCard word={cards[previewIndex].word} variant="full" />
+            </div>
 
-            <div className="flex justify-end mt-6">
+            {/* Fixed position button at the bottom */}
+            <div className="flex justify-end mt-6 pt-4 border-t border-border">
               <Button variant="glow" size="lg" onClick={handlePreviewNext}>
                 {previewIndex < cards.length - 1 ? 'Далее' : 'Начать тест'}
               </Button>

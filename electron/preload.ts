@@ -49,6 +49,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getByCategory: (category: string) => ipcRenderer.invoke('db:words:getByCategory', category),
     getCategories: () => ipcRenderer.invoke('db:words:getCategories'),
     getLevels: () => ipcRenderer.invoke('db:words:getLevels'),
+    getWithProgress: (filters?: WordFilters) => ipcRenderer.invoke('db:words:getWithProgress', filters),
+    getStatusCounts: () => ipcRenderer.invoke('db:words:getStatusCounts'),
   },
 
   // Progress
