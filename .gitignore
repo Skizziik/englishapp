@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+release/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Database (user data)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Temporary files
+tmp/
+temp/
+temp_asar/
+*.tmp
+
+# Package files
+*.tgz
+
+# TypeScript cache
+*.tsbuildinfo

@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 14%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 22%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+
+    --border: 217 33% 22%;
+    --input: 217 33% 22%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 142 76% 36%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .glass-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-r from-green-500 to-emerald-600;
+  }
+
+  .gradient-xp {
+    @apply bg-gradient-to-r from-yellow-400 to-orange-500;
+  }
+
+  .gradient-streak {
+    @apply bg-gradient-to-r from-orange-500 to-red-500;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-500;
+  }
+
+  .glow {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.3);
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+  }
+
+  /* Animations */
+  .animate-in {
+    animation: animateIn 0.3s ease-out;
+  }
+
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/10;
+  }
+
+  .btn-glow {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Level colors */
+  .level-a1 { @apply text-green-400 bg-green-400/10 border-green-400/30; }
+  .level-a2 { @apply text-lime-400 bg-lime-400/10 border-lime-400/30; }
+  .level-b1 { @apply text-yellow-400 bg-yellow-400/10 border-yellow-400/30; }
+  .level-b2 { @apply text-orange-400 bg-orange-400/10 border-orange-400/30; }
+  .level-c1 { @apply text-red-400 bg-red-400/10 border-red-400/30; }
+  .level-c2 { @apply text-purple-400 bg-purple-400/10 border-purple-400/30; }
+}
+
+/* Disable text selection in UI elements */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Title bar draggable area */
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}

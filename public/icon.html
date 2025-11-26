@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Preview</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .icon-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+        .icon-box {
+            text-align: center;
+        }
+        .icon-box img, .icon-box canvas {
+            border-radius: 20%;
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+        }
+        .icon-box p {
+            margin-top: 10px;
+            color: #888;
+        }
+        h1 {
+            color: #22c55e;
+        }
+        #download-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #22c55e, #10b981);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+        }
+        #download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+        }
+        .instructions {
+            max-width: 600px;
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        .instructions h3 {
+            color: #22c55e;
+        }
+        .instructions ol {
+            text-align: left;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 English Learning App Icon</h1>
+
+    <div class="icon-container">
+        <div class="icon-box">
+            <canvas id="icon-256" width="256" height="256"></canvas>
+            <p>256x256</p>
+        </div>
+        <div class="icon-box">
+            <canvas id="icon-128" width="128" height="128"></canvas>
+            <p>128x128</p>
+        </div>
+        <div class="icon-box">
+            <canvas id="icon-64" width="64" height="64"></canvas>
+            <p>64x64</p>
+        </div>
+        <div class="icon-box">
+            <canvas id="icon-32" width="32" height="32"></canvas>
+            <p>32x32</p>
+        </div>
+    </div>
+
+    <button id="download-btn" onclick="downloadIcon()">📥 Download PNG (256x256)</button>
+
+    <div class="instructions">
+        <h3>Как создать .ico файл для Windows:</h3>
+        <ol>
+            <li>Нажмите кнопку "Download PNG" выше</li>
+            <li>Перейдите на <a href="https://convertio.co/png-ico/" target="_blank" style="color:#22c55e">convertio.co/png-ico</a></li>
+            <li>Загрузите скачанный PNG файл</li>
+            <li>Скачайте готовый .ico файл</li>
+            <li>Переименуйте в <code>icon.ico</code> и поместите в папку <code>public/</code></li>
+        </ol>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 512;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#22c55e');
+            gradient.addColorStop(1, '#10b981');
+
+            // Rounded rectangle background
+            const radius = 96 * scale;
+            const margin = 32 * scale;
+            ctx.beginPath();
+            ctx.roundRect(margin, margin, size - margin * 2, size - margin * 2, radius);
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = 'rgba(34, 197, 94, 0.4)';
+            ctx.shadowBlur = 20 * scale;
+            ctx.shadowOffsetY = 8 * scale;
+            ctx.fill();
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Shine overlay
+            const shineGradient = ctx.createLinearGradient(0, 0, size, size / 2);
+            shineGradient.addColorStop(0, 'rgba(255,255,255,0.3)');
+            shineGradient.addColorStop(0.5, 'rgba(255,255,255,0.1)');
+            shineGradient.addColorStop(1, 'rgba(255,255,255,0)');
+
+            ctx.beginPath();
+            ctx.roundRect(margin, margin, size - margin * 2, (size - margin * 2) / 2, [radius, radius, 0, 0]);
+            ctx.fillStyle = shineGradient;
+            ctx.fill();
+
+            // Letter E
+            ctx.fillStyle = 'white';
+            ctx.font = `900 ${280 * scale}px Arial Black, Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('E', size / 2, size / 2 + 20 * scale);
+
+            // Small book icon
+            const bookX = 340 * scale;
+            const bookY = 120 * scale;
+            const bookScale = 0.8 * scale;
+
+            ctx.fillStyle = 'rgba(255,255,255,0.9)';
+            ctx.beginPath();
+            ctx.roundRect(bookX, bookY, 80 * bookScale, 60 * bookScale, 8 * bookScale);
+            ctx.fill();
+
+            // Book lines
+            ctx.fillStyle = '#22c55e';
+            ctx.fillRect(bookX + 8 * bookScale, bookY + 8 * bookScale, 64 * bookScale, 4 * bookScale);
+
+            ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
+            ctx.fillRect(bookX + 8 * bookScale, bookY + 18 * bookScale, 50 * bookScale, 4 * bookScale);
+            ctx.fillRect(bookX + 8 * bookScale, bookY + 28 * bookScale, 55 * bookScale, 4 * bookScale);
+            ctx.fillRect(bookX + 8 * bookScale, bookY + 38 * bookScale, 40 * bookScale, 4 * bookScale);
+            ctx.fillRect(bookX + 8 * bookScale, bookY + 48 * bookScale, 45 * bookScale, 4 * bookScale);
+        }
+
+        // Draw all sizes
+        [256, 128, 64, 32].forEach(size => {
+            const canvas = document.getElementById(`icon-${size}`);
+            drawIcon(canvas, size);
+        });
+
+        function downloadIcon() {
+            const canvas = document.getElementById('icon-256');
+            const link = document.createElement('a');
+            link.download = 'icon.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>

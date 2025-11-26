@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+    <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#22c55e" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="32" y="32" width="448" height="448" rx="96" ry="96" fill="url(#bgGrad)" filter="url(#shadow)"/>
+
+  <!-- Shine overlay -->
+  <rect x="32" y="32" width="448" height="224" rx="96" ry="96" fill="url(#shineGrad)"/>
+
+  <!-- Letter E -->
+  <text x="256" y="340" font-family="Arial Black, Arial, sans-serif" font-size="280" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">E</text>
+
+  <!-- Small book icon -->
+  <g transform="translate(340, 120) scale(0.8)">
+    <rect x="0" y="0" width="80" height="60" rx="8" fill="white" opacity="0.9"/>
+    <rect x="8" y="8" width="64" height="4" rx="2" fill="#22c55e"/>
+    <rect x="8" y="18" width="50" height="4" rx="2" fill="#22c55e" opacity="0.6"/>
+    <rect x="8" y="28" width="55" height="4" rx="2" fill="#22c55e" opacity="0.6"/>
+    <rect x="8" y="38" width="40" height="4" rx="2" fill="#22c55e" opacity="0.6"/>
+    <rect x="8" y="48" width="45" height="4" rx="2" fill="#22c55e" opacity="0.6"/>
+  </g>
+</svg>
