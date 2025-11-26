@@ -50,16 +50,17 @@ export const SettingsPage: React.FC = () => {
 
     try {
       if (window.electronAPI) {
-        if (Object.keys(localSettings).length > 0) {
-          await window.electronAPI.settings.update(localSettings);
-          setSettings(localSettings as Settings);
-        }
-        if (Object.keys(localProfile).length > 0) {
-          await window.electronAPI.profile.update(localProfile);
-          setProfile(localProfile as UserProfile);
-        }
-        if (geminiKey) {
-          await window.electronAPI.gemini.setApiKey(geminiKey);
+        // Always save settings
+        await window.electronAPI.settings.update(localSettings);
+        setSettings(localSettings as Settings);
+
+        // Always save profile
+        await window.electronAPI.profile.update(localProfile);
+        setProfile(localProfile as UserProfile);
+
+        // Save Gemini API key if provided
+        if (geminiKey && geminiKey.trim()) {
+          await window.electronAPI.gemini.setApiKey(geminiKey.trim());
         }
       }
 
@@ -373,38 +374,28 @@ export const SettingsPage: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <ToggleSwitch
-                checked={localSettings.geminiEnabled ?? false}
-                onChange={(checked) =>
-                  setLocalSettings({ ...localSettings, geminiEnabled: checked })
-                }
-                label="Включить AI ассистент"
-                description="Используйте Gemini для объяснений и диалогов"
-              />
-              {localSettings.geminiEnabled && (
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">
-                    API ключ Gemini
-                  </label>
-                  <Input
-                    type="password"
-                    value={geminiKey}
-                    onChange={(e) => setGeminiKey(e.target.value)}
-                    placeholder="Введите ваш API ключ"
-                  />
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Получите API ключ на{' '}
-                    <a
-                      href="https://makersuite.google.com/app/apikey"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      Google AI Studio
-                    </a>
-                  </p>
-                </div>
-              )}
+              <div>
+                <label className="text-sm text-muted-foreground mb-2 block">
+                  API ключ Gemini
+                </label>
+                <Input
+                  type="password"
+                  value={geminiKey}
+                  onChange={(e) => setGeminiKey(e.target.value)}
+                  placeholder="Введите ваш API ключ"
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  Получите API ключ на{' '}
+                  <a
+                    href="https://makersuite.google.com/app/apikey"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Google AI Studio
+                  </a>
+                </p>
+              </div>
             </CardContent>
           </Card>
 
