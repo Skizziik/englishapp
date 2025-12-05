@@ -119,8 +119,8 @@ ipcMain.handle('db:words:getCategories', async () => {
   return database.getCategories();
 });
 
-ipcMain.handle('db:words:getLevels', async () => {
-  return database.getLevels();
+ipcMain.handle('db:words:getLevels', async (_, targetLanguage?: string) => {
+  return database.getLevels(targetLanguage || 'en');
 });
 
 ipcMain.handle('db:words:getWithProgress', async (_, filters) => {
@@ -153,24 +153,24 @@ ipcMain.handle('db:progress:updateDailyGoal', async (_, goal: any) => {
 });
 
 // SRS handlers
-ipcMain.handle('srs:getNextWords', async (_, count: number) => {
-  return srsEngine.getNextReviewWords(count);
+ipcMain.handle('srs:getNextWords', async (_, count: number, targetLanguage?: string) => {
+  return srsEngine.getNextReviewWords(count, targetLanguage || 'en');
 });
 
-ipcMain.handle('srs:getNewWords', async (_, count: number, level?: string, category?: string) => {
-  return srsEngine.getNewWordsToLearn(count, level, category);
+ipcMain.handle('srs:getNewWords', async (_, count: number, level?: string, category?: string, targetLanguage?: string) => {
+  return srsEngine.getNewWordsToLearn(count, level, category, targetLanguage || 'en');
 });
 
 ipcMain.handle('srs:recordAnswer', async (_, wordId: string, quality: number) => {
   return srsEngine.recordAnswer(wordId, quality);
 });
 
-ipcMain.handle('srs:getStats', async () => {
-  return srsEngine.getReviewStats();
+ipcMain.handle('srs:getStats', async (_, targetLanguage?: string) => {
+  return srsEngine.getReviewStats(targetLanguage || 'en');
 });
 
-ipcMain.handle('srs:getDueCount', async () => {
-  return srsEngine.getDueReviewCount();
+ipcMain.handle('srs:getDueCount', async (_, targetLanguage?: string) => {
+  return srsEngine.getDueReviewCount(targetLanguage || 'en');
 });
 
 // Gamification handlers
@@ -245,20 +245,20 @@ ipcMain.handle('gemini:getMaskedApiKey', async () => {
   return geminiService.getMaskedApiKey();
 });
 
-ipcMain.handle('gemini:explainWord', async (_, word: string) => {
-  return geminiService.explainWord(word);
+ipcMain.handle('gemini:explainWord', async (_, word: string, targetLanguage?: string) => {
+  return geminiService.explainWord(word, targetLanguage);
 });
 
-ipcMain.handle('gemini:generateExamples', async (_, word: string, count?: number) => {
-  return geminiService.generateExamples(word, count);
+ipcMain.handle('gemini:generateExamples', async (_, word: string, count?: number, targetLanguage?: string) => {
+  return geminiService.generateExamples(word, count, targetLanguage);
 });
 
-ipcMain.handle('gemini:checkGrammar', async (_, text: string) => {
-  return geminiService.checkGrammar(text);
+ipcMain.handle('gemini:checkGrammar', async (_, text: string, targetLanguage?: string) => {
+  return geminiService.checkGrammar(text, targetLanguage);
 });
 
-ipcMain.handle('gemini:chat', async (_, messages: any[]) => {
-  return geminiService.chat(messages);
+ipcMain.handle('gemini:chat', async (_, messages: any[], targetLanguage?: string) => {
+  return geminiService.chat(messages, targetLanguage);
 });
 
 // User settings handlers

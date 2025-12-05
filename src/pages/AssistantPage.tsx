@@ -35,15 +35,17 @@ type Mode = 'chat' | 'explain' | 'examples' | 'grammar';
 
 export const AssistantPage: React.FC = () => {
   const navigate = useNavigate();
-  const { chatMessages, addChatMessage, clearChatMessages } = useAppStore();
+  const { targetLanguage, getChatMessages, addChatMessage, clearChatMessages } = useAppStore();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isConfigured, setIsConfigured] = useState(false);
   const [mode, setMode] = useState<Mode>('chat');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Use store messages for chat mode
-  const messages = chatMessages;
+  // Use store messages for current language
+  const messages = getChatMessages();
+  const langName = targetLanguage === 'it' ? 'итальянский' : 'английский';
+  const langFlag = targetLanguage === 'it' ? '🇮🇹' : '🇬🇧';
 
   useEffect(() => {
     checkConfiguration();
@@ -76,7 +78,7 @@ export const AssistantPage: React.FC = () => {
       timestamp: new Date(),
     };
 
-    addChatMessage(userMessage);
+    addChatMessage(userMessage, targetLanguage);
     setInput('');
     setIsLoading(true);
 
@@ -86,20 +88,21 @@ export const AssistantPage: React.FC = () => {
       if (window.electronAPI) {
         switch (mode) {
           case 'explain':
-            response = await window.electronAPI.gemini.explainWord(input);
+            response = await window.electronAPI.gemini.explainWord(input, targetLanguage);
             break;
           case 'examples':
-            response = await window.electronAPI.gemini.generateExamples(input, 3);
+            response = await window.electronAPI.gemini.generateExamples(input, 3, targetLanguage);
             break;
           case 'grammar':
-            response = await window.electronAPI.gemini.checkGrammar(input);
+            response = await window.electronAPI.gemini.checkGrammar(input, targetLanguage);
             break;
           default:
             response = await window.electronAPI.gemini.chat(
-              [...chatMessages, userMessage].map((m) => ({
+              [...messages, userMessage].map((m) => ({
                 role: m.role === 'user' ? 'user' : 'model',
                 content: m.content,
-              }))
+              })),
+              targetLanguage
             );
         }
       } else {
@@ -118,7 +121,7 @@ export const AssistantPage: React.FC = () => {
           content: response.data,
           timestamp: new Date(),
         };
-        addChatMessage(assistantMessage);
+        addChatMessage(assistantMessage, targetLanguage);
       } else {
         throw new Error(response.error || 'Unknown error');
       }
@@ -129,7 +132,7 @@ export const AssistantPage: React.FC = () => {
         content: `Ошибка: ${error instanceof Error ? error.message : 'Не удалось получить ответ'}`,
         timestamp: new Date(),
       };
-      addChatMessage(errorMessage);
+      addChatMessage(errorMessage, targetLanguage);
     } finally {
       setIsLoading(false);
     }
@@ -201,11 +204,15 @@ export const AssistantPage: React.FC = () => {
               <p className="text-xs text-muted-foreground">Powered by Gemini</p>
             </div>
           </div>
+          <div className="flex items-center gap-2">
+            <span className="text-lg">{langFlag}</span>
+            <span className="text-sm text-muted-foreground capitalize">{langName}</span>
+          </div>
           {messages.length > 0 && (
             <Button
               variant="outline"
               size="sm"
-              onClick={clearChatMessages}
+              onClick={() => clearChatMessages(targetLanguage)}
               className="text-muted-foreground hover:text-destructive"
             >
               <Trash2 className="w-4 h-4 mr-2" />
@@ -246,7 +253,7 @@ export const AssistantPage: React.FC = () => {
             <Bot className="w-16 h-16 mx-auto mb-4 text-muted-foreground/30" />
             <h2 className="text-xl font-semibold mb-2">Начните разговор</h2>
             <p className="text-muted-foreground max-w-md mx-auto">
-              {mode === 'chat' && 'Практикуйте английский в диалоге с AI'}
+              {mode === 'chat' && `Практикуйте ${langName} в диалоге с AI`}
               {mode === 'explain' && 'Введите слово, чтобы получить объяснение'}
               {mode === 'examples' && 'Введите слово для генерации примеров'}
               {mode === 'grammar' && 'Введите текст для проверки грамматики'}

@@ -9,7 +9,7 @@ import type { ReviewCard, SessionResult, Word } from '@/types';
 import { cn } from '@/lib/utils';
 
 export const ReviewPage: React.FC = () => {
-  const { refreshData } = useAppStore();
+  const { refreshData, targetLanguage } = useAppStore();
 
   const [cards, setCards] = useState<ReviewCard[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,15 +25,15 @@ export const ReviewPage: React.FC = () => {
 
   useEffect(() => {
     loadReviewCards();
-  }, []);
+  }, [targetLanguage]);
 
   const loadReviewCards = async () => {
     setIsLoading(true);
 
     if (window.electronAPI) {
       const [reviewCards, stats] = await Promise.all([
-        window.electronAPI.srs.getNextWords(50),
-        window.electronAPI.srs.getStats(),
+        window.electronAPI.srs.getNextWords(50, targetLanguage),
+        window.electronAPI.srs.getStats(targetLanguage),
       ]);
       setCards(reviewCards);
       setDueCount(stats.dueToday);

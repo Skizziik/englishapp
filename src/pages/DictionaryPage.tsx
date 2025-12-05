@@ -7,11 +7,11 @@ import {
   CardContent,
   SearchInput,
   LevelBadge,
-  Badge,
 } from '@/components/ui';
 import { WordCard } from '@/components/learning';
 import type { Word, Category, Level } from '@/types';
 import { cn } from '@/lib/utils';
+import { useAppStore } from '@/stores/appStore';
 
 interface WordWithProgress extends Word {
   progress: {
@@ -37,6 +37,7 @@ const STATUS_CONFIG = {
 };
 
 export const DictionaryPage: React.FC = () => {
+  const { targetLanguage } = useAppStore();
   const [words, setWords] = useState<WordWithProgress[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
@@ -55,20 +56,21 @@ export const DictionaryPage: React.FC = () => {
 
   useEffect(() => {
     loadInitialData();
-  }, []);
+  }, [targetLanguage]);
 
   // Reload words when filters change
   useEffect(() => {
     loadWords();
-  }, [selectedLevel, selectedCategory, selectedStatus, searchQuery]);
+  }, [selectedLevel, selectedCategory, selectedStatus, searchQuery, targetLanguage]);
 
   const loadInitialData = async () => {
     setIsLoading(true);
+    setSelectedLevel(null); // Reset level filter when language changes
 
     if (window.electronAPI) {
       const [categoriesData, levelsData, statusCountsData] = await Promise.all([
         window.electronAPI.words.getCategories(),
-        window.electronAPI.words.getLevels(),
+        window.electronAPI.words.getLevels(targetLanguage),
         window.electronAPI.words.getStatusCounts(),
       ]);
       setCategories(categoriesData);
@@ -105,7 +107,7 @@ export const DictionaryPage: React.FC = () => {
   const loadWords = async () => {
     if (!window.electronAPI) return;
 
-    const filters: any = {};
+    const filters: any = { targetLanguage };
     if (selectedLevel) filters.level = selectedLevel;
     if (selectedCategory) filters.category = selectedCategory;
     if (selectedStatus) filters.status = selectedStatus;

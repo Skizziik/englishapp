@@ -48,7 +48,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getByLevel: (level: string) => ipcRenderer.invoke('db:words:getByLevel', level),
     getByCategory: (category: string) => ipcRenderer.invoke('db:words:getByCategory', category),
     getCategories: () => ipcRenderer.invoke('db:words:getCategories'),
-    getLevels: () => ipcRenderer.invoke('db:words:getLevels'),
+    getLevels: (targetLanguage?: string) => ipcRenderer.invoke('db:words:getLevels', targetLanguage),
     getWithProgress: (filters?: WordFilters) => ipcRenderer.invoke('db:words:getWithProgress', filters),
     getStatusCounts: () => ipcRenderer.invoke('db:words:getStatusCounts'),
   },
@@ -64,13 +64,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   // SRS (Spaced Repetition System)
   srs: {
-    getNextWords: (count: number) => ipcRenderer.invoke('srs:getNextWords', count),
-    getNewWords: (count: number, level?: string, category?: string) =>
-      ipcRenderer.invoke('srs:getNewWords', count, level, category),
+    getNextWords: (count: number, targetLanguage?: string) =>
+      ipcRenderer.invoke('srs:getNextWords', count, targetLanguage),
+    getNewWords: (count: number, level?: string, category?: string, targetLanguage?: string) =>
+      ipcRenderer.invoke('srs:getNewWords', count, level, category, targetLanguage),
     recordAnswer: (wordId: string, quality: number) =>
       ipcRenderer.invoke('srs:recordAnswer', wordId, quality),
-    getStats: () => ipcRenderer.invoke('srs:getStats'),
-    getDueCount: () => ipcRenderer.invoke('srs:getDueCount'),
+    getStats: (targetLanguage?: string) => ipcRenderer.invoke('srs:getStats', targetLanguage),
+    getDueCount: (targetLanguage?: string) => ipcRenderer.invoke('srs:getDueCount', targetLanguage),
   },
 
   // Gamification
@@ -104,11 +105,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
     setApiKey: (apiKey: string) => ipcRenderer.invoke('gemini:setApiKey', apiKey),
     isConfigured: () => ipcRenderer.invoke('gemini:isConfigured'),
     getMaskedApiKey: () => ipcRenderer.invoke('gemini:getMaskedApiKey'),
-    explainWord: (word: string) => ipcRenderer.invoke('gemini:explainWord', word),
-    generateExamples: (word: string, count?: number) =>
-      ipcRenderer.invoke('gemini:generateExamples', word, count),
-    checkGrammar: (text: string) => ipcRenderer.invoke('gemini:checkGrammar', text),
-    chat: (messages: any[]) => ipcRenderer.invoke('gemini:chat', messages),
+    explainWord: (word: string, targetLanguage?: string) => ipcRenderer.invoke('gemini:explainWord', word, targetLanguage),
+    generateExamples: (word: string, count?: number, targetLanguage?: string) =>
+      ipcRenderer.invoke('gemini:generateExamples', word, count, targetLanguage),
+    checkGrammar: (text: string, targetLanguage?: string) => ipcRenderer.invoke('gemini:checkGrammar', text, targetLanguage),
+    chat: (messages: any[], targetLanguage?: string) => ipcRenderer.invoke('gemini:chat', messages, targetLanguage),
   },
 
   // Settings

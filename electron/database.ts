@@ -103,7 +103,7 @@ export class DatabaseManager {
     this.db.exec(`
       CREATE TABLE IF NOT EXISTS words (
         id TEXT PRIMARY KEY,
-        word TEXT NOT NULL UNIQUE,
+        word TEXT NOT NULL,
         transcription TEXT,
         part_of_speech TEXT,
         level TEXT,
@@ -112,11 +112,14 @@ export class DatabaseManager {
         synonyms TEXT,
         antonyms TEXT,
         audio_path TEXT,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        target_language TEXT DEFAULT 'en',
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(word, target_language)
       );
       CREATE INDEX IF NOT EXISTS idx_words_word ON words(word);
       CREATE INDEX IF NOT EXISTS idx_words_level ON words(level);
       CREATE INDEX IF NOT EXISTS idx_words_frequency ON words(frequency);
+      CREATE INDEX IF NOT EXISTS idx_words_target_language ON words(target_language);
     `);
 
     // Translations table
@@ -289,24 +292,81 @@ export class DatabaseManager {
     const count = this.db.prepare('SELECT COUNT(*) as count FROM words').get() as { count: number };
     if (count.count > 0) return;
 
-    // Seed achievements
+    // Seed achievements - General achievements for all languages
     const achievements = [
+      // Word milestones
       { id: 'first_word', name: 'Первое слово', description: 'Выучите своё первое слово', icon: '🎯', type: 'words_learned', value: 1 },
       { id: 'words_10', name: 'Начинающий', description: 'Выучите 10 слов', icon: '📚', type: 'words_learned', value: 10 },
+      { id: 'words_25', name: 'На пути', description: 'Выучите 25 слов', icon: '🚀', type: 'words_learned', value: 25 },
       { id: 'words_50', name: 'Прилежный ученик', description: 'Выучите 50 слов', icon: '📖', type: 'words_learned', value: 50 },
       { id: 'words_100', name: 'Сотня', description: 'Выучите 100 слов', icon: '💯', type: 'words_learned', value: 100 },
+      { id: 'words_250', name: 'Словарный запас', description: 'Выучите 250 слов', icon: '📕', type: 'words_learned', value: 250 },
       { id: 'words_500', name: 'Полиглот', description: 'Выучите 500 слов', icon: '🎓', type: 'words_learned', value: 500 },
+      { id: 'words_750', name: 'Эксперт', description: 'Выучите 750 слов', icon: '🧠', type: 'words_learned', value: 750 },
       { id: 'words_1000', name: 'Мастер слов', description: 'Выучите 1000 слов', icon: '👑', type: 'words_learned', value: 1000 },
+      { id: 'words_2000', name: 'Лингвист', description: 'Выучите 2000 слов', icon: '🏅', type: 'words_learned', value: 2000 },
+      { id: 'words_5000', name: 'Профессор', description: 'Выучите 5000 слов', icon: '🎖️', type: 'words_learned', value: 5000 },
+
+      // Streak achievements
       { id: 'streak_3', name: 'Три дня подряд', description: 'Учитесь 3 дня подряд', icon: '🔥', type: 'streak', value: 3 },
       { id: 'streak_7', name: 'Неделя', description: 'Учитесь 7 дней подряд', icon: '🔥', type: 'streak', value: 7 },
+      { id: 'streak_14', name: 'Две недели', description: 'Учитесь 14 дней подряд', icon: '🔥', type: 'streak', value: 14 },
+      { id: 'streak_21', name: 'Три недели', description: 'Учитесь 21 день подряд', icon: '🔥', type: 'streak', value: 21 },
       { id: 'streak_30', name: 'Месяц', description: 'Учитесь 30 дней подряд', icon: '🔥', type: 'streak', value: 30 },
+      { id: 'streak_60', name: 'Два месяца', description: 'Учитесь 60 дней подряд', icon: '🔥', type: 'streak', value: 60 },
       { id: 'streak_100', name: 'Сто дней', description: 'Учитесь 100 дней подряд', icon: '🏆', type: 'streak', value: 100 },
+      { id: 'streak_365', name: 'Год без перерыва', description: 'Учитесь 365 дней подряд', icon: '🌟', type: 'streak', value: 365 },
+
+      // XP achievements
       { id: 'xp_100', name: 'Первая сотня XP', description: 'Заработайте 100 XP', icon: '⭐', type: 'xp', value: 100 },
+      { id: 'xp_500', name: 'Полтысячи XP', description: 'Заработайте 500 XP', icon: '⭐', type: 'xp', value: 500 },
       { id: 'xp_1000', name: 'Тысяча XP', description: 'Заработайте 1000 XP', icon: '🌟', type: 'xp', value: 1000 },
+      { id: 'xp_5000', name: 'Пять тысяч XP', description: 'Заработайте 5000 XP', icon: '🌟', type: 'xp', value: 5000 },
       { id: 'xp_10000', name: 'Мастер XP', description: 'Заработайте 10000 XP', icon: '💫', type: 'xp', value: 10000 },
+      { id: 'xp_25000', name: 'Легенда XP', description: 'Заработайте 25000 XP', icon: '💫', type: 'xp', value: 25000 },
+      { id: 'xp_50000', name: 'Титан XP', description: 'Заработайте 50000 XP', icon: '💎', type: 'xp', value: 50000 },
+
+      // Session achievements
       { id: 'perfect_session', name: 'Без ошибок', description: 'Завершите сессию без ошибок', icon: '✨', type: 'perfect_session', value: 1 },
+      { id: 'perfect_5', name: 'Пять идеальных', description: 'Завершите 5 сессий без ошибок', icon: '✨', type: 'perfect_sessions', value: 5 },
+      { id: 'perfect_10', name: 'Десять идеальных', description: 'Завершите 10 сессий без ошибок', icon: '💎', type: 'perfect_sessions', value: 10 },
       { id: 'sessions_10', name: '10 сессий', description: 'Завершите 10 сессий', icon: '📝', type: 'sessions', value: 10 },
+      { id: 'sessions_25', name: '25 сессий', description: 'Завершите 25 сессий', icon: '📝', type: 'sessions', value: 25 },
+      { id: 'sessions_50', name: '50 сессий', description: 'Завершите 50 сессий', icon: '📝', type: 'sessions', value: 50 },
       { id: 'sessions_100', name: '100 сессий', description: 'Завершите 100 сессий', icon: '📚', type: 'sessions', value: 100 },
+      { id: 'sessions_250', name: '250 сессий', description: 'Завершите 250 сессий', icon: '📚', type: 'sessions', value: 250 },
+      { id: 'sessions_500', name: '500 сессий', description: 'Завершите 500 сессий', icon: '🏆', type: 'sessions', value: 500 },
+
+      // English specific achievements
+      { id: 'en_first', name: 'Hello, English!', description: 'Выучите первое английское слово', icon: '🇬🇧', type: 'en_words', value: 1 },
+      { id: 'en_50', name: 'English Starter', description: 'Выучите 50 английских слов', icon: '🇬🇧', type: 'en_words', value: 50 },
+      { id: 'en_100', name: 'English Explorer', description: 'Выучите 100 английских слов', icon: '🇬🇧', type: 'en_words', value: 100 },
+      { id: 'en_500', name: 'English Speaker', description: 'Выучите 500 английских слов', icon: '🇬🇧', type: 'en_words', value: 500 },
+      { id: 'en_1000', name: 'English Master', description: 'Выучите 1000 английских слов', icon: '🇬🇧', type: 'en_words', value: 1000 },
+      { id: 'en_2000', name: 'English Expert', description: 'Выучите 2000 английских слов', icon: '🇬🇧', type: 'en_words', value: 2000 },
+      { id: 'en_5000', name: 'English Native', description: 'Выучите 5000 английских слов', icon: '🇬🇧', type: 'en_words', value: 5000 },
+
+      // Italian specific achievements
+      { id: 'it_first', name: 'Ciao, Italiano!', description: 'Выучите первое итальянское слово', icon: '🇮🇹', type: 'it_words', value: 1 },
+      { id: 'it_50', name: 'Italiano Principiante', description: 'Выучите 50 итальянских слов', icon: '🇮🇹', type: 'it_words', value: 50 },
+      { id: 'it_100', name: 'Italiano Esploratore', description: 'Выучите 100 итальянских слов', icon: '🇮🇹', type: 'it_words', value: 100 },
+      { id: 'it_500', name: 'Italiano Parlante', description: 'Выучите 500 итальянских слов', icon: '🇮🇹', type: 'it_words', value: 500 },
+      { id: 'it_1000', name: 'Italiano Maestro', description: 'Выучите 1000 итальянских слов', icon: '🇮🇹', type: 'it_words', value: 1000 },
+
+      // Time-based achievements
+      { id: 'time_1h', name: 'Час обучения', description: 'Проведите 1 час за обучением', icon: '⏰', type: 'time', value: 3600 },
+      { id: 'time_5h', name: '5 часов обучения', description: 'Проведите 5 часов за обучением', icon: '⏰', type: 'time', value: 18000 },
+      { id: 'time_10h', name: '10 часов обучения', description: 'Проведите 10 часов за обучением', icon: '⏰', type: 'time', value: 36000 },
+      { id: 'time_24h', name: 'Сутки обучения', description: 'Проведите 24 часа за обучением', icon: '🕐', type: 'time', value: 86400 },
+      { id: 'time_100h', name: '100 часов обучения', description: 'Проведите 100 часов за обучением', icon: '🏆', type: 'time', value: 360000 },
+
+      // Special achievements
+      { id: 'bilingual', name: 'Билингв', description: 'Учите оба языка одновременно', icon: '🌍', type: 'bilingual', value: 1 },
+      { id: 'night_owl', name: 'Ночная сова', description: 'Учитесь после полуночи', icon: '🦉', type: 'night_study', value: 1 },
+      { id: 'early_bird', name: 'Ранняя пташка', description: 'Учитесь до 6 утра', icon: '🐦', type: 'early_study', value: 1 },
+      { id: 'weekend_warrior', name: 'Воин выходных', description: 'Учитесь в выходные 5 раз', icon: '⚔️', type: 'weekend_study', value: 5 },
+      { id: 'speed_demon', name: 'Скоростной демон', description: 'Ответьте на 20 карточек менее чем за минуту', icon: '⚡', type: 'speed', value: 1 },
+      { id: 'comeback_kid', name: 'Возвращение', description: 'Вернитесь к обучению после 7 дней перерыва', icon: '🔄', type: 'comeback', value: 1 },
     ];
 
     const insertAchievement = this.db.prepare(`
@@ -352,29 +412,45 @@ export class DatabaseManager {
   }
 
   private async seedWords(): Promise<void> {
-    // Try to load 8000+ words from external JSON file
-    // In packaged app, extraResources are in process.resourcesPath
-    // In development, they're relative to the project root
-    const possiblePaths = [
-      // Packaged app - extraResources folder
+    // Load English words (8000+)
+    const englishPaths = [
       path.join(process.resourcesPath || '', 'data', 'words-8000.json'),
-      // Development - relative to dist/main
       path.join(__dirname, '..', '..', 'data', 'words-8000.json'),
-      // Development - relative to project root
       path.join(__dirname, '..', 'data', 'words-8000.json'),
-      // Absolute path for development
       path.join(process.cwd(), 'data', 'words-8000.json'),
     ];
 
-    console.log('Looking for words database in paths:', possiblePaths);
+    // Load Italian words (1000)
+    const italianPaths = [
+      path.join(process.resourcesPath || '', 'data', 'words-italian.json'),
+      path.join(__dirname, '..', '..', 'data', 'words-italian.json'),
+      path.join(__dirname, '..', 'data', 'words-italian.json'),
+      path.join(process.cwd(), 'data', 'words-italian.json'),
+    ];
 
-    for (const jsonPath of possiblePaths) {
-      console.log(`Checking path: ${jsonPath}, exists: ${fs.existsSync(jsonPath)}`);
+    console.log('Looking for English words database...');
+    for (const jsonPath of englishPaths) {
       if (fs.existsSync(jsonPath)) {
-        console.log(`Loading 8000+ words from: ${jsonPath}`);
-        this.seedWordsFromJson(jsonPath);
-        return;
+        console.log(`Loading English words from: ${jsonPath}`);
+        this.seedWordsFromJson(jsonPath, 'en');
+        break;
       }
+    }
+
+    console.log('Looking for Italian words database...');
+    for (const jsonPath of italianPaths) {
+      if (fs.existsSync(jsonPath)) {
+        console.log(`Loading Italian words from: ${jsonPath}`);
+        this.seedItalianWordsFromJson(jsonPath);
+        break;
+      }
+    }
+
+    // Check if any words were loaded
+    const wordCount = this.db.prepare('SELECT COUNT(*) as count FROM words').get() as { count: number };
+    if (wordCount.count > 0) {
+      console.log(`Total words in database: ${wordCount.count}`);
+      return;
     }
 
     // Fallback to basic vocabulary
@@ -571,7 +647,7 @@ export class DatabaseManager {
     insertMany();
   }
 
-  private seedWordsFromJson(jsonPath: string): void {
+  private seedWordsFromJson(jsonPath: string, targetLanguage: string = 'en'): void {
     const content = fs.readFileSync(jsonPath, 'utf-8');
     const wordsJson = JSON.parse(content) as Array<{ id: number; en: string; ru: string; tr: string }>;
 
@@ -583,7 +659,7 @@ export class DatabaseManager {
       return 'noun';
     };
 
-    const insertWord = this.db.prepare(`INSERT INTO words (id, word, transcription, part_of_speech, level, frequency, forms, synonyms, antonyms) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+    const insertWord = this.db.prepare(`INSERT INTO words (id, word, transcription, part_of_speech, level, frequency, forms, synonyms, antonyms, target_language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
     const insertTranslation = this.db.prepare(`INSERT INTO translations (id, word_id, translation, is_primary) VALUES (?, ?, ?, ?)`);
 
     const transaction = this.db.transaction(() => {
@@ -593,12 +669,44 @@ export class DatabaseManager {
         if (!item.en || !item.ru) continue;
         const wordId = uuidv4();
         try {
-          insertWord.run(wordId, item.en.toLowerCase().trim(), item.tr || '', getPos(item.en), getCEFRLevel(i + 1), Math.max(1, 100 - Math.floor(i / 80)), '[]', '[]', '[]');
+          insertWord.run(wordId, item.en.toLowerCase().trim(), item.tr || '', getPos(item.en), getCEFRLevel(i + 1), Math.max(1, 100 - Math.floor(i / 80)), '[]', '[]', '[]', targetLanguage);
           item.ru.split(/[,;]/).forEach((t, idx) => t.trim() && insertTranslation.run(uuidv4(), wordId, t.trim(), idx === 0 ? 1 : 0));
           count++;
         } catch (e) { /* skip duplicates */ }
       }
-      console.log(`Inserted ${count} words`);
+      console.log(`Inserted ${count} ${targetLanguage} words`);
+    });
+    transaction();
+  }
+
+  private seedItalianWordsFromJson(jsonPath: string): void {
+    const content = fs.readFileSync(jsonPath, 'utf-8');
+    const wordsJson = JSON.parse(content) as Array<{ id: number; it: string; ru: string; en: string; tr: string }>;
+
+    const getCEFRLevel = (i: number) => i <= 200 ? 'A1' : i <= 500 ? 'A2' : i <= 800 ? 'B1' : 'B2';
+    const getPos = (w: string) => {
+      if (w.endsWith('zione') || w.endsWith('tà') || w.endsWith('mento')) return 'noun';
+      if (w.endsWith('mente')) return 'adverb';
+      if (w.endsWith('oso') || w.endsWith('bile') || w.endsWith('ale')) return 'adjective';
+      return 'noun';
+    };
+
+    const insertWord = this.db.prepare(`INSERT INTO words (id, word, transcription, part_of_speech, level, frequency, forms, synonyms, antonyms, target_language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`);
+    const insertTranslation = this.db.prepare(`INSERT INTO translations (id, word_id, translation, is_primary) VALUES (?, ?, ?, ?)`);
+
+    const transaction = this.db.transaction(() => {
+      let count = 0;
+      for (let i = 0; i < wordsJson.length; i++) {
+        const item = wordsJson[i];
+        if (!item.it || !item.ru) continue;
+        const wordId = uuidv4();
+        try {
+          insertWord.run(wordId, item.it.toLowerCase().trim(), item.tr || '', getPos(item.it), getCEFRLevel(i + 1), Math.max(1, 100 - Math.floor(i / 10)), '[]', '[]', '[]', 'it');
+          item.ru.split(/[,;]/).forEach((t, idx) => t.trim() && insertTranslation.run(uuidv4(), wordId, t.trim(), idx === 0 ? 1 : 0));
+          count++;
+        } catch (e) { /* skip duplicates */ }
+      }
+      console.log(`Inserted ${count} Italian words`);
     });
     transaction();
   }
@@ -671,6 +779,10 @@ export class DatabaseManager {
 
     const conditions: string[] = [];
     const params: any[] = [];
+
+    // Always filter by target language (default to 'en' for English)
+    conditions.push('w.target_language = ?');
+    params.push(filters?.targetLanguage || 'en');
 
     if (filters?.level) {
       conditions.push('w.level = ?');
@@ -823,10 +935,11 @@ export class DatabaseManager {
     `).all() as any[];
   }
 
-  getLevels(): { level: string; count: number }[] {
+  getLevels(targetLanguage: string = 'en'): { level: string; count: number }[] {
     return this.db.prepare(`
       SELECT level, COUNT(*) as count
       FROM words
+      WHERE target_language = ?
       GROUP BY level
       ORDER BY
         CASE level
@@ -837,7 +950,7 @@ export class DatabaseManager {
           WHEN 'C1' THEN 5
           WHEN 'C2' THEN 6
         END
-    `).all() as any[];
+    `).all(targetLanguage) as any[];
   }
 
   private mapWordRow(row: any): Word {

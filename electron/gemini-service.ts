@@ -106,8 +106,9 @@ export class GeminiService {
   /**
    * Explain a word in simple terms for Russian speakers
    */
-  async explainWord(word: string): Promise<GeminiResponse> {
-    const prompt = `You are an English teacher for Russian-speaking students. Explain the English word "${word}".
+  async explainWord(word: string, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const prompt = `You are a ${langName} teacher for Russian-speaking students. Explain the ${langName} word "${word}".
 
 Respond in Russian. Format your answer as:
 1. **Основное значение**: (brief explanation in Russian)
@@ -125,8 +126,10 @@ Be concise and use simple Russian language.`;
   /**
    * Generate example sentences with translations
    */
-  async generateExamples(word: string, count: number = 3): Promise<GeminiResponse> {
-    const prompt = `You are an English teacher. Create ${count} example sentences using the word "${word}".
+  async generateExamples(word: string, count: number = 3, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const langFlag = targetLanguage === 'it' ? '🇮🇹' : '🇬🇧';
+    const prompt = `You are a ${langName} teacher. Create ${count} example sentences using the ${langName} word "${word}".
 
 Requirements:
 - Natural, useful sentences
@@ -134,7 +137,7 @@ Requirements:
 - Show different contexts of usage
 
 Format each example as:
-🇬🇧 [English sentence]
+${langFlag} [${langName} sentence]
 🇷🇺 [Russian translation]
 💡 [brief context note in Russian]
 
@@ -146,8 +149,9 @@ Start directly with examples, no introduction needed.`;
   /**
    * Check grammar and provide corrections
    */
-  async checkGrammar(text: string): Promise<GeminiResponse> {
-    const prompt = `You are an English grammar checker for Russian-speaking students. Check the grammar in this text:
+  async checkGrammar(text: string, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const prompt = `You are a ${langName} grammar checker for Russian-speaking students. Check the grammar in this text:
 
 "${text}"
 
@@ -166,20 +170,21 @@ If no errors, praise and suggest improvements.`;
   /**
    * Have a conversation for practice
    */
-  async chat(messages: GeminiMessage[]): Promise<GeminiResponse> {
+  async chat(messages: GeminiMessage[], targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
     // Build conversation context
     const conversationHistory = messages
       .map(m => `${m.role === 'user' ? 'Student' : 'Teacher'}: ${m.content}`)
       .join('\n');
 
-    const systemPrompt = `You are a friendly English teacher for Russian-speaking students.
+    const systemPrompt = `You are a friendly ${langName} teacher for Russian-speaking students.
 
 Rules:
-- Respond primarily in English, but add brief Russian explanations in parentheses when helpful
+- Respond primarily in ${langName}, but add brief Russian explanations in parentheses when helpful
 - Gently correct student errors with explanations
 - Keep the conversation going, ask follow-up questions
 - Adapt vocabulary to student's level
-- If student writes in Russian, encourage them to try in English
+- If student writes in Russian, encourage them to try in ${langName}
 - Be supportive and encouraging
 
 Conversation history:
@@ -193,8 +198,9 @@ Continue as the teacher:`;
   /**
    * Generate a personalized word list based on user interests
    */
-  async generateWordList(topic: string, level: string, count: number = 10): Promise<GeminiResponse> {
-    const prompt = `You are an English teacher. Create a list of ${count} English words about "${topic}" for ${level} level students.
+  async generateWordList(topic: string, level: string, count: number = 10, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const prompt = `You are a ${langName} teacher. Create a list of ${count} ${langName} words about "${topic}" for ${level} level students.
 
 Format each word as:
 📝 **[word]** /phonetic transcription/

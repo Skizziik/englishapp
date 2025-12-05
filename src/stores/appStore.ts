@@ -18,8 +18,12 @@ interface AppState {
   userLevel: { level: number; xp: number; xpForNext: number } | null;
   streak: { current: number; longest: number; lastActivity: string | null } | null;
 
-  // Chat history
-  chatMessages: ChatMessage[];
+  // Target language for learning (en = English, it = Italian)
+  targetLanguage: 'en' | 'it';
+
+  // Chat history per language (separate for English and Italian)
+  chatMessagesEn: ChatMessage[];
+  chatMessagesIt: ChatMessage[];
 
   // Learning state
   currentSession: {
@@ -45,6 +49,7 @@ interface AppState {
   setProfile: (profile: UserProfile) => void;
   setUserLevel: (level: { level: number; xp: number; xpForNext: number }) => void;
   setStreak: (streak: { current: number; longest: number; lastActivity: string | null }) => void;
+  setTargetLanguage: (language: 'en' | 'it') => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 
@@ -55,10 +60,10 @@ interface AppState {
   endSession: () => { correctCount: number; wrongCount: number; xpEarned: number; timeSpent: number };
   resetSession: () => void;
 
-  // Chat actions
-  addChatMessage: (message: ChatMessage) => void;
-  setChatMessages: (messages: ChatMessage[]) => void;
-  clearChatMessages: () => void;
+  // Chat actions (per language)
+  addChatMessage: (message: ChatMessage, language: 'en' | 'it') => void;
+  clearChatMessages: (language: 'en' | 'it') => void;
+  getChatMessages: () => ChatMessage[];
 
   // Initialize
   initialize: () => Promise<void>;
@@ -68,13 +73,15 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   // Initial state
   stats: null,
-  chatMessages: [],
+  chatMessagesEn: [],
+  chatMessagesIt: [],
   dailyGoal: null,
   achievements: [],
   settings: null,
   profile: null,
   userLevel: null,
   streak: null,
+  targetLanguage: 'en',
   currentSession: {
     id: null,
     type: null,
@@ -96,6 +103,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setProfile: (profile) => set({ profile }),
   setUserLevel: (userLevel) => set({ userLevel }),
   setStreak: (streak) => set({ streak }),
+  setTargetLanguage: (targetLanguage) => set({ targetLanguage }),
   setLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
 
@@ -168,19 +176,22 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
   },
 
-  // Chat management
-  addChatMessage: (message) => {
+  // Chat management (per language)
+  addChatMessage: (message, language) => {
     set((state) => ({
-      chatMessages: [...state.chatMessages, message],
+      ...(language === 'en'
+        ? { chatMessagesEn: [...state.chatMessagesEn, message] }
+        : { chatMessagesIt: [...state.chatMessagesIt, message] }),
     }));
   },
 
-  setChatMessages: (messages) => {
-    set({ chatMessages: messages });
+  clearChatMessages: (language) => {
+    set(language === 'en' ? { chatMessagesEn: [] } : { chatMessagesIt: [] });
   },
 
-  clearChatMessages: () => {
-    set({ chatMessages: [] });
+  getChatMessages: () => {
+    const state = get();
+    return state.targetLanguage === 'en' ? state.chatMessagesEn : state.chatMessagesIt;
   },
 
   // Initialize app data

@@ -7,6 +7,7 @@ interface WordFilters {
   status?: 'new' | 'learning' | 'learned' | 'review';
   limit?: number;
   offset?: number;
+  targetLanguage?: 'en' | 'it';
 }
 
 interface SessionStats {
@@ -69,7 +70,7 @@ interface ElectronAPI {
     getByLevel: (level: string) => Promise<Word[]>;
     getByCategory: (category: string) => Promise<Word[]>;
     getCategories: () => Promise<Category[]>;
-    getLevels: () => Promise<Level[]>;
+    getLevels: (targetLanguage?: string) => Promise<Level[]>;
     getWithProgress: (filters?: WordFilters) => Promise<any[]>;
     getStatusCounts: () => Promise<{ status: string; count: number }[]>;
   };
@@ -83,16 +84,16 @@ interface ElectronAPI {
   };
 
   srs: {
-    getNextWords: (count: number) => Promise<ReviewCard[]>;
-    getNewWords: (count: number, level?: string, category?: string) => Promise<ReviewCard[]>;
+    getNextWords: (count: number, targetLanguage?: string) => Promise<ReviewCard[]>;
+    getNewWords: (count: number, level?: string, category?: string, targetLanguage?: string) => Promise<ReviewCard[]>;
     recordAnswer: (wordId: string, quality: number) => Promise<{
       nextReview: string;
       interval: number;
       easeFactor: number;
       isGraduated: boolean;
     }>;
-    getStats: () => Promise<SRSStats>;
-    getDueCount: () => Promise<number>;
+    getStats: (targetLanguage?: string) => Promise<SRSStats>;
+    getDueCount: (targetLanguage?: string) => Promise<number>;
   };
 
   gamification: {
@@ -121,10 +122,10 @@ interface ElectronAPI {
   gemini: {
     setApiKey: (apiKey: string) => Promise<boolean>;
     isConfigured: () => Promise<boolean>;
-    explainWord: (word: string) => Promise<GeminiResponse>;
-    generateExamples: (word: string, count?: number) => Promise<GeminiResponse>;
-    checkGrammar: (text: string) => Promise<GeminiResponse>;
-    chat: (messages: Array<{ role: 'user' | 'model'; content: string }>) => Promise<GeminiResponse>;
+    explainWord: (word: string, targetLanguage?: string) => Promise<GeminiResponse>;
+    generateExamples: (word: string, count?: number, targetLanguage?: string) => Promise<GeminiResponse>;
+    checkGrammar: (text: string, targetLanguage?: string) => Promise<GeminiResponse>;
+    chat: (messages: Array<{ role: 'user' | 'model'; content: string }>, targetLanguage?: string) => Promise<GeminiResponse>;
   };
 
   settings: {

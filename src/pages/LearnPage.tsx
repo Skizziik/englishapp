@@ -88,7 +88,7 @@ const LEARNING_MODES = [
 ];
 
 export const LearnPage: React.FC = () => {
-  const { refreshData } = useAppStore();
+  const { refreshData, targetLanguage } = useAppStore();
 
   // Setup state
   const [learningMode, setLearningMode] = useState<LearningMode>('new');
@@ -115,7 +115,7 @@ export const LearnPage: React.FC = () => {
     const loadData = async () => {
       if (window.electronAPI) {
         const [words, counts] = await Promise.all([
-          window.electronAPI.words.getAll({ limit: 100 }),
+          window.electronAPI.words.getAll({ limit: 100, targetLanguage }),
           window.electronAPI.words.getStatusCounts(),
         ]);
         setAllWords(words);
@@ -132,7 +132,7 @@ export const LearnPage: React.FC = () => {
       }
     };
     loadData();
-  }, []);
+  }, [targetLanguage]);
 
   const startSession = async () => {
     let newCards: ReviewCard[] = [];
@@ -140,10 +140,10 @@ export const LearnPage: React.FC = () => {
     if (window.electronAPI) {
       if (learningMode === 'new') {
         // Get new words that haven't been studied yet
-        newCards = await window.electronAPI.srs.getNewWords(wordCount, selectedLevel);
+        newCards = await window.electronAPI.srs.getNewWords(wordCount, selectedLevel, undefined, targetLanguage);
       } else if (learningMode === 'review') {
         // Get words due for review (SRS)
-        newCards = await window.electronAPI.srs.getNextWords(wordCount);
+        newCards = await window.electronAPI.srs.getNextWords(wordCount, targetLanguage);
       } else {
         // Get words by status (learning, learned, or all)
         const statusFilter = learningMode === 'all' ? undefined : learningMode;
@@ -151,6 +151,7 @@ export const LearnPage: React.FC = () => {
           status: statusFilter,
           level: selectedLevel !== 'all' ? selectedLevel : undefined,
           limit: wordCount,
+          targetLanguage,
         });
         newCards = wordsWithProgress.map((w: any) => ({
           word: w,

@@ -55,7 +55,7 @@ const NavItem: React.FC<NavItemProps> = ({ to, icon, label, badge }) => {
 };
 
 export const Sidebar: React.FC = () => {
-  const { dailyGoal, userLevel, streak } = useAppStore();
+  const { dailyGoal, userLevel, streak, targetLanguage, setTargetLanguage } = useAppStore();
 
   const dailyProgress = dailyGoal
     ? Math.min(100, (dailyGoal.current / dailyGoal.target) * 100)
@@ -63,6 +63,39 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside className="w-64 h-full bg-card/50 border-r border-border flex flex-col">
+      {/* Language Selector */}
+      <div className="p-4 border-b border-border">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-muted-foreground">Изучаемый язык</span>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setTargetLanguage('en')}
+            className={cn(
+              'flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg transition-all',
+              targetLanguage === 'en'
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-secondary hover:bg-secondary/80 text-muted-foreground'
+            )}
+          >
+            <span className="text-lg">🇬🇧</span>
+            <span className="text-sm font-medium">English</span>
+          </button>
+          <button
+            onClick={() => setTargetLanguage('it')}
+            className={cn(
+              'flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg transition-all',
+              targetLanguage === 'it'
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-secondary hover:bg-secondary/80 text-muted-foreground'
+            )}
+          >
+            <span className="text-lg">🇮🇹</span>
+            <span className="text-sm font-medium">Italiano</span>
+          </button>
+        </div>
+      </div>
+
       {/* Daily Goal Progress */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-3">

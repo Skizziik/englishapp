@@ -31,20 +31,22 @@ const item = {
 };
 
 export const HomePage: React.FC = () => {
-  const { stats, dailyGoal, userLevel, streak, profile } = useAppStore();
+  const { stats, dailyGoal, userLevel, streak, profile, targetLanguage } = useAppStore();
   const [dueCount, setDueCount] = useState(0);
+
+  const langName = targetLanguage === 'it' ? 'итальянского' : 'английского';
 
   useEffect(() => {
     const loadDueCount = async () => {
       if (window.electronAPI) {
-        const count = await window.electronAPI.srs.getDueCount();
+        const count = await window.electronAPI.srs.getDueCount(targetLanguage);
         setDueCount(count);
       } else {
         setDueCount(15); // Mock data for development
       }
     };
     loadDueCount();
-  }, []);
+  }, [targetLanguage]);
 
   const dailyProgress = dailyGoal
     ? Math.min(100, (dailyGoal.current / dailyGoal.target) * 100)
@@ -63,7 +65,7 @@ export const HomePage: React.FC = () => {
           {getGreeting()}, {profile?.name || 'Пользователь'}! 👋
         </h1>
         <p className="text-muted-foreground">
-          Готовы продолжить изучение английского?
+          Готовы продолжить изучение {langName}?
         </p>
       </motion.div>
 

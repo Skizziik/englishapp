@@ -1,0 +1,7002 @@
+[
+  {
+    "id": 1,
+    "it": "come",
+    "ru": "как",
+    "en": "as",
+    "tr": ""
+  },
+  {
+    "id": 2,
+    "it": "io",
+    "ru": "Я",
+    "en": "I",
+    "tr": ""
+  },
+  {
+    "id": 3,
+    "it": "il suo",
+    "ru": "его",
+    "en": "his",
+    "tr": ""
+  },
+  {
+    "id": 4,
+    "it": "che",
+    "ru": "что",
+    "en": "that",
+    "tr": ""
+  },
+  {
+    "id": 5,
+    "it": "lui",
+    "ru": "он",
+    "en": "he",
+    "tr": ""
+  },
+  {
+    "id": 6,
+    "it": "era",
+    "ru": "было",
+    "en": "was",
+    "tr": ""
+  },
+  {
+    "id": 7,
+    "it": "per",
+    "ru": "для",
+    "en": "for",
+    "tr": ""
+  },
+  {
+    "id": 8,
+    "it": "su",
+    "ru": "на",
+    "en": "on",
+    "tr": ""
+  },
+  {
+    "id": 9,
+    "it": "sono",
+    "ru": "являются",
+    "en": "are",
+    "tr": ""
+  },
+  {
+    "id": 10,
+    "it": "con",
+    "ru": "с",
+    "en": "with",
+    "tr": ""
+  },
+  {
+    "id": 11,
+    "it": "essi",
+    "ru": "они",
+    "en": "they",
+    "tr": ""
+  },
+  {
+    "id": 12,
+    "it": "essere",
+    "ru": "быть",
+    "en": "be",
+    "tr": ""
+  },
+  {
+    "id": 13,
+    "it": "a",
+    "ru": "в",
+    "en": "at",
+    "tr": ""
+  },
+  {
+    "id": 14,
+    "it": "uno",
+    "ru": "один",
+    "en": "one",
+    "tr": ""
+  },
+  {
+    "id": 15,
+    "it": "avere",
+    "ru": "иметь",
+    "en": "have",
+    "tr": ""
+  },
+  {
+    "id": 16,
+    "it": "questo",
+    "ru": "это",
+    "en": "this",
+    "tr": ""
+  },
+  {
+    "id": 17,
+    "it": "da",
+    "ru": "от",
+    "en": "from",
+    "tr": ""
+  },
+  {
+    "id": 18,
+    "it": "da",
+    "ru": "по",
+    "en": "by",
+    "tr": ""
+  },
+  {
+    "id": 19,
+    "it": "caldo",
+    "ru": "горячий",
+    "en": "hot",
+    "tr": ""
+  },
+  {
+    "id": 20,
+    "it": "parola",
+    "ru": "слово",
+    "en": "word",
+    "tr": ""
+  },
+  {
+    "id": 21,
+    "it": "ma",
+    "ru": "но",
+    "en": "but",
+    "tr": ""
+  },
+  {
+    "id": 22,
+    "it": "cosa",
+    "ru": "что",
+    "en": "what",
+    "tr": ""
+  },
+  {
+    "id": 23,
+    "it": "alcuni",
+    "ru": "некоторые",
+    "en": "some",
+    "tr": ""
+  },
+  {
+    "id": 24,
+    "it": "è",
+    "ru": "является",
+    "en": "is",
+    "tr": ""
+  },
+  {
+    "id": 25,
+    "it": "esso",
+    "ru": "это",
+    "en": "it",
+    "tr": ""
+  },
+  {
+    "id": 26,
+    "it": "voi",
+    "ru": "вы",
+    "en": "you",
+    "tr": ""
+  },
+  {
+    "id": 27,
+    "it": "o",
+    "ru": "или",
+    "en": "or",
+    "tr": ""
+  },
+  {
+    "id": 28,
+    "it": "aveva",
+    "ru": "было",
+    "en": "had",
+    "tr": ""
+  },
+  {
+    "id": 29,
+    "it": "il",
+    "ru": "площадь",
+    "en": "the",
+    "tr": ""
+  },
+  {
+    "id": 30,
+    "it": "di",
+    "ru": "из",
+    "en": "of",
+    "tr": ""
+  },
+  {
+    "id": 31,
+    "it": "a",
+    "ru": "гора",
+    "en": "to",
+    "tr": ""
+  },
+  {
+    "id": 32,
+    "it": "e",
+    "ru": "и",
+    "en": "and",
+    "tr": ""
+  },
+  {
+    "id": 33,
+    "it": "un",
+    "ru": "основной",
+    "en": "a",
+    "tr": ""
+  },
+  {
+    "id": 34,
+    "it": "in",
+    "ru": "взял",
+    "en": "in",
+    "tr": ""
+  },
+  {
+    "id": 35,
+    "it": "noi",
+    "ru": "мы",
+    "en": "we",
+    "tr": ""
+  },
+  {
+    "id": 36,
+    "it": "lattina",
+    "ru": "может",
+    "en": "can",
+    "tr": ""
+  },
+  {
+    "id": 37,
+    "it": "fuori",
+    "ru": "из",
+    "en": "out",
+    "tr": ""
+  },
+  {
+    "id": 38,
+    "it": "altro",
+    "ru": "другой",
+    "en": "other",
+    "tr": ""
+  },
+  {
+    "id": 39,
+    "it": "erano",
+    "ru": "были",
+    "en": "were",
+    "tr": ""
+  },
+  {
+    "id": 40,
+    "it": "che",
+    "ru": "который",
+    "en": "which",
+    "tr": ""
+  },
+  {
+    "id": 41,
+    "it": "fare",
+    "ru": "сделать",
+    "en": "do",
+    "tr": ""
+  },
+  {
+    "id": 42,
+    "it": "loro",
+    "ru": "их",
+    "en": "their",
+    "tr": ""
+  },
+  {
+    "id": 43,
+    "it": "tempo",
+    "ru": "время",
+    "en": "time",
+    "tr": ""
+  },
+  {
+    "id": 44,
+    "it": "se",
+    "ru": "если",
+    "en": "if",
+    "tr": ""
+  },
+  {
+    "id": 45,
+    "it": "volontà",
+    "ru": "будет",
+    "en": "will",
+    "tr": ""
+  },
+  {
+    "id": 46,
+    "it": "come",
+    "ru": "как",
+    "en": "how",
+    "tr": ""
+  },
+  {
+    "id": 47,
+    "it": "suddetto",
+    "ru": "указанный",
+    "en": "said",
+    "tr": ""
+  },
+  {
+    "id": 48,
+    "it": "un",
+    "ru": "назад",
+    "en": "an",
+    "tr": ""
+  },
+  {
+    "id": 49,
+    "it": "ogni",
+    "ru": "каждый",
+    "en": "each",
+    "tr": ""
+  },
+  {
+    "id": 50,
+    "it": "dire",
+    "ru": "сказать",
+    "en": "tell",
+    "tr": ""
+  },
+  {
+    "id": 51,
+    "it": "fa",
+    "ru": "делает",
+    "en": "does",
+    "tr": ""
+  },
+  {
+    "id": 52,
+    "it": "set",
+    "ru": "набор",
+    "en": "set",
+    "tr": ""
+  },
+  {
+    "id": 53,
+    "it": "tre",
+    "ru": "три",
+    "en": "three",
+    "tr": ""
+  },
+  {
+    "id": 54,
+    "it": "desiderare",
+    "ru": "хочу",
+    "en": "want",
+    "tr": ""
+  },
+  {
+    "id": 55,
+    "it": "aria",
+    "ru": "воздух",
+    "en": "air",
+    "tr": ""
+  },
+  {
+    "id": 56,
+    "it": "bene",
+    "ru": "хорошо",
+    "en": "well",
+    "tr": ""
+  },
+  {
+    "id": 57,
+    "it": "anche",
+    "ru": "также",
+    "en": "also",
+    "tr": ""
+  },
+  {
+    "id": 58,
+    "it": "giocare",
+    "ru": "играть",
+    "en": "play",
+    "tr": ""
+  },
+  {
+    "id": 59,
+    "it": "piccolo",
+    "ru": "небольшой",
+    "en": "small",
+    "tr": ""
+  },
+  {
+    "id": 60,
+    "it": "fine",
+    "ru": "конец",
+    "en": "end",
+    "tr": ""
+  },
+  {
+    "id": 61,
+    "it": "mettere",
+    "ru": "положить",
+    "en": "put",
+    "tr": ""
+  },
+  {
+    "id": 62,
+    "it": "casa",
+    "ru": "домой",
+    "en": "home",
+    "tr": ""
+  },
+  {
+    "id": 63,
+    "it": "leggere",
+    "ru": "читать",
+    "en": "read",
+    "tr": ""
+  },
+  {
+    "id": 64,
+    "it": "mano",
+    "ru": "рука",
+    "en": "hand",
+    "tr": ""
+  },
+  {
+    "id": 65,
+    "it": "porto",
+    "ru": "порт",
+    "en": "port",
+    "tr": ""
+  },
+  {
+    "id": 66,
+    "it": "grande",
+    "ru": "большой",
+    "en": "large",
+    "tr": ""
+  },
+  {
+    "id": 67,
+    "it": "compitare",
+    "ru": "заклинание",
+    "en": "spell",
+    "tr": ""
+  },
+  {
+    "id": 68,
+    "it": "aggiungere",
+    "ru": "добавлять",
+    "en": "add",
+    "tr": ""
+  },
+  {
+    "id": 69,
+    "it": "anche",
+    "ru": "даже",
+    "en": "even",
+    "tr": ""
+  },
+  {
+    "id": 70,
+    "it": "terra",
+    "ru": "земля",
+    "en": "land",
+    "tr": ""
+  },
+  {
+    "id": 71,
+    "it": "qui",
+    "ru": "здесь",
+    "en": "here",
+    "tr": ""
+  },
+  {
+    "id": 72,
+    "it": "mosto",
+    "ru": "должны",
+    "en": "must",
+    "tr": ""
+  },
+  {
+    "id": 73,
+    "it": "grande",
+    "ru": "большой",
+    "en": "big",
+    "tr": ""
+  },
+  {
+    "id": 74,
+    "it": "alto",
+    "ru": "высокий",
+    "en": "high",
+    "tr": ""
+  },
+  {
+    "id": 75,
+    "it": "tale",
+    "ru": "такие",
+    "en": "such",
+    "tr": ""
+  },
+  {
+    "id": 76,
+    "it": "seguire",
+    "ru": "следовать",
+    "en": "follow",
+    "tr": ""
+  },
+  {
+    "id": 77,
+    "it": "atto",
+    "ru": "акт",
+    "en": "act",
+    "tr": ""
+  },
+  {
+    "id": 78,
+    "it": "perché",
+    "ru": "почему",
+    "en": "why",
+    "tr": ""
+  },
+  {
+    "id": 79,
+    "it": "chiedere",
+    "ru": "спросите",
+    "en": "ask",
+    "tr": ""
+  },
+  {
+    "id": 80,
+    "it": "maschi",
+    "ru": "люди",
+    "en": "men",
+    "tr": ""
+  },
+  {
+    "id": 81,
+    "it": "cambiamento",
+    "ru": "изменение",
+    "en": "change",
+    "tr": ""
+  },
+  {
+    "id": 82,
+    "it": "è andato",
+    "ru": "пошел",
+    "en": "went",
+    "tr": ""
+  },
+  {
+    "id": 83,
+    "it": "luce",
+    "ru": "свет",
+    "en": "light",
+    "tr": ""
+  },
+  {
+    "id": 84,
+    "it": "tipo",
+    "ru": "вид",
+    "en": "kind",
+    "tr": ""
+  },
+  {
+    "id": 85,
+    "it": "spento",
+    "ru": "от",
+    "en": "off",
+    "tr": ""
+  },
+  {
+    "id": 86,
+    "it": "bisogno",
+    "ru": "нуждаться",
+    "en": "need",
+    "tr": ""
+  },
+  {
+    "id": 87,
+    "it": "casa",
+    "ru": "дом",
+    "en": "house",
+    "tr": ""
+  },
+  {
+    "id": 88,
+    "it": "immagine",
+    "ru": "картинка",
+    "en": "picture",
+    "tr": ""
+  },
+  {
+    "id": 89,
+    "it": "provare",
+    "ru": "пытаться",
+    "en": "try",
+    "tr": ""
+  },
+  {
+    "id": 90,
+    "it": "noi",
+    "ru": "нам",
+    "en": "us",
+    "tr": ""
+  },
+  {
+    "id": 91,
+    "it": "di nuovo",
+    "ru": "снова",
+    "en": "again",
+    "tr": ""
+  },
+  {
+    "id": 92,
+    "it": "animale",
+    "ru": "животных",
+    "en": "animal",
+    "tr": ""
+  },
+  {
+    "id": 93,
+    "it": "punto",
+    "ru": "точка",
+    "en": "point",
+    "tr": ""
+  },
+  {
+    "id": 94,
+    "it": "madre",
+    "ru": "мать",
+    "en": "mother",
+    "tr": ""
+  },
+  {
+    "id": 95,
+    "it": "mondo",
+    "ru": "мир",
+    "en": "world",
+    "tr": ""
+  },
+  {
+    "id": 96,
+    "it": "vicino",
+    "ru": "около",
+    "en": "near",
+    "tr": ""
+  },
+  {
+    "id": 97,
+    "it": "costruire",
+    "ru": "строить",
+    "en": "build",
+    "tr": ""
+  },
+  {
+    "id": 98,
+    "it": "se stesso",
+    "ru": "самостоятельно",
+    "en": "self",
+    "tr": ""
+  },
+  {
+    "id": 99,
+    "it": "terra",
+    "ru": "земля",
+    "en": "earth",
+    "tr": ""
+  },
+  {
+    "id": 100,
+    "it": "padre",
+    "ru": "отец",
+    "en": "father",
+    "tr": ""
+  },
+  {
+    "id": 101,
+    "it": "qualsiasi",
+    "ru": "любой",
+    "en": "any",
+    "tr": ""
+  },
+  {
+    "id": 102,
+    "it": "nuovo",
+    "ru": "новый",
+    "en": "new",
+    "tr": ""
+  },
+  {
+    "id": 103,
+    "it": "lavoro",
+    "ru": "работа",
+    "en": "work",
+    "tr": ""
+  },
+  {
+    "id": 104,
+    "it": "parte",
+    "ru": "часть",
+    "en": "part",
+    "tr": ""
+  },
+  {
+    "id": 105,
+    "it": "prendere",
+    "ru": "принимать",
+    "en": "take",
+    "tr": ""
+  },
+  {
+    "id": 106,
+    "it": "ottenere",
+    "ru": "получать",
+    "en": "get",
+    "tr": ""
+  },
+  {
+    "id": 107,
+    "it": "posto",
+    "ru": "место",
+    "en": "place",
+    "tr": ""
+  },
+  {
+    "id": 108,
+    "it": "fatto",
+    "ru": "сделал",
+    "en": "made",
+    "tr": ""
+  },
+  {
+    "id": 109,
+    "it": "vivere",
+    "ru": "жить",
+    "en": "live",
+    "tr": ""
+  },
+  {
+    "id": 110,
+    "it": "dove",
+    "ru": "где",
+    "en": "where",
+    "tr": ""
+  },
+  {
+    "id": 111,
+    "it": "dopo",
+    "ru": "после",
+    "en": "after",
+    "tr": ""
+  },
+  {
+    "id": 112,
+    "it": "indietro",
+    "ru": "назад",
+    "en": "back",
+    "tr": ""
+  },
+  {
+    "id": 113,
+    "it": "poco",
+    "ru": "немного",
+    "en": "little",
+    "tr": ""
+  },
+  {
+    "id": 114,
+    "it": "solo",
+    "ru": "только",
+    "en": "only",
+    "tr": ""
+  },
+  {
+    "id": 115,
+    "it": "turno",
+    "ru": "круглый",
+    "en": "round",
+    "tr": ""
+  },
+  {
+    "id": 116,
+    "it": "uomo",
+    "ru": "человек",
+    "en": "man",
+    "tr": ""
+  },
+  {
+    "id": 117,
+    "it": "anno",
+    "ru": "год",
+    "en": "year",
+    "tr": ""
+  },
+  {
+    "id": 118,
+    "it": "è venuto",
+    "ru": "пришел",
+    "en": "came",
+    "tr": ""
+  },
+  {
+    "id": 119,
+    "it": "spettacolo",
+    "ru": "шоу",
+    "en": "show",
+    "tr": ""
+  },
+  {
+    "id": 120,
+    "it": "ogni",
+    "ru": "каждый",
+    "en": "every",
+    "tr": ""
+  },
+  {
+    "id": 121,
+    "it": "buono",
+    "ru": "хорошее",
+    "en": "good",
+    "tr": ""
+  },
+  {
+    "id": 122,
+    "it": "me",
+    "ru": "меня",
+    "en": "me",
+    "tr": ""
+  },
+  {
+    "id": 123,
+    "it": "dare",
+    "ru": "давать",
+    "en": "give",
+    "tr": ""
+  },
+  {
+    "id": 124,
+    "it": "il nostro",
+    "ru": "наш",
+    "en": "our",
+    "tr": ""
+  },
+  {
+    "id": 125,
+    "it": "sotto",
+    "ru": "под",
+    "en": "under",
+    "tr": ""
+  },
+  {
+    "id": 126,
+    "it": "nome",
+    "ru": "название",
+    "en": "name",
+    "tr": ""
+  },
+  {
+    "id": 127,
+    "it": "molto",
+    "ru": "очень",
+    "en": "very",
+    "tr": ""
+  },
+  {
+    "id": 128,
+    "it": "attraverso",
+    "ru": "через",
+    "en": "through",
+    "tr": ""
+  },
+  {
+    "id": 129,
+    "it": "solo",
+    "ru": "просто",
+    "en": "just",
+    "tr": ""
+  },
+  {
+    "id": 130,
+    "it": "forma",
+    "ru": "форма",
+    "en": "form",
+    "tr": ""
+  },
+  {
+    "id": 131,
+    "it": "frase",
+    "ru": "приговор",
+    "en": "sentence",
+    "tr": ""
+  },
+  {
+    "id": 132,
+    "it": "grande",
+    "ru": "большой",
+    "en": "great",
+    "tr": ""
+  },
+  {
+    "id": 133,
+    "it": "pensare",
+    "ru": "думать",
+    "en": "think",
+    "tr": ""
+  },
+  {
+    "id": 134,
+    "it": "dire",
+    "ru": "сказать",
+    "en": "say",
+    "tr": ""
+  },
+  {
+    "id": 135,
+    "it": "aiutare",
+    "ru": "помощь",
+    "en": "help",
+    "tr": ""
+  },
+  {
+    "id": 136,
+    "it": "basso",
+    "ru": "низкий",
+    "en": "low",
+    "tr": ""
+  },
+  {
+    "id": 137,
+    "it": "linea",
+    "ru": "линия",
+    "en": "line",
+    "tr": ""
+  },
+  {
+    "id": 138,
+    "it": "differire",
+    "ru": "отличаются",
+    "en": "differ",
+    "tr": ""
+  },
+  {
+    "id": 139,
+    "it": "turno",
+    "ru": "поворот",
+    "en": "turn",
+    "tr": ""
+  },
+  {
+    "id": 140,
+    "it": "causa",
+    "ru": "причиной",
+    "en": "cause",
+    "tr": ""
+  },
+  {
+    "id": 141,
+    "it": "molto",
+    "ru": "много",
+    "en": "much",
+    "tr": ""
+  },
+  {
+    "id": 142,
+    "it": "dire",
+    "ru": "означать",
+    "en": "mean",
+    "tr": ""
+  },
+  {
+    "id": 143,
+    "it": "prima",
+    "ru": "до",
+    "en": "before",
+    "tr": ""
+  },
+  {
+    "id": 144,
+    "it": "spostare",
+    "ru": "движение",
+    "en": "move",
+    "tr": ""
+  },
+  {
+    "id": 145,
+    "it": "diritto",
+    "ru": "право",
+    "en": "right",
+    "tr": ""
+  },
+  {
+    "id": 146,
+    "it": "ragazzo",
+    "ru": "мальчик",
+    "en": "boy",
+    "tr": ""
+  },
+  {
+    "id": 147,
+    "it": "vecchio",
+    "ru": "старый",
+    "en": "old",
+    "tr": ""
+  },
+  {
+    "id": 148,
+    "it": "troppo",
+    "ru": "слишком",
+    "en": "too",
+    "tr": ""
+  },
+  {
+    "id": 149,
+    "it": "stesso",
+    "ru": "же",
+    "en": "same",
+    "tr": ""
+  },
+  {
+    "id": 150,
+    "it": "lei",
+    "ru": "она",
+    "en": "she",
+    "tr": ""
+  },
+  {
+    "id": 151,
+    "it": "tutto",
+    "ru": "все",
+    "en": "all",
+    "tr": ""
+  },
+  {
+    "id": 152,
+    "it": "ci",
+    "ru": "там",
+    "en": "there",
+    "tr": ""
+  },
+  {
+    "id": 153,
+    "it": "quando",
+    "ru": "когда",
+    "en": "when",
+    "tr": ""
+  },
+  {
+    "id": 154,
+    "it": "su",
+    "ru": "вверх",
+    "en": "up",
+    "tr": ""
+  },
+  {
+    "id": 155,
+    "it": "uso",
+    "ru": "использование",
+    "en": "use",
+    "tr": ""
+  },
+  {
+    "id": 156,
+    "it": "il tuo",
+    "ru": "ваш",
+    "en": "your",
+    "tr": ""
+  },
+  {
+    "id": 157,
+    "it": "modo",
+    "ru": "способ",
+    "en": "way",
+    "tr": ""
+  },
+  {
+    "id": 158,
+    "it": "circa",
+    "ru": "о",
+    "en": "about",
+    "tr": ""
+  },
+  {
+    "id": 159,
+    "it": "molti",
+    "ru": "многие",
+    "en": "many",
+    "tr": ""
+  },
+  {
+    "id": 160,
+    "it": "allora",
+    "ru": "затем",
+    "en": "then",
+    "tr": ""
+  },
+  {
+    "id": 161,
+    "it": "loro",
+    "ru": "их",
+    "en": "them",
+    "tr": ""
+  },
+  {
+    "id": 162,
+    "it": "scrivere",
+    "ru": "запись",
+    "en": "write",
+    "tr": ""
+  },
+  {
+    "id": 163,
+    "it": "sarebbe",
+    "ru": "бы",
+    "en": "would",
+    "tr": ""
+  },
+  {
+    "id": 164,
+    "it": "come",
+    "ru": "подобно",
+    "en": "like",
+    "tr": ""
+  },
+  {
+    "id": 165,
+    "it": "così",
+    "ru": "так",
+    "en": "so",
+    "tr": ""
+  },
+  {
+    "id": 166,
+    "it": "queste",
+    "ru": "эти",
+    "en": "these",
+    "tr": ""
+  },
+  {
+    "id": 167,
+    "it": "lei",
+    "ru": "ее",
+    "en": "her",
+    "tr": ""
+  },
+  {
+    "id": 168,
+    "it": "lungo",
+    "ru": "долго",
+    "en": "long",
+    "tr": ""
+  },
+  {
+    "id": 169,
+    "it": "rendere",
+    "ru": "сделать",
+    "en": "make",
+    "tr": ""
+  },
+  {
+    "id": 170,
+    "it": "cosa",
+    "ru": "вещь",
+    "en": "thing",
+    "tr": ""
+  },
+  {
+    "id": 171,
+    "it": "vedere",
+    "ru": "посмотреть",
+    "en": "see",
+    "tr": ""
+  },
+  {
+    "id": 172,
+    "it": "lui",
+    "ru": "его",
+    "en": "him",
+    "tr": ""
+  },
+  {
+    "id": 173,
+    "it": "due",
+    "ru": "два",
+    "en": "two",
+    "tr": ""
+  },
+  {
+    "id": 174,
+    "it": "ha",
+    "ru": "имеет",
+    "en": "has",
+    "tr": ""
+  },
+  {
+    "id": 175,
+    "it": "guardare",
+    "ru": "искать",
+    "en": "look",
+    "tr": ""
+  },
+  {
+    "id": 176,
+    "it": "di più",
+    "ru": "еще",
+    "en": "more",
+    "tr": ""
+  },
+  {
+    "id": 177,
+    "it": "giorno",
+    "ru": "день",
+    "en": "day",
+    "tr": ""
+  },
+  {
+    "id": 178,
+    "it": "potuto",
+    "ru": "мог",
+    "en": "could",
+    "tr": ""
+  },
+  {
+    "id": 179,
+    "it": "andare",
+    "ru": "идти",
+    "en": "go",
+    "tr": ""
+  },
+  {
+    "id": 180,
+    "it": "venire",
+    "ru": "приходят",
+    "en": "come",
+    "tr": ""
+  },
+  {
+    "id": 181,
+    "it": "ha fatto",
+    "ru": "сделал",
+    "en": "did",
+    "tr": ""
+  },
+  {
+    "id": 182,
+    "it": "numero",
+    "ru": "число",
+    "en": "number",
+    "tr": ""
+  },
+  {
+    "id": 183,
+    "it": "suono",
+    "ru": "звук",
+    "en": "sound",
+    "tr": ""
+  },
+  {
+    "id": 184,
+    "it": "no",
+    "ru": "нет",
+    "en": "no",
+    "tr": ""
+  },
+  {
+    "id": 185,
+    "it": "più",
+    "ru": "наиболее",
+    "en": "most",
+    "tr": ""
+  },
+  {
+    "id": 186,
+    "it": "persone",
+    "ru": "люди",
+    "en": "people",
+    "tr": ""
+  },
+  {
+    "id": 187,
+    "it": "il mio",
+    "ru": "мой",
+    "en": "my",
+    "tr": ""
+  },
+  {
+    "id": 188,
+    "it": "oltre",
+    "ru": "над",
+    "en": "over",
+    "tr": ""
+  },
+  {
+    "id": 189,
+    "it": "sapere",
+    "ru": "знать",
+    "en": "know",
+    "tr": ""
+  },
+  {
+    "id": 190,
+    "it": "acqua",
+    "ru": "вода",
+    "en": "water",
+    "tr": ""
+  },
+  {
+    "id": 191,
+    "it": "di",
+    "ru": "чем",
+    "en": "than",
+    "tr": ""
+  },
+  {
+    "id": 192,
+    "it": "chiamata",
+    "ru": "вызов",
+    "en": "call",
+    "tr": ""
+  },
+  {
+    "id": 193,
+    "it": "primo",
+    "ru": "первый",
+    "en": "first",
+    "tr": ""
+  },
+  {
+    "id": 194,
+    "it": "che",
+    "ru": "кто",
+    "en": "who",
+    "tr": ""
+  },
+  {
+    "id": 195,
+    "it": "può",
+    "ru": "может",
+    "en": "may",
+    "tr": ""
+  },
+  {
+    "id": 196,
+    "it": "giù",
+    "ru": "вниз",
+    "en": "down",
+    "tr": ""
+  },
+  {
+    "id": 197,
+    "it": "lato",
+    "ru": "сторона",
+    "en": "side",
+    "tr": ""
+  },
+  {
+    "id": 198,
+    "it": "stato",
+    "ru": "был",
+    "en": "been",
+    "tr": ""
+  },
+  {
+    "id": 199,
+    "it": "ora",
+    "ru": "сейчас",
+    "en": "now",
+    "tr": ""
+  },
+  {
+    "id": 200,
+    "it": "trovare",
+    "ru": "находить",
+    "en": "find",
+    "tr": ""
+  },
+  {
+    "id": 201,
+    "it": "testa",
+    "ru": "руководитель",
+    "en": "head",
+    "tr": ""
+  },
+  {
+    "id": 202,
+    "it": "stare in piedi",
+    "ru": "стоять",
+    "en": "stand",
+    "tr": ""
+  },
+  {
+    "id": 203,
+    "it": "proprio",
+    "ru": "самостоятельно",
+    "en": "own",
+    "tr": ""
+  },
+  {
+    "id": 204,
+    "it": "pagina",
+    "ru": "страница",
+    "en": "page",
+    "tr": ""
+  },
+  {
+    "id": 205,
+    "it": "dovrebbe",
+    "ru": "должны",
+    "en": "should",
+    "tr": ""
+  },
+  {
+    "id": 206,
+    "it": "paese",
+    "ru": "страна",
+    "en": "country",
+    "tr": ""
+  },
+  {
+    "id": 207,
+    "it": "fondare",
+    "ru": "найдено",
+    "en": "found",
+    "tr": ""
+  },
+  {
+    "id": 208,
+    "it": "risposta",
+    "ru": "ответ",
+    "en": "answer",
+    "tr": ""
+  },
+  {
+    "id": 209,
+    "it": "scuola",
+    "ru": "школа",
+    "en": "school",
+    "tr": ""
+  },
+  {
+    "id": 210,
+    "it": "crescere",
+    "ru": "расти",
+    "en": "grow",
+    "tr": ""
+  },
+  {
+    "id": 211,
+    "it": "studio",
+    "ru": "исследование",
+    "en": "study",
+    "tr": ""
+  },
+  {
+    "id": 212,
+    "it": "ancora",
+    "ru": "еще",
+    "en": "still",
+    "tr": ""
+  },
+  {
+    "id": 213,
+    "it": "imparare",
+    "ru": "учиться",
+    "en": "learn",
+    "tr": ""
+  },
+  {
+    "id": 214,
+    "it": "impianto",
+    "ru": "завод",
+    "en": "plant",
+    "tr": ""
+  },
+  {
+    "id": 215,
+    "it": "copertura",
+    "ru": "крышка",
+    "en": "cover",
+    "tr": ""
+  },
+  {
+    "id": 216,
+    "it": "cibo",
+    "ru": "еда",
+    "en": "food",
+    "tr": ""
+  },
+  {
+    "id": 217,
+    "it": "sole",
+    "ru": "солнце",
+    "en": "sun",
+    "tr": ""
+  },
+  {
+    "id": 218,
+    "it": "quattro",
+    "ru": "четыре",
+    "en": "four",
+    "tr": ""
+  },
+  {
+    "id": 219,
+    "it": "fra",
+    "ru": "между",
+    "en": "between",
+    "tr": ""
+  },
+  {
+    "id": 220,
+    "it": "stato",
+    "ru": "состояние",
+    "en": "state",
+    "tr": ""
+  },
+  {
+    "id": 221,
+    "it": "mantenere",
+    "ru": "держать",
+    "en": "keep",
+    "tr": ""
+  },
+  {
+    "id": 222,
+    "it": "occhio",
+    "ru": "глаз",
+    "en": "eye",
+    "tr": ""
+  },
+  {
+    "id": 223,
+    "it": "mai",
+    "ru": "никогда не",
+    "en": "never",
+    "tr": ""
+  },
+  {
+    "id": 224,
+    "it": "ultimo",
+    "ru": "Последнее",
+    "en": "last",
+    "tr": ""
+  },
+  {
+    "id": 225,
+    "it": "lasciare",
+    "ru": "позволять",
+    "en": "let",
+    "tr": ""
+  },
+  {
+    "id": 226,
+    "it": "pensiero",
+    "ru": "мысль",
+    "en": "thought",
+    "tr": ""
+  },
+  {
+    "id": 227,
+    "it": "città",
+    "ru": "город",
+    "en": "city",
+    "tr": ""
+  },
+  {
+    "id": 228,
+    "it": "albero",
+    "ru": "дерево",
+    "en": "tree",
+    "tr": ""
+  },
+  {
+    "id": 229,
+    "it": "attraversare",
+    "ru": "пересекают",
+    "en": "cross",
+    "tr": ""
+  },
+  {
+    "id": 230,
+    "it": "fattoria",
+    "ru": "ферма",
+    "en": "farm",
+    "tr": ""
+  },
+  {
+    "id": 231,
+    "it": "difficile",
+    "ru": "трудно",
+    "en": "hard",
+    "tr": ""
+  },
+  {
+    "id": 232,
+    "it": "inizio",
+    "ru": "начало",
+    "en": "start",
+    "tr": ""
+  },
+  {
+    "id": 233,
+    "it": "forza",
+    "ru": "мощи",
+    "en": "might",
+    "tr": ""
+  },
+  {
+    "id": 234,
+    "it": "storia",
+    "ru": "история",
+    "en": "story",
+    "tr": ""
+  },
+  {
+    "id": 235,
+    "it": "sega",
+    "ru": "пила",
+    "en": "saw",
+    "tr": ""
+  },
+  {
+    "id": 236,
+    "it": "lontano",
+    "ru": "далеко",
+    "en": "far",
+    "tr": ""
+  },
+  {
+    "id": 237,
+    "it": "mare",
+    "ru": "море",
+    "en": "sea",
+    "tr": ""
+  },
+  {
+    "id": 238,
+    "it": "disegnare",
+    "ru": "привлечь",
+    "en": "draw",
+    "tr": ""
+  },
+  {
+    "id": 239,
+    "it": "sinistra",
+    "ru": "слева",
+    "en": "left",
+    "tr": ""
+  },
+  {
+    "id": 240,
+    "it": "tardi",
+    "ru": "поздно",
+    "en": "late",
+    "tr": ""
+  },
+  {
+    "id": 241,
+    "it": "run",
+    "ru": "запустить",
+    "en": "run",
+    "tr": ""
+  },
+  {
+    "id": 242,
+    "it": "non",
+    "ru": "не",
+    "en": "don’t",
+    "tr": ""
+  },
+  {
+    "id": 243,
+    "it": "mentre",
+    "ru": "в то время как",
+    "en": "while",
+    "tr": ""
+  },
+  {
+    "id": 244,
+    "it": "stampa",
+    "ru": "нажмите",
+    "en": "press",
+    "tr": ""
+  },
+  {
+    "id": 245,
+    "it": "close",
+    "ru": "близко",
+    "en": "close",
+    "tr": ""
+  },
+  {
+    "id": 246,
+    "it": "notte",
+    "ru": "ночь",
+    "en": "night",
+    "tr": ""
+  },
+  {
+    "id": 247,
+    "it": "reale",
+    "ru": "реальный",
+    "en": "real",
+    "tr": ""
+  },
+  {
+    "id": 248,
+    "it": "vita",
+    "ru": "жизнь",
+    "en": "life",
+    "tr": ""
+  },
+  {
+    "id": 249,
+    "it": "pochi",
+    "ru": "несколько",
+    "en": "few",
+    "tr": ""
+  },
+  {
+    "id": 250,
+    "it": "nord",
+    "ru": "к северу",
+    "en": "north",
+    "tr": ""
+  },
+  {
+    "id": 251,
+    "it": "libro",
+    "ru": "книга",
+    "en": "book",
+    "tr": ""
+  },
+  {
+    "id": 252,
+    "it": "portare",
+    "ru": "нести",
+    "en": "carry",
+    "tr": ""
+  },
+  {
+    "id": 253,
+    "it": "ha preso",
+    "ru": "взял",
+    "en": "took",
+    "tr": ""
+  },
+  {
+    "id": 254,
+    "it": "scienza",
+    "ru": "наука",
+    "en": "science",
+    "tr": ""
+  },
+  {
+    "id": 255,
+    "it": "mangiare",
+    "ru": "есть",
+    "en": "eat",
+    "tr": ""
+  },
+  {
+    "id": 256,
+    "it": "camera",
+    "ru": "номер",
+    "en": "room",
+    "tr": ""
+  },
+  {
+    "id": 257,
+    "it": "amico",
+    "ru": "друг",
+    "en": "friend",
+    "tr": ""
+  },
+  {
+    "id": 258,
+    "it": "ha iniziato",
+    "ru": "начал",
+    "en": "began",
+    "tr": ""
+  },
+  {
+    "id": 259,
+    "it": "idea",
+    "ru": "идея",
+    "en": "idea",
+    "tr": ""
+  },
+  {
+    "id": 260,
+    "it": "pesce",
+    "ru": "рыба",
+    "en": "fish",
+    "tr": ""
+  },
+  {
+    "id": 261,
+    "it": "montagna",
+    "ru": "гора",
+    "en": "mountain",
+    "tr": ""
+  },
+  {
+    "id": 262,
+    "it": "stop",
+    "ru": "остановить",
+    "en": "stop",
+    "tr": ""
+  },
+  {
+    "id": 263,
+    "it": "una volta",
+    "ru": "раз",
+    "en": "once",
+    "tr": ""
+  },
+  {
+    "id": 264,
+    "it": "base",
+    "ru": "база",
+    "en": "base",
+    "tr": ""
+  },
+  {
+    "id": 265,
+    "it": "sentire",
+    "ru": "слышать",
+    "en": "hear",
+    "tr": ""
+  },
+  {
+    "id": 266,
+    "it": "cavallo",
+    "ru": "лошадь",
+    "en": "horse",
+    "tr": ""
+  },
+  {
+    "id": 267,
+    "it": "taglio",
+    "ru": "вырезать",
+    "en": "cut",
+    "tr": ""
+  },
+  {
+    "id": 268,
+    "it": "sicuro",
+    "ru": "уверен",
+    "en": "sure",
+    "tr": ""
+  },
+  {
+    "id": 269,
+    "it": "orologio",
+    "ru": "смотреть",
+    "en": "watch",
+    "tr": ""
+  },
+  {
+    "id": 270,
+    "it": "colore",
+    "ru": "цвет",
+    "en": "color",
+    "tr": ""
+  },
+  {
+    "id": 271,
+    "it": "volto",
+    "ru": "лицо",
+    "en": "face",
+    "tr": ""
+  },
+  {
+    "id": 272,
+    "it": "legno",
+    "ru": "дерево",
+    "en": "wood",
+    "tr": ""
+  },
+  {
+    "id": 273,
+    "it": "principale",
+    "ru": "основной",
+    "en": "main",
+    "tr": ""
+  },
+  {
+    "id": 274,
+    "it": "aperto",
+    "ru": "открыт",
+    "en": "open",
+    "tr": ""
+  },
+  {
+    "id": 275,
+    "it": "sembrare",
+    "ru": "кажется",
+    "en": "seem",
+    "tr": ""
+  },
+  {
+    "id": 276,
+    "it": "insieme",
+    "ru": "вместе",
+    "en": "together",
+    "tr": ""
+  },
+  {
+    "id": 277,
+    "it": "prossimo",
+    "ru": "следующий",
+    "en": "next",
+    "tr": ""
+  },
+  {
+    "id": 278,
+    "it": "bianco",
+    "ru": "белый",
+    "en": "white",
+    "tr": ""
+  },
+  {
+    "id": 279,
+    "it": "bambini",
+    "ru": "дети",
+    "en": "children",
+    "tr": ""
+  },
+  {
+    "id": 280,
+    "it": "inizio",
+    "ru": "начать",
+    "en": "begin",
+    "tr": ""
+  },
+  {
+    "id": 281,
+    "it": "ottenuto",
+    "ru": "получил",
+    "en": "got",
+    "tr": ""
+  },
+  {
+    "id": 282,
+    "it": "camminare",
+    "ru": "ходить",
+    "en": "walk",
+    "tr": ""
+  },
+  {
+    "id": 283,
+    "it": "esempio",
+    "ru": "пример",
+    "en": "example",
+    "tr": ""
+  },
+  {
+    "id": 284,
+    "it": "alleviare",
+    "ru": "легкость",
+    "en": "ease",
+    "tr": ""
+  },
+  {
+    "id": 285,
+    "it": "carta",
+    "ru": "бумага",
+    "en": "paper",
+    "tr": ""
+  },
+  {
+    "id": 286,
+    "it": "gruppo",
+    "ru": "группа",
+    "en": "group",
+    "tr": ""
+  },
+  {
+    "id": 287,
+    "it": "sempre",
+    "ru": "всегда",
+    "en": "always",
+    "tr": ""
+  },
+  {
+    "id": 288,
+    "it": "musica",
+    "ru": "музыка",
+    "en": "music",
+    "tr": ""
+  },
+  {
+    "id": 289,
+    "it": "quelli",
+    "ru": "тех,",
+    "en": "those",
+    "tr": ""
+  },
+  {
+    "id": 290,
+    "it": "entrambi",
+    "ru": "как",
+    "en": "both",
+    "tr": ""
+  },
+  {
+    "id": 291,
+    "it": "marchio",
+    "ru": "знак",
+    "en": "mark",
+    "tr": ""
+  },
+  {
+    "id": 292,
+    "it": "spesso",
+    "ru": "часто",
+    "en": "often",
+    "tr": ""
+  },
+  {
+    "id": 293,
+    "it": "lettera",
+    "ru": "письмо",
+    "en": "letter",
+    "tr": ""
+  },
+  {
+    "id": 294,
+    "it": "fino a quando",
+    "ru": "до",
+    "en": "until",
+    "tr": ""
+  },
+  {
+    "id": 295,
+    "it": "miglio",
+    "ru": "км",
+    "en": "mile",
+    "tr": ""
+  },
+  {
+    "id": 296,
+    "it": "fiume",
+    "ru": "река",
+    "en": "river",
+    "tr": ""
+  },
+  {
+    "id": 297,
+    "it": "auto",
+    "ru": "автомобиль",
+    "en": "car",
+    "tr": ""
+  },
+  {
+    "id": 298,
+    "it": "piedi",
+    "ru": "футов",
+    "en": "feet",
+    "tr": ""
+  },
+  {
+    "id": 299,
+    "it": "cura",
+    "ru": "уход",
+    "en": "care",
+    "tr": ""
+  },
+  {
+    "id": 300,
+    "it": "secondo",
+    "ru": "Второй",
+    "en": "second",
+    "tr": ""
+  },
+  {
+    "id": 301,
+    "it": "abbastanza",
+    "ru": "достаточно",
+    "en": "enough",
+    "tr": ""
+  },
+  {
+    "id": 302,
+    "it": "pianura",
+    "ru": "равнина",
+    "en": "plain",
+    "tr": ""
+  },
+  {
+    "id": 303,
+    "it": "ragazza",
+    "ru": "девушка",
+    "en": "girl",
+    "tr": ""
+  },
+  {
+    "id": 304,
+    "it": "solito",
+    "ru": "обычно",
+    "en": "usual",
+    "tr": ""
+  },
+  {
+    "id": 305,
+    "it": "giovane",
+    "ru": "молодой",
+    "en": "young",
+    "tr": ""
+  },
+  {
+    "id": 306,
+    "it": "pronto",
+    "ru": "готовый",
+    "en": "ready",
+    "tr": ""
+  },
+  {
+    "id": 307,
+    "it": "sopra",
+    "ru": "выше",
+    "en": "above",
+    "tr": ""
+  },
+  {
+    "id": 308,
+    "it": "mai",
+    "ru": "когда-либо",
+    "en": "ever",
+    "tr": ""
+  },
+  {
+    "id": 309,
+    "it": "rosso",
+    "ru": "красный",
+    "en": "red",
+    "tr": ""
+  },
+  {
+    "id": 310,
+    "it": "elenco",
+    "ru": "список",
+    "en": "list",
+    "tr": ""
+  },
+  {
+    "id": 311,
+    "it": "anche se",
+    "ru": "хотя",
+    "en": "though",
+    "tr": ""
+  },
+  {
+    "id": 312,
+    "it": "sentire",
+    "ru": "чувствовать",
+    "en": "feel",
+    "tr": ""
+  },
+  {
+    "id": 313,
+    "it": "Discussioni",
+    "ru": "разговор",
+    "en": "talk",
+    "tr": ""
+  },
+  {
+    "id": 314,
+    "it": "uccello",
+    "ru": "птица",
+    "en": "bird",
+    "tr": ""
+  },
+  {
+    "id": 315,
+    "it": "presto",
+    "ru": "скоро",
+    "en": "soon",
+    "tr": ""
+  },
+  {
+    "id": 316,
+    "it": "corpo",
+    "ru": "тело",
+    "en": "body",
+    "tr": ""
+  },
+  {
+    "id": 317,
+    "it": "cane",
+    "ru": "собака",
+    "en": "dog",
+    "tr": ""
+  },
+  {
+    "id": 318,
+    "it": "famiglia",
+    "ru": "семья",
+    "en": "family",
+    "tr": ""
+  },
+  {
+    "id": 319,
+    "it": "diretto",
+    "ru": "прямой",
+    "en": "direct",
+    "tr": ""
+  },
+  {
+    "id": 320,
+    "it": "posa",
+    "ru": "представляют",
+    "en": "pose",
+    "tr": ""
+  },
+  {
+    "id": 321,
+    "it": "lasciare",
+    "ru": "оставить",
+    "en": "leave",
+    "tr": ""
+  },
+  {
+    "id": 322,
+    "it": "canzone",
+    "ru": "песня",
+    "en": "song",
+    "tr": ""
+  },
+  {
+    "id": 323,
+    "it": "misurare",
+    "ru": "измерять",
+    "en": "measure",
+    "tr": ""
+  },
+  {
+    "id": 324,
+    "it": "porta",
+    "ru": "дверь",
+    "en": "door",
+    "tr": ""
+  },
+  {
+    "id": 325,
+    "it": "prodotto",
+    "ru": "продукт",
+    "en": "product",
+    "tr": ""
+  },
+  {
+    "id": 326,
+    "it": "nero",
+    "ru": "черный",
+    "en": "black",
+    "tr": ""
+  },
+  {
+    "id": 327,
+    "it": "breve",
+    "ru": "короткая",
+    "en": "short",
+    "tr": ""
+  },
+  {
+    "id": 328,
+    "it": "numerale",
+    "ru": "цифра",
+    "en": "numeral",
+    "tr": ""
+  },
+  {
+    "id": 329,
+    "it": "classe",
+    "ru": "класс",
+    "en": "class",
+    "tr": ""
+  },
+  {
+    "id": 330,
+    "it": "vento",
+    "ru": "ветер",
+    "en": "wind",
+    "tr": ""
+  },
+  {
+    "id": 331,
+    "it": "domanda",
+    "ru": "вопрос",
+    "en": "question",
+    "tr": ""
+  },
+  {
+    "id": 332,
+    "it": "accadere",
+    "ru": "произойдет",
+    "en": "happen",
+    "tr": ""
+  },
+  {
+    "id": 333,
+    "it": "integrale",
+    "ru": "полная",
+    "en": "complete",
+    "tr": ""
+  },
+  {
+    "id": 334,
+    "it": "nave",
+    "ru": "корабль",
+    "en": "ship",
+    "tr": ""
+  },
+  {
+    "id": 335,
+    "it": "area",
+    "ru": "площадь",
+    "en": "area",
+    "tr": ""
+  },
+  {
+    "id": 336,
+    "it": "metà",
+    "ru": "половина",
+    "en": "half",
+    "tr": ""
+  },
+  {
+    "id": 337,
+    "it": "rock",
+    "ru": "рок",
+    "en": "rock",
+    "tr": ""
+  },
+  {
+    "id": 338,
+    "it": "ordine",
+    "ru": "порядок",
+    "en": "order",
+    "tr": ""
+  },
+  {
+    "id": 339,
+    "it": "fuoco",
+    "ru": "огонь",
+    "en": "fire",
+    "tr": ""
+  },
+  {
+    "id": 340,
+    "it": "sud",
+    "ru": "юг",
+    "en": "south",
+    "tr": ""
+  },
+  {
+    "id": 341,
+    "it": "problema",
+    "ru": "проблема",
+    "en": "problem",
+    "tr": ""
+  },
+  {
+    "id": 342,
+    "it": "pezzo",
+    "ru": "кусок",
+    "en": "piece",
+    "tr": ""
+  },
+  {
+    "id": 343,
+    "it": "ha detto",
+    "ru": "сказал",
+    "en": "told",
+    "tr": ""
+  },
+  {
+    "id": 344,
+    "it": "sapeva",
+    "ru": "знал",
+    "en": "knew",
+    "tr": ""
+  },
+  {
+    "id": 345,
+    "it": "passare",
+    "ru": "проходить",
+    "en": "pass",
+    "tr": ""
+  },
+  {
+    "id": 346,
+    "it": "da",
+    "ru": "с",
+    "en": "since",
+    "tr": ""
+  },
+  {
+    "id": 347,
+    "it": "top",
+    "ru": "топ",
+    "en": "top",
+    "tr": ""
+  },
+  {
+    "id": 348,
+    "it": "tutto",
+    "ru": "весь",
+    "en": "whole",
+    "tr": ""
+  },
+  {
+    "id": 349,
+    "it": "re",
+    "ru": "король",
+    "en": "king",
+    "tr": ""
+  },
+  {
+    "id": 350,
+    "it": "strada",
+    "ru": "улица",
+    "en": "street",
+    "tr": ""
+  },
+  {
+    "id": 351,
+    "it": "pollice",
+    "ru": "дюйм",
+    "en": "inch",
+    "tr": ""
+  },
+  {
+    "id": 352,
+    "it": "moltiplicare",
+    "ru": "умножить",
+    "en": "multiply",
+    "tr": ""
+  },
+  {
+    "id": 353,
+    "it": "niente",
+    "ru": "ничего",
+    "en": "nothing",
+    "tr": ""
+  },
+  {
+    "id": 354,
+    "it": "corso",
+    "ru": "курс",
+    "en": "course",
+    "tr": ""
+  },
+  {
+    "id": 355,
+    "it": "soggiornare",
+    "ru": "оставаться",
+    "en": "stay",
+    "tr": ""
+  },
+  {
+    "id": 356,
+    "it": "ruota",
+    "ru": "колеса",
+    "en": "wheel",
+    "tr": ""
+  },
+  {
+    "id": 357,
+    "it": "completo",
+    "ru": "полный",
+    "en": "full",
+    "tr": ""
+  },
+  {
+    "id": 358,
+    "it": "vigore",
+    "ru": "сила",
+    "en": "force",
+    "tr": ""
+  },
+  {
+    "id": 359,
+    "it": "blu",
+    "ru": "синий",
+    "en": "blue",
+    "tr": ""
+  },
+  {
+    "id": 360,
+    "it": "oggetto",
+    "ru": "объект",
+    "en": "object",
+    "tr": ""
+  },
+  {
+    "id": 361,
+    "it": "decidere",
+    "ru": "решать",
+    "en": "decide",
+    "tr": ""
+  },
+  {
+    "id": 362,
+    "it": "superficie",
+    "ru": "поверхность",
+    "en": "surface",
+    "tr": ""
+  },
+  {
+    "id": 363,
+    "it": "profondità",
+    "ru": "глубоко",
+    "en": "deep",
+    "tr": ""
+  },
+  {
+    "id": 364,
+    "it": "luna",
+    "ru": "луна",
+    "en": "moon",
+    "tr": ""
+  },
+  {
+    "id": 365,
+    "it": "isola",
+    "ru": "остров",
+    "en": "island",
+    "tr": ""
+  },
+  {
+    "id": 366,
+    "it": "piede",
+    "ru": "фут",
+    "en": "foot",
+    "tr": ""
+  },
+  {
+    "id": 367,
+    "it": "sistema",
+    "ru": "система",
+    "en": "system",
+    "tr": ""
+  },
+  {
+    "id": 368,
+    "it": "occupato",
+    "ru": "занято",
+    "en": "busy",
+    "tr": ""
+  },
+  {
+    "id": 369,
+    "it": "test",
+    "ru": "тест",
+    "en": "test",
+    "tr": ""
+  },
+  {
+    "id": 370,
+    "it": "record",
+    "ru": "запись",
+    "en": "record",
+    "tr": ""
+  },
+  {
+    "id": 371,
+    "it": "barca",
+    "ru": "лодка",
+    "en": "boat",
+    "tr": ""
+  },
+  {
+    "id": 372,
+    "it": "comune",
+    "ru": "общая",
+    "en": "common",
+    "tr": ""
+  },
+  {
+    "id": 373,
+    "it": "oro",
+    "ru": "золото",
+    "en": "gold",
+    "tr": ""
+  },
+  {
+    "id": 374,
+    "it": "possibile",
+    "ru": "возможно",
+    "en": "possible",
+    "tr": ""
+  },
+  {
+    "id": 375,
+    "it": "piano",
+    "ru": "самолет",
+    "en": "plane",
+    "tr": ""
+  },
+  {
+    "id": 376,
+    "it": "vece",
+    "ru": "вместо него",
+    "en": "stead",
+    "tr": ""
+  },
+  {
+    "id": 377,
+    "it": "asciutto",
+    "ru": "сухой",
+    "en": "dry",
+    "tr": ""
+  },
+  {
+    "id": 378,
+    "it": "meraviglia",
+    "ru": "Интересно",
+    "en": "wonder",
+    "tr": ""
+  },
+  {
+    "id": 379,
+    "it": "ridere",
+    "ru": "смех",
+    "en": "laugh",
+    "tr": ""
+  },
+  {
+    "id": 380,
+    "it": "migliaia",
+    "ru": "тыс",
+    "en": "thousand",
+    "tr": ""
+  },
+  {
+    "id": 381,
+    "it": "fa",
+    "ru": "назад",
+    "en": "ago",
+    "tr": ""
+  },
+  {
+    "id": 382,
+    "it": "corse",
+    "ru": "побежал",
+    "en": "ran",
+    "tr": ""
+  },
+  {
+    "id": 383,
+    "it": "controllare",
+    "ru": "проверять",
+    "en": "check",
+    "tr": ""
+  },
+  {
+    "id": 384,
+    "it": "gioco",
+    "ru": "игра",
+    "en": "game",
+    "tr": ""
+  },
+  {
+    "id": 385,
+    "it": "forma",
+    "ru": "форма",
+    "en": "shape",
+    "tr": ""
+  },
+  {
+    "id": 386,
+    "it": "uguagliare",
+    "ru": "приравнять",
+    "en": "equate",
+    "tr": ""
+  },
+  {
+    "id": 387,
+    "it": "caldo",
+    "ru": "горячий",
+    "en": "hot",
+    "tr": ""
+  },
+  {
+    "id": 388,
+    "it": "perdere",
+    "ru": "мисс",
+    "en": "miss",
+    "tr": ""
+  },
+  {
+    "id": 389,
+    "it": "portato",
+    "ru": "принес",
+    "en": "brought",
+    "tr": ""
+  },
+  {
+    "id": 390,
+    "it": "calore",
+    "ru": "тепло",
+    "en": "heat",
+    "tr": ""
+  },
+  {
+    "id": 391,
+    "it": "neve",
+    "ru": "снег",
+    "en": "snow",
+    "tr": ""
+  },
+  {
+    "id": 392,
+    "it": "pneumatico",
+    "ru": "шина",
+    "en": "tire",
+    "tr": ""
+  },
+  {
+    "id": 393,
+    "it": "portare",
+    "ru": "приносить",
+    "en": "bring",
+    "tr": ""
+  },
+  {
+    "id": 394,
+    "it": "sì",
+    "ru": "да",
+    "en": "yes",
+    "tr": ""
+  },
+  {
+    "id": 395,
+    "it": "lontano",
+    "ru": "удаленная",
+    "en": "distant",
+    "tr": ""
+  },
+  {
+    "id": 396,
+    "it": "riempire",
+    "ru": "заполнить",
+    "en": "fill",
+    "tr": ""
+  },
+  {
+    "id": 397,
+    "it": "est",
+    "ru": "восток",
+    "en": "east",
+    "tr": ""
+  },
+  {
+    "id": 398,
+    "it": "dipingere",
+    "ru": "краска",
+    "en": "paint",
+    "tr": ""
+  },
+  {
+    "id": 399,
+    "it": "lingua",
+    "ru": "язык",
+    "en": "language",
+    "tr": ""
+  },
+  {
+    "id": 400,
+    "it": "tra",
+    "ru": "среди",
+    "en": "among",
+    "tr": ""
+  },
+  {
+    "id": 401,
+    "it": "unità",
+    "ru": "блок",
+    "en": "unit",
+    "tr": ""
+  },
+  {
+    "id": 402,
+    "it": "potenza",
+    "ru": "мощность",
+    "en": "power",
+    "tr": ""
+  },
+  {
+    "id": 403,
+    "it": "città",
+    "ru": "город",
+    "en": "town",
+    "tr": ""
+  },
+  {
+    "id": 404,
+    "it": "fine",
+    "ru": "отлично",
+    "en": "fine",
+    "tr": ""
+  },
+  {
+    "id": 405,
+    "it": "certo",
+    "ru": "уверен",
+    "en": "certain",
+    "tr": ""
+  },
+  {
+    "id": 406,
+    "it": "volare",
+    "ru": "летать",
+    "en": "fly",
+    "tr": ""
+  },
+  {
+    "id": 407,
+    "it": "cadere",
+    "ru": "падать",
+    "en": "fall",
+    "tr": ""
+  },
+  {
+    "id": 408,
+    "it": "portare",
+    "ru": "привести",
+    "en": "lead",
+    "tr": ""
+  },
+  {
+    "id": 409,
+    "it": "grido",
+    "ru": "крик",
+    "en": "cry",
+    "tr": ""
+  },
+  {
+    "id": 410,
+    "it": "scuro",
+    "ru": "темно",
+    "en": "dark",
+    "tr": ""
+  },
+  {
+    "id": 411,
+    "it": "macchina",
+    "ru": "машина",
+    "en": "machine",
+    "tr": ""
+  },
+  {
+    "id": 412,
+    "it": "nota",
+    "ru": "примечание",
+    "en": "note",
+    "tr": ""
+  },
+  {
+    "id": 413,
+    "it": "aspettare",
+    "ru": "ждать",
+    "en": "wait",
+    "tr": ""
+  },
+  {
+    "id": 414,
+    "it": "piano",
+    "ru": "план",
+    "en": "plan",
+    "tr": ""
+  },
+  {
+    "id": 415,
+    "it": "figura",
+    "ru": "фигура",
+    "en": "figure",
+    "tr": ""
+  },
+  {
+    "id": 416,
+    "it": "stella",
+    "ru": "звезда",
+    "en": "star",
+    "tr": ""
+  },
+  {
+    "id": 417,
+    "it": "scatola",
+    "ru": "коробка",
+    "en": "box",
+    "tr": ""
+  },
+  {
+    "id": 418,
+    "it": "sostantivo",
+    "ru": "существительное",
+    "en": "noun",
+    "tr": ""
+  },
+  {
+    "id": 419,
+    "it": "campo",
+    "ru": "поле",
+    "en": "field",
+    "tr": ""
+  },
+  {
+    "id": 420,
+    "it": "resto",
+    "ru": "остальные",
+    "en": "rest",
+    "tr": ""
+  },
+  {
+    "id": 421,
+    "it": "corretto",
+    "ru": "верный",
+    "en": "correct",
+    "tr": ""
+  },
+  {
+    "id": 422,
+    "it": "in grado di",
+    "ru": "состоянии",
+    "en": "able",
+    "tr": ""
+  },
+  {
+    "id": 423,
+    "it": "libbra",
+    "ru": "фунт",
+    "en": "pound",
+    "tr": ""
+  },
+  {
+    "id": 424,
+    "it": "done",
+    "ru": "сделано",
+    "en": "done",
+    "tr": ""
+  },
+  {
+    "id": 425,
+    "it": "bellezza",
+    "ru": "красота",
+    "en": "beauty",
+    "tr": ""
+  },
+  {
+    "id": 426,
+    "it": "unità",
+    "ru": "привод",
+    "en": "drive",
+    "tr": ""
+  },
+  {
+    "id": 427,
+    "it": "sorgeva",
+    "ru": "стоял",
+    "en": "stood",
+    "tr": ""
+  },
+  {
+    "id": 428,
+    "it": "contenere",
+    "ru": "содержать",
+    "en": "contain",
+    "tr": ""
+  },
+  {
+    "id": 429,
+    "it": "frontale",
+    "ru": "передние",
+    "en": "front",
+    "tr": ""
+  },
+  {
+    "id": 430,
+    "it": "insegnare",
+    "ru": "учить",
+    "en": "teach",
+    "tr": ""
+  },
+  {
+    "id": 431,
+    "it": "settimana",
+    "ru": "неделя",
+    "en": "week",
+    "tr": ""
+  },
+  {
+    "id": 432,
+    "it": "finale",
+    "ru": "окончательный",
+    "en": "final",
+    "tr": ""
+  },
+  {
+    "id": 433,
+    "it": "ha dato",
+    "ru": "дал",
+    "en": "gave",
+    "tr": ""
+  },
+  {
+    "id": 434,
+    "it": "verde",
+    "ru": "зеленый",
+    "en": "green",
+    "tr": ""
+  },
+  {
+    "id": 435,
+    "it": "oh",
+    "ru": "ой",
+    "en": "oh",
+    "tr": ""
+  },
+  {
+    "id": 436,
+    "it": "veloce",
+    "ru": "быстро",
+    "en": "quick",
+    "tr": ""
+  },
+  {
+    "id": 437,
+    "it": "sviluppare",
+    "ru": "развивать",
+    "en": "develop",
+    "tr": ""
+  },
+  {
+    "id": 438,
+    "it": "oceano",
+    "ru": "океан",
+    "en": "ocean",
+    "tr": ""
+  },
+  {
+    "id": 439,
+    "it": "caldo",
+    "ru": "теплый",
+    "en": "warm",
+    "tr": ""
+  },
+  {
+    "id": 440,
+    "it": "gratuito",
+    "ru": "бесплатно",
+    "en": "free",
+    "tr": ""
+  },
+  {
+    "id": 441,
+    "it": "minuto",
+    "ru": "минут",
+    "en": "minute",
+    "tr": ""
+  },
+  {
+    "id": 442,
+    "it": "forte",
+    "ru": "сильный",
+    "en": "strong",
+    "tr": ""
+  },
+  {
+    "id": 443,
+    "it": "speciale",
+    "ru": "специальный",
+    "en": "special",
+    "tr": ""
+  },
+  {
+    "id": 444,
+    "it": "mente",
+    "ru": "ум",
+    "en": "mind",
+    "tr": ""
+  },
+  {
+    "id": 445,
+    "it": "dietro",
+    "ru": "за",
+    "en": "behind",
+    "tr": ""
+  },
+  {
+    "id": 446,
+    "it": "chiaro",
+    "ru": "ясно",
+    "en": "clear",
+    "tr": ""
+  },
+  {
+    "id": 447,
+    "it": "coda",
+    "ru": "хвост",
+    "en": "tail",
+    "tr": ""
+  },
+  {
+    "id": 448,
+    "it": "produrre",
+    "ru": "производить",
+    "en": "produce",
+    "tr": ""
+  },
+  {
+    "id": 449,
+    "it": "fatto",
+    "ru": "факт",
+    "en": "fact",
+    "tr": ""
+  },
+  {
+    "id": 450,
+    "it": "spazio",
+    "ru": "пространство",
+    "en": "space",
+    "tr": ""
+  },
+  {
+    "id": 451,
+    "it": "sentito",
+    "ru": "слышал",
+    "en": "heard",
+    "tr": ""
+  },
+  {
+    "id": 452,
+    "it": "migliore",
+    "ru": "лучше",
+    "en": "best",
+    "tr": ""
+  },
+  {
+    "id": 453,
+    "it": "ora",
+    "ru": "час",
+    "en": "hour",
+    "tr": ""
+  },
+  {
+    "id": 454,
+    "it": "meglio",
+    "ru": "лучше",
+    "en": "better",
+    "tr": ""
+  },
+  {
+    "id": 455,
+    "it": "vero",
+    "ru": "правда",
+    "en": "true",
+    "tr": ""
+  },
+  {
+    "id": 456,
+    "it": "durante",
+    "ru": "во",
+    "en": "during",
+    "tr": ""
+  },
+  {
+    "id": 457,
+    "it": "cento",
+    "ru": "сто",
+    "en": "hundred",
+    "tr": ""
+  },
+  {
+    "id": 458,
+    "it": "cinque",
+    "ru": "пять",
+    "en": "five",
+    "tr": ""
+  },
+  {
+    "id": 459,
+    "it": "ricordare",
+    "ru": "запомнить",
+    "en": "remember",
+    "tr": ""
+  },
+  {
+    "id": 460,
+    "it": "passo",
+    "ru": "шаг",
+    "en": "step",
+    "tr": ""
+  },
+  {
+    "id": 461,
+    "it": "presto",
+    "ru": "рано",
+    "en": "early",
+    "tr": ""
+  },
+  {
+    "id": 462,
+    "it": "tenere",
+    "ru": "удерживайте",
+    "en": "hold",
+    "tr": ""
+  },
+  {
+    "id": 463,
+    "it": "ovest",
+    "ru": "запад",
+    "en": "west",
+    "tr": ""
+  },
+  {
+    "id": 464,
+    "it": "terra",
+    "ru": "земля",
+    "en": "ground",
+    "tr": ""
+  },
+  {
+    "id": 465,
+    "it": "interesse",
+    "ru": "интерес",
+    "en": "interest",
+    "tr": ""
+  },
+  {
+    "id": 466,
+    "it": "raggiungere",
+    "ru": "достичь",
+    "en": "reach",
+    "tr": ""
+  },
+  {
+    "id": 467,
+    "it": "veloce",
+    "ru": "быстро",
+    "en": "fast",
+    "tr": ""
+  },
+  {
+    "id": 468,
+    "it": "verbo",
+    "ru": "глагол",
+    "en": "verb",
+    "tr": ""
+  },
+  {
+    "id": 469,
+    "it": "cantare",
+    "ru": "петь",
+    "en": "sing",
+    "tr": ""
+  },
+  {
+    "id": 470,
+    "it": "ascoltare",
+    "ru": "слушать",
+    "en": "listen",
+    "tr": ""
+  },
+  {
+    "id": 471,
+    "it": "sei",
+    "ru": "шесть",
+    "en": "six",
+    "tr": ""
+  },
+  {
+    "id": 472,
+    "it": "tavolo",
+    "ru": "стол",
+    "en": "table",
+    "tr": ""
+  },
+  {
+    "id": 473,
+    "it": "viaggi",
+    "ru": "поездки",
+    "en": "travel",
+    "tr": ""
+  },
+  {
+    "id": 474,
+    "it": "meno",
+    "ru": "меньше",
+    "en": "less",
+    "tr": ""
+  },
+  {
+    "id": 475,
+    "it": "mattina",
+    "ru": "утро",
+    "en": "morning",
+    "tr": ""
+  },
+  {
+    "id": 476,
+    "it": "dieci",
+    "ru": "десять",
+    "en": "ten",
+    "tr": ""
+  },
+  {
+    "id": 477,
+    "it": "semplice",
+    "ru": "простой",
+    "en": "simple",
+    "tr": ""
+  },
+  {
+    "id": 478,
+    "it": "alcuni",
+    "ru": "несколько",
+    "en": "several",
+    "tr": ""
+  },
+  {
+    "id": 479,
+    "it": "vocale",
+    "ru": "гласный",
+    "en": "vowel",
+    "tr": ""
+  },
+  {
+    "id": 480,
+    "it": "verso",
+    "ru": "к",
+    "en": "toward",
+    "tr": ""
+  },
+  {
+    "id": 481,
+    "it": "guerra",
+    "ru": "война",
+    "en": "war",
+    "tr": ""
+  },
+  {
+    "id": 482,
+    "it": "porre",
+    "ru": "заложить",
+    "en": "lay",
+    "tr": ""
+  },
+  {
+    "id": 483,
+    "it": "contro",
+    "ru": "против",
+    "en": "against",
+    "tr": ""
+  },
+  {
+    "id": 484,
+    "it": "modello",
+    "ru": "шаблон",
+    "en": "pattern",
+    "tr": ""
+  },
+  {
+    "id": 485,
+    "it": "lento",
+    "ru": "медленно",
+    "en": "slow",
+    "tr": ""
+  },
+  {
+    "id": 486,
+    "it": "centro",
+    "ru": "центр",
+    "en": "center",
+    "tr": ""
+  },
+  {
+    "id": 487,
+    "it": "amore",
+    "ru": "любовь",
+    "en": "love",
+    "tr": ""
+  },
+  {
+    "id": 488,
+    "it": "persona",
+    "ru": "человек",
+    "en": "person",
+    "tr": ""
+  },
+  {
+    "id": 489,
+    "it": "soldi",
+    "ru": "деньги",
+    "en": "money",
+    "tr": ""
+  },
+  {
+    "id": 490,
+    "it": "servire",
+    "ru": "служить",
+    "en": "serve",
+    "tr": ""
+  },
+  {
+    "id": 491,
+    "it": "apparire",
+    "ru": "появляются",
+    "en": "appear",
+    "tr": ""
+  },
+  {
+    "id": 492,
+    "it": "strada",
+    "ru": "дорога",
+    "en": "road",
+    "tr": ""
+  },
+  {
+    "id": 493,
+    "it": "mappa",
+    "ru": "карта",
+    "en": "map",
+    "tr": ""
+  },
+  {
+    "id": 494,
+    "it": "pioggia",
+    "ru": "дождь",
+    "en": "rain",
+    "tr": ""
+  },
+  {
+    "id": 495,
+    "it": "regola",
+    "ru": "правило",
+    "en": "rule",
+    "tr": ""
+  },
+  {
+    "id": 496,
+    "it": "governare",
+    "ru": "управлять",
+    "en": "govern",
+    "tr": ""
+  },
+  {
+    "id": 497,
+    "it": "tirare",
+    "ru": "тянуть",
+    "en": "pull",
+    "tr": ""
+  },
+  {
+    "id": 498,
+    "it": "freddo",
+    "ru": "холодный",
+    "en": "cold",
+    "tr": ""
+  },
+  {
+    "id": 499,
+    "it": "avviso",
+    "ru": "уведомление",
+    "en": "notice",
+    "tr": ""
+  },
+  {
+    "id": 500,
+    "it": "voce",
+    "ru": "голос",
+    "en": "voice",
+    "tr": ""
+  },
+  {
+    "id": 501,
+    "it": "energia",
+    "ru": "энергия",
+    "en": "energy",
+    "tr": ""
+  },
+  {
+    "id": 502,
+    "it": "caccia",
+    "ru": "охота",
+    "en": "hunt",
+    "tr": ""
+  },
+  {
+    "id": 503,
+    "it": "probabile",
+    "ru": "вероятный",
+    "en": "probable",
+    "tr": ""
+  },
+  {
+    "id": 504,
+    "it": "letto",
+    "ru": "кровать",
+    "en": "bed",
+    "tr": ""
+  },
+  {
+    "id": 505,
+    "it": "fratello",
+    "ru": "брат",
+    "en": "brother",
+    "tr": ""
+  },
+  {
+    "id": 506,
+    "it": "uovo",
+    "ru": "яйцо",
+    "en": "egg",
+    "tr": ""
+  },
+  {
+    "id": 507,
+    "it": "giro",
+    "ru": "поездка",
+    "en": "ride",
+    "tr": ""
+  },
+  {
+    "id": 508,
+    "it": "cella",
+    "ru": "клеток",
+    "en": "cell",
+    "tr": ""
+  },
+  {
+    "id": 509,
+    "it": "credere",
+    "ru": "верить",
+    "en": "believe",
+    "tr": ""
+  },
+  {
+    "id": 510,
+    "it": "forse",
+    "ru": "возможно,",
+    "en": "perhaps",
+    "tr": ""
+  },
+  {
+    "id": 511,
+    "it": "scegliere",
+    "ru": "выбрать",
+    "en": "pick",
+    "tr": ""
+  },
+  {
+    "id": 512,
+    "it": "improvviso",
+    "ru": "внезапный",
+    "en": "sudden",
+    "tr": ""
+  },
+  {
+    "id": 513,
+    "it": "contare",
+    "ru": "считать",
+    "en": "count",
+    "tr": ""
+  },
+  {
+    "id": 514,
+    "it": "piazza",
+    "ru": "Квадратный",
+    "en": "square",
+    "tr": ""
+  },
+  {
+    "id": 515,
+    "it": "motivo",
+    "ru": "причина",
+    "en": "reason",
+    "tr": ""
+  },
+  {
+    "id": 516,
+    "it": "lunghezza",
+    "ru": "длина",
+    "en": "length",
+    "tr": ""
+  },
+  {
+    "id": 517,
+    "it": "rappresentare",
+    "ru": "представлять",
+    "en": "represent",
+    "tr": ""
+  },
+  {
+    "id": 518,
+    "it": "arte",
+    "ru": "искусство",
+    "en": "art",
+    "tr": ""
+  },
+  {
+    "id": 519,
+    "it": "soggetto",
+    "ru": "Заголовок",
+    "en": "subject",
+    "tr": ""
+  },
+  {
+    "id": 520,
+    "it": "regione",
+    "ru": "область",
+    "en": "region",
+    "tr": ""
+  },
+  {
+    "id": 521,
+    "it": "dimensione",
+    "ru": "размер",
+    "en": "size",
+    "tr": ""
+  },
+  {
+    "id": 522,
+    "it": "variare",
+    "ru": "меняться",
+    "en": "vary",
+    "tr": ""
+  },
+  {
+    "id": 523,
+    "it": "risolvere",
+    "ru": "урегулировать",
+    "en": "settle",
+    "tr": ""
+  },
+  {
+    "id": 524,
+    "it": "parlare",
+    "ru": "говорить",
+    "en": "speak",
+    "tr": ""
+  },
+  {
+    "id": 525,
+    "it": "peso",
+    "ru": "вес",
+    "en": "weight",
+    "tr": ""
+  },
+  {
+    "id": 526,
+    "it": "generale",
+    "ru": "общий",
+    "en": "general",
+    "tr": ""
+  },
+  {
+    "id": 527,
+    "it": "ghiaccio",
+    "ru": "лед",
+    "en": "ice",
+    "tr": ""
+  },
+  {
+    "id": 528,
+    "it": "materia",
+    "ru": "дело",
+    "en": "matter",
+    "tr": ""
+  },
+  {
+    "id": 529,
+    "it": "cerchio",
+    "ru": "круг",
+    "en": "circle",
+    "tr": ""
+  },
+  {
+    "id": 530,
+    "it": "coppia",
+    "ru": "пара",
+    "en": "pair",
+    "tr": ""
+  },
+  {
+    "id": 531,
+    "it": "includere",
+    "ru": "включают",
+    "en": "include",
+    "tr": ""
+  },
+  {
+    "id": 532,
+    "it": "divide",
+    "ru": "разделяй",
+    "en": "divide",
+    "tr": ""
+  },
+  {
+    "id": 533,
+    "it": "sillaba",
+    "ru": "слог",
+    "en": "syllable",
+    "tr": ""
+  },
+  {
+    "id": 534,
+    "it": "feltro",
+    "ru": "чувствовал",
+    "en": "felt",
+    "tr": ""
+  },
+  {
+    "id": 535,
+    "it": "grande",
+    "ru": "великий",
+    "en": "grand",
+    "tr": ""
+  },
+  {
+    "id": 536,
+    "it": "palla",
+    "ru": "мяч",
+    "en": "ball",
+    "tr": ""
+  },
+  {
+    "id": 537,
+    "it": "ancora",
+    "ru": "еще",
+    "en": "yet",
+    "tr": ""
+  },
+  {
+    "id": 538,
+    "it": "onda",
+    "ru": "волна",
+    "en": "wave",
+    "tr": ""
+  },
+  {
+    "id": 539,
+    "it": "cadere",
+    "ru": "падение",
+    "en": "drop",
+    "tr": ""
+  },
+  {
+    "id": 540,
+    "it": "cuore",
+    "ru": "сердце",
+    "en": "heart",
+    "tr": ""
+  },
+  {
+    "id": 541,
+    "it": "am",
+    "ru": "утра",
+    "en": "am",
+    "tr": ""
+  },
+  {
+    "id": 542,
+    "it": "presente",
+    "ru": "присутствует",
+    "en": "present",
+    "tr": ""
+  },
+  {
+    "id": 543,
+    "it": "pesante",
+    "ru": "тяжелый",
+    "en": "heavy",
+    "tr": ""
+  },
+  {
+    "id": 544,
+    "it": "danza",
+    "ru": "танец",
+    "en": "dance",
+    "tr": ""
+  },
+  {
+    "id": 545,
+    "it": "motore",
+    "ru": "двигатель",
+    "en": "engine",
+    "tr": ""
+  },
+  {
+    "id": 546,
+    "it": "posizione",
+    "ru": "положение",
+    "en": "position",
+    "tr": ""
+  },
+  {
+    "id": 547,
+    "it": "braccio",
+    "ru": "рука",
+    "en": "arm",
+    "tr": ""
+  },
+  {
+    "id": 548,
+    "it": "ampio",
+    "ru": "широкий",
+    "en": "wide",
+    "tr": ""
+  },
+  {
+    "id": 549,
+    "it": "vela",
+    "ru": "парус",
+    "en": "sail",
+    "tr": ""
+  },
+  {
+    "id": 550,
+    "it": "materiale",
+    "ru": "материал",
+    "en": "material",
+    "tr": ""
+  },
+  {
+    "id": 551,
+    "it": "frazione",
+    "ru": "доля",
+    "en": "fraction",
+    "tr": ""
+  },
+  {
+    "id": 552,
+    "it": "foresta",
+    "ru": "лес",
+    "en": "forest",
+    "tr": ""
+  },
+  {
+    "id": 553,
+    "it": "sedersi",
+    "ru": "сидеть",
+    "en": "sit",
+    "tr": ""
+  },
+  {
+    "id": 554,
+    "it": "gara",
+    "ru": "гонка",
+    "en": "race",
+    "tr": ""
+  },
+  {
+    "id": 555,
+    "it": "finestra",
+    "ru": "окно",
+    "en": "window",
+    "tr": ""
+  },
+  {
+    "id": 556,
+    "it": "negozio",
+    "ru": "магазин",
+    "en": "store",
+    "tr": ""
+  },
+  {
+    "id": 557,
+    "it": "estate",
+    "ru": "лето",
+    "en": "summer",
+    "tr": ""
+  },
+  {
+    "id": 558,
+    "it": "treno",
+    "ru": "поезд",
+    "en": "train",
+    "tr": ""
+  },
+  {
+    "id": 559,
+    "it": "sonno",
+    "ru": "сон",
+    "en": "sleep",
+    "tr": ""
+  },
+  {
+    "id": 560,
+    "it": "dimostrare",
+    "ru": "доказывать",
+    "en": "prove",
+    "tr": ""
+  },
+  {
+    "id": 561,
+    "it": "solitario",
+    "ru": "одинокий",
+    "en": "lone",
+    "tr": ""
+  },
+  {
+    "id": 562,
+    "it": "gamba",
+    "ru": "нога",
+    "en": "leg",
+    "tr": ""
+  },
+  {
+    "id": 563,
+    "it": "esercizio",
+    "ru": "упражнение",
+    "en": "exercise",
+    "tr": ""
+  },
+  {
+    "id": 564,
+    "it": "muro",
+    "ru": "стена",
+    "en": "wall",
+    "tr": ""
+  },
+  {
+    "id": 565,
+    "it": "prendere",
+    "ru": "улов",
+    "en": "catch",
+    "tr": ""
+  },
+  {
+    "id": 566,
+    "it": "monte",
+    "ru": "крепление",
+    "en": "mount",
+    "tr": ""
+  },
+  {
+    "id": 567,
+    "it": "desiderio",
+    "ru": "хотите",
+    "en": "wish",
+    "tr": ""
+  },
+  {
+    "id": 568,
+    "it": "cielo",
+    "ru": "небо",
+    "en": "sky",
+    "tr": ""
+  },
+  {
+    "id": 569,
+    "it": "pensione",
+    "ru": "доска",
+    "en": "board",
+    "tr": ""
+  },
+  {
+    "id": 570,
+    "it": "gioia",
+    "ru": "радость",
+    "en": "joy",
+    "tr": ""
+  },
+  {
+    "id": 571,
+    "it": "inverno",
+    "ru": "зима",
+    "en": "winter",
+    "tr": ""
+  },
+  {
+    "id": 572,
+    "it": "sat",
+    "ru": "Сб",
+    "en": "sat",
+    "tr": ""
+  },
+  {
+    "id": 573,
+    "it": "scritto",
+    "ru": "написанный",
+    "en": "written",
+    "tr": ""
+  },
+  {
+    "id": 574,
+    "it": "selvaggio",
+    "ru": "дикий",
+    "en": "wild",
+    "tr": ""
+  },
+  {
+    "id": 575,
+    "it": "strumento",
+    "ru": "инструмент",
+    "en": "instrument",
+    "tr": ""
+  },
+  {
+    "id": 576,
+    "it": "tenere",
+    "ru": "хранится",
+    "en": "kept",
+    "tr": ""
+  },
+  {
+    "id": 577,
+    "it": "vetro",
+    "ru": "стекло",
+    "en": "glass",
+    "tr": ""
+  },
+  {
+    "id": 578,
+    "it": "erba",
+    "ru": "трава",
+    "en": "grass",
+    "tr": ""
+  },
+  {
+    "id": 579,
+    "it": "mucca",
+    "ru": "корова",
+    "en": "cow",
+    "tr": ""
+  },
+  {
+    "id": 580,
+    "it": "lavoro",
+    "ru": "работа",
+    "en": "job",
+    "tr": ""
+  },
+  {
+    "id": 581,
+    "it": "bordo",
+    "ru": "край",
+    "en": "edge",
+    "tr": ""
+  },
+  {
+    "id": 582,
+    "it": "segno",
+    "ru": "знак",
+    "en": "sign",
+    "tr": ""
+  },
+  {
+    "id": 583,
+    "it": "visita",
+    "ru": "визит",
+    "en": "visit",
+    "tr": ""
+  },
+  {
+    "id": 584,
+    "it": "passato",
+    "ru": "мимо",
+    "en": "past",
+    "tr": ""
+  },
+  {
+    "id": 585,
+    "it": "morbido",
+    "ru": "мягкая",
+    "en": "soft",
+    "tr": ""
+  },
+  {
+    "id": 586,
+    "it": "divertimento",
+    "ru": "весело",
+    "en": "fun",
+    "tr": ""
+  },
+  {
+    "id": 587,
+    "it": "luminoso",
+    "ru": "яркий",
+    "en": "bright",
+    "tr": ""
+  },
+  {
+    "id": 588,
+    "it": "gas",
+    "ru": "газа",
+    "en": "gas",
+    "tr": ""
+  },
+  {
+    "id": 589,
+    "it": "tempo",
+    "ru": "погода",
+    "en": "weather",
+    "tr": ""
+  },
+  {
+    "id": 590,
+    "it": "mese",
+    "ru": "месяц",
+    "en": "month",
+    "tr": ""
+  },
+  {
+    "id": 591,
+    "it": "milione",
+    "ru": "миллион",
+    "en": "million",
+    "tr": ""
+  },
+  {
+    "id": 592,
+    "it": "sopportare",
+    "ru": "нести",
+    "en": "bear",
+    "tr": ""
+  },
+  {
+    "id": 593,
+    "it": "finitura",
+    "ru": "отделка",
+    "en": "finish",
+    "tr": ""
+  },
+  {
+    "id": 594,
+    "it": "felice",
+    "ru": "счастливы",
+    "en": "happy",
+    "tr": ""
+  },
+  {
+    "id": 595,
+    "it": "speranza",
+    "ru": "надеюсь",
+    "en": "hope",
+    "tr": ""
+  },
+  {
+    "id": 596,
+    "it": "fiore",
+    "ru": "цветок",
+    "en": "flower",
+    "tr": ""
+  },
+  {
+    "id": 597,
+    "it": "vestire",
+    "ru": "одевать",
+    "en": "clothe",
+    "tr": ""
+  },
+  {
+    "id": 598,
+    "it": "strano",
+    "ru": "странный",
+    "en": "strange",
+    "tr": ""
+  },
+  {
+    "id": 599,
+    "it": "gone",
+    "ru": "ушел",
+    "en": "gone",
+    "tr": ""
+  },
+  {
+    "id": 600,
+    "it": "commercio",
+    "ru": "торговля",
+    "en": "trade",
+    "tr": ""
+  },
+  {
+    "id": 601,
+    "it": "melodia",
+    "ru": "мелодия",
+    "en": "melody",
+    "tr": ""
+  },
+  {
+    "id": 602,
+    "it": "viaggio",
+    "ru": "поездка",
+    "en": "trip",
+    "tr": ""
+  },
+  {
+    "id": 603,
+    "it": "ufficio",
+    "ru": "офис",
+    "en": "office",
+    "tr": ""
+  },
+  {
+    "id": 604,
+    "it": "ricevere",
+    "ru": "получать",
+    "en": "receive",
+    "tr": ""
+  },
+  {
+    "id": 605,
+    "it": "fila",
+    "ru": "строка",
+    "en": "row",
+    "tr": ""
+  },
+  {
+    "id": 606,
+    "it": "bocca",
+    "ru": "рот",
+    "en": "mouth",
+    "tr": ""
+  },
+  {
+    "id": 607,
+    "it": "esatto",
+    "ru": "точный",
+    "en": "exact",
+    "tr": ""
+  },
+  {
+    "id": 608,
+    "it": "simbolo",
+    "ru": "символ",
+    "en": "symbol",
+    "tr": ""
+  },
+  {
+    "id": 609,
+    "it": "morire",
+    "ru": "умереть",
+    "en": "die",
+    "tr": ""
+  },
+  {
+    "id": 610,
+    "it": "meno",
+    "ru": "мере",
+    "en": "least",
+    "tr": ""
+  },
+  {
+    "id": 611,
+    "it": "difficoltà",
+    "ru": "беда",
+    "en": "trouble",
+    "tr": ""
+  },
+  {
+    "id": 612,
+    "it": "shout",
+    "ru": "крик",
+    "en": "shout",
+    "tr": ""
+  },
+  {
+    "id": 613,
+    "it": "tranne",
+    "ru": "кроме",
+    "en": "except",
+    "tr": ""
+  },
+  {
+    "id": 614,
+    "it": "ha scritto",
+    "ru": "писал",
+    "en": "wrote",
+    "tr": ""
+  },
+  {
+    "id": 615,
+    "it": "seme",
+    "ru": "семян",
+    "en": "seed",
+    "tr": ""
+  },
+  {
+    "id": 616,
+    "it": "tono",
+    "ru": "тон",
+    "en": "tone",
+    "tr": ""
+  },
+  {
+    "id": 617,
+    "it": "aderire",
+    "ru": "присоединиться",
+    "en": "join",
+    "tr": ""
+  },
+  {
+    "id": 618,
+    "it": "suggerire",
+    "ru": "предложить",
+    "en": "suggest",
+    "tr": ""
+  },
+  {
+    "id": 619,
+    "it": "pulito",
+    "ru": "чистый",
+    "en": "clean",
+    "tr": ""
+  },
+  {
+    "id": 620,
+    "it": "pausa",
+    "ru": "перерыв",
+    "en": "break",
+    "tr": ""
+  },
+  {
+    "id": 621,
+    "it": "signora",
+    "ru": "леди",
+    "en": "lady",
+    "tr": ""
+  },
+  {
+    "id": 622,
+    "it": "cantiere",
+    "ru": "двор",
+    "en": "yard",
+    "tr": ""
+  },
+  {
+    "id": 623,
+    "it": "salire",
+    "ru": "подниматься",
+    "en": "rise",
+    "tr": ""
+  },
+  {
+    "id": 624,
+    "it": "male",
+    "ru": "плохо",
+    "en": "bad",
+    "tr": ""
+  },
+  {
+    "id": 625,
+    "it": "colpo",
+    "ru": "удар",
+    "en": "blow",
+    "tr": ""
+  },
+  {
+    "id": 626,
+    "it": "olio",
+    "ru": "масло",
+    "en": "oil",
+    "tr": ""
+  },
+  {
+    "id": 627,
+    "it": "sangue",
+    "ru": "кровь",
+    "en": "blood",
+    "tr": ""
+  },
+  {
+    "id": 628,
+    "it": "toccare",
+    "ru": "коснуться",
+    "en": "touch",
+    "tr": ""
+  },
+  {
+    "id": 629,
+    "it": "è cresciuto",
+    "ru": "выросла",
+    "en": "grew",
+    "tr": ""
+  },
+  {
+    "id": 630,
+    "it": "cent",
+    "ru": "цент",
+    "en": "cent",
+    "tr": ""
+  },
+  {
+    "id": 631,
+    "it": "mescolare",
+    "ru": "смешивать",
+    "en": "mix",
+    "tr": ""
+  },
+  {
+    "id": 632,
+    "it": "team",
+    "ru": "команда",
+    "en": "team",
+    "tr": ""
+  },
+  {
+    "id": 633,
+    "it": "filo",
+    "ru": "провод",
+    "en": "wire",
+    "tr": ""
+  },
+  {
+    "id": 634,
+    "it": "costo",
+    "ru": "Стоимость",
+    "en": "cost",
+    "tr": ""
+  },
+  {
+    "id": 635,
+    "it": "perso",
+    "ru": "потерянный",
+    "en": "lost",
+    "tr": ""
+  },
+  {
+    "id": 636,
+    "it": "marrone",
+    "ru": "коричневый",
+    "en": "brown",
+    "tr": ""
+  },
+  {
+    "id": 637,
+    "it": "indossare",
+    "ru": "носить",
+    "en": "wear",
+    "tr": ""
+  },
+  {
+    "id": 638,
+    "it": "giardino",
+    "ru": "сад",
+    "en": "garden",
+    "tr": ""
+  },
+  {
+    "id": 639,
+    "it": "pari",
+    "ru": "равный",
+    "en": "equal",
+    "tr": ""
+  },
+  {
+    "id": 640,
+    "it": "inviato",
+    "ru": "отправлено",
+    "en": "sent",
+    "tr": ""
+  },
+  {
+    "id": 641,
+    "it": "scegliere",
+    "ru": "выбирать",
+    "en": "choose",
+    "tr": ""
+  },
+  {
+    "id": 642,
+    "it": "caduto",
+    "ru": "упал",
+    "en": "fell",
+    "tr": ""
+  },
+  {
+    "id": 643,
+    "it": "adattarsi",
+    "ru": "соответствовать",
+    "en": "fit",
+    "tr": ""
+  },
+  {
+    "id": 644,
+    "it": "flusso",
+    "ru": "течь",
+    "en": "flow",
+    "tr": ""
+  },
+  {
+    "id": 645,
+    "it": "fiera",
+    "ru": "ярмарка",
+    "en": "fair",
+    "tr": ""
+  },
+  {
+    "id": 646,
+    "it": "banca",
+    "ru": "банк",
+    "en": "bank",
+    "tr": ""
+  },
+  {
+    "id": 647,
+    "it": "raccogliere",
+    "ru": "собирать",
+    "en": "collect",
+    "tr": ""
+  },
+  {
+    "id": 648,
+    "it": "salvare",
+    "ru": "сохранить",
+    "en": "save",
+    "tr": ""
+  },
+  {
+    "id": 649,
+    "it": "controllo",
+    "ru": "контроль",
+    "en": "control",
+    "tr": ""
+  },
+  {
+    "id": 650,
+    "it": "decimale",
+    "ru": "десятичной",
+    "en": "decimal",
+    "tr": ""
+  },
+  {
+    "id": 651,
+    "it": "orecchio",
+    "ru": "ухо",
+    "en": "ear",
+    "tr": ""
+  },
+  {
+    "id": 652,
+    "it": "altro",
+    "ru": "еще",
+    "en": "else",
+    "tr": ""
+  },
+  {
+    "id": 653,
+    "it": "abbastanza",
+    "ru": "вполне",
+    "en": "quite",
+    "tr": ""
+  },
+  {
+    "id": 654,
+    "it": "rotto",
+    "ru": "сломал",
+    "en": "broke",
+    "tr": ""
+  },
+  {
+    "id": 655,
+    "it": "caso",
+    "ru": "дело",
+    "en": "case",
+    "tr": ""
+  },
+  {
+    "id": 656,
+    "it": "mezzo",
+    "ru": "средний",
+    "en": "middle",
+    "tr": ""
+  },
+  {
+    "id": 657,
+    "it": "uccidere",
+    "ru": "убивать",
+    "en": "kill",
+    "tr": ""
+  },
+  {
+    "id": 658,
+    "it": "figlio",
+    "ru": "сын",
+    "en": "son",
+    "tr": ""
+  },
+  {
+    "id": 659,
+    "it": "lago",
+    "ru": "озеро",
+    "en": "lake",
+    "tr": ""
+  },
+  {
+    "id": 660,
+    "it": "momento",
+    "ru": "момент",
+    "en": "moment",
+    "tr": ""
+  },
+  {
+    "id": 661,
+    "it": "scala",
+    "ru": "шкала",
+    "en": "scale",
+    "tr": ""
+  },
+  {
+    "id": 662,
+    "it": "forte",
+    "ru": "громко",
+    "en": "loud",
+    "tr": ""
+  },
+  {
+    "id": 663,
+    "it": "primavera",
+    "ru": "весна",
+    "en": "spring",
+    "tr": ""
+  },
+  {
+    "id": 664,
+    "it": "osservare",
+    "ru": "наблюдать",
+    "en": "observe",
+    "tr": ""
+  },
+  {
+    "id": 665,
+    "it": "bambino",
+    "ru": "ребенок",
+    "en": "child",
+    "tr": ""
+  },
+  {
+    "id": 666,
+    "it": "dritto",
+    "ru": "прямо",
+    "en": "straight",
+    "tr": ""
+  },
+  {
+    "id": 667,
+    "it": "consonante",
+    "ru": "согласный",
+    "en": "consonant",
+    "tr": ""
+  },
+  {
+    "id": 668,
+    "it": "nazione",
+    "ru": "нация",
+    "en": "nation",
+    "tr": ""
+  },
+  {
+    "id": 669,
+    "it": "dizionario",
+    "ru": "словарь",
+    "en": "dictionary",
+    "tr": ""
+  },
+  {
+    "id": 670,
+    "it": "latte",
+    "ru": "молоко",
+    "en": "milk",
+    "tr": ""
+  },
+  {
+    "id": 671,
+    "it": "velocità",
+    "ru": "скорость",
+    "en": "speed",
+    "tr": ""
+  },
+  {
+    "id": 672,
+    "it": "metodo",
+    "ru": "метод",
+    "en": "method",
+    "tr": ""
+  },
+  {
+    "id": 673,
+    "it": "organo",
+    "ru": "орган",
+    "en": "organ",
+    "tr": ""
+  },
+  {
+    "id": 674,
+    "it": "pagare",
+    "ru": "платить",
+    "en": "pay",
+    "tr": ""
+  },
+  {
+    "id": 675,
+    "it": "età",
+    "ru": "возраст",
+    "en": "age",
+    "tr": ""
+  },
+  {
+    "id": 676,
+    "it": "sezione",
+    "ru": "раздел",
+    "en": "section",
+    "tr": ""
+  },
+  {
+    "id": 677,
+    "it": "vestito",
+    "ru": "платье",
+    "en": "dress",
+    "tr": ""
+  },
+  {
+    "id": 678,
+    "it": "nube",
+    "ru": "облако",
+    "en": "cloud",
+    "tr": ""
+  },
+  {
+    "id": 679,
+    "it": "sorpresa",
+    "ru": "сюрприз",
+    "en": "surprise",
+    "tr": ""
+  },
+  {
+    "id": 680,
+    "it": "tranquillo",
+    "ru": "тихо",
+    "en": "quiet",
+    "tr": ""
+  },
+  {
+    "id": 681,
+    "it": "pietra",
+    "ru": "камень",
+    "en": "stone",
+    "tr": ""
+  },
+  {
+    "id": 682,
+    "it": "piccolo",
+    "ru": "крошечный",
+    "en": "tiny",
+    "tr": ""
+  },
+  {
+    "id": 683,
+    "it": "salita",
+    "ru": "подъем",
+    "en": "climb",
+    "tr": ""
+  },
+  {
+    "id": 684,
+    "it": "fresco",
+    "ru": "круто",
+    "en": "cool",
+    "tr": ""
+  },
+  {
+    "id": 685,
+    "it": "design",
+    "ru": "дизайн",
+    "en": "design",
+    "tr": ""
+  },
+  {
+    "id": 686,
+    "it": "povero",
+    "ru": "бедный",
+    "en": "poor",
+    "tr": ""
+  },
+  {
+    "id": 687,
+    "it": "lotto",
+    "ru": "много",
+    "en": "lot",
+    "tr": ""
+  },
+  {
+    "id": 688,
+    "it": "esperimento",
+    "ru": "эксперимент",
+    "en": "experiment",
+    "tr": ""
+  },
+  {
+    "id": 689,
+    "it": "fondo",
+    "ru": "снизу",
+    "en": "bottom",
+    "tr": ""
+  },
+  {
+    "id": 690,
+    "it": "chiave",
+    "ru": "ключ",
+    "en": "key",
+    "tr": ""
+  },
+  {
+    "id": 691,
+    "it": "ferro",
+    "ru": "железо",
+    "en": "iron",
+    "tr": ""
+  },
+  {
+    "id": 692,
+    "it": "singolo",
+    "ru": "один",
+    "en": "single",
+    "tr": ""
+  },
+  {
+    "id": 693,
+    "it": "bastone",
+    "ru": "палка",
+    "en": "stick",
+    "tr": ""
+  },
+  {
+    "id": 694,
+    "it": "appartamento",
+    "ru": "плоским",
+    "en": "flat",
+    "tr": ""
+  },
+  {
+    "id": 695,
+    "it": "venti",
+    "ru": "двадцать",
+    "en": "twenty",
+    "tr": ""
+  },
+  {
+    "id": 696,
+    "it": "pelle",
+    "ru": "кожа",
+    "en": "skin",
+    "tr": ""
+  },
+  {
+    "id": 697,
+    "it": "sorriso",
+    "ru": "улыбка",
+    "en": "smile",
+    "tr": ""
+  },
+  {
+    "id": 698,
+    "it": "piega",
+    "ru": "складка",
+    "en": "crease",
+    "tr": ""
+  },
+  {
+    "id": 699,
+    "it": "foro",
+    "ru": "отверстие",
+    "en": "hole",
+    "tr": ""
+  },
+  {
+    "id": 700,
+    "it": "salto",
+    "ru": "прыжок",
+    "en": "jump",
+    "tr": ""
+  },
+  {
+    "id": 701,
+    "it": "bambino",
+    "ru": "ребенок",
+    "en": "baby",
+    "tr": ""
+  },
+  {
+    "id": 702,
+    "it": "otto",
+    "ru": "восемь",
+    "en": "eight",
+    "tr": ""
+  },
+  {
+    "id": 703,
+    "it": "villaggio",
+    "ru": "деревня",
+    "en": "village",
+    "tr": ""
+  },
+  {
+    "id": 704,
+    "it": "si incontrano",
+    "ru": "Знакомства",
+    "en": "meet",
+    "tr": ""
+  },
+  {
+    "id": 705,
+    "it": "radice",
+    "ru": "корень",
+    "en": "root",
+    "tr": ""
+  },
+  {
+    "id": 706,
+    "it": "acquistare",
+    "ru": "купить",
+    "en": "buy",
+    "tr": ""
+  },
+  {
+    "id": 707,
+    "it": "aumentare",
+    "ru": "поднимать",
+    "en": "raise",
+    "tr": ""
+  },
+  {
+    "id": 708,
+    "it": "risolvere",
+    "ru": "решить",
+    "en": "solve",
+    "tr": ""
+  },
+  {
+    "id": 709,
+    "it": "metallo",
+    "ru": "металла",
+    "en": "metal",
+    "tr": ""
+  },
+  {
+    "id": 710,
+    "it": "se",
+    "ru": "ли",
+    "en": "whether",
+    "tr": ""
+  },
+  {
+    "id": 711,
+    "it": "spingere",
+    "ru": "толчок",
+    "en": "push",
+    "tr": ""
+  },
+  {
+    "id": 712,
+    "it": "sette",
+    "ru": "семь",
+    "en": "seven",
+    "tr": ""
+  },
+  {
+    "id": 713,
+    "it": "paragrafo",
+    "ru": "пункт",
+    "en": "paragraph",
+    "tr": ""
+  },
+  {
+    "id": 714,
+    "it": "terzo",
+    "ru": "третий",
+    "en": "third",
+    "tr": ""
+  },
+  {
+    "id": 715,
+    "it": "deve",
+    "ru": "должен",
+    "en": "shall",
+    "tr": ""
+  },
+  {
+    "id": 716,
+    "it": "tenuto",
+    "ru": "ручные",
+    "en": "held",
+    "tr": ""
+  },
+  {
+    "id": 717,
+    "it": "capelli",
+    "ru": "волосы",
+    "en": "hair",
+    "tr": ""
+  },
+  {
+    "id": 718,
+    "it": "descrivere",
+    "ru": "описывать",
+    "en": "describe",
+    "tr": ""
+  },
+  {
+    "id": 719,
+    "it": "cuoco",
+    "ru": "повар",
+    "en": "cook",
+    "tr": ""
+  },
+  {
+    "id": 720,
+    "it": "piano",
+    "ru": "этаж",
+    "en": "floor",
+    "tr": ""
+  },
+  {
+    "id": 721,
+    "it": "o",
+    "ru": "или",
+    "en": "either",
+    "tr": ""
+  },
+  {
+    "id": 722,
+    "it": "risultato",
+    "ru": "результат",
+    "en": "result",
+    "tr": ""
+  },
+  {
+    "id": 723,
+    "it": "bruciare",
+    "ru": "сжечь",
+    "en": "burn",
+    "tr": ""
+  },
+  {
+    "id": 724,
+    "it": "collina",
+    "ru": "холм",
+    "en": "hill",
+    "tr": ""
+  },
+  {
+    "id": 725,
+    "it": "sicuro",
+    "ru": "сейф",
+    "en": "safe",
+    "tr": ""
+  },
+  {
+    "id": 726,
+    "it": "gatto",
+    "ru": "кошка",
+    "en": "cat",
+    "tr": ""
+  },
+  {
+    "id": 727,
+    "it": "secolo",
+    "ru": "век",
+    "en": "century",
+    "tr": ""
+  },
+  {
+    "id": 728,
+    "it": "considerare",
+    "ru": "рассматривать",
+    "en": "consider",
+    "tr": ""
+  },
+  {
+    "id": 729,
+    "it": "tipo",
+    "ru": "Тип",
+    "en": "type",
+    "tr": ""
+  },
+  {
+    "id": 730,
+    "it": "legge",
+    "ru": "закон",
+    "en": "law",
+    "tr": ""
+  },
+  {
+    "id": 731,
+    "it": "bit",
+    "ru": "немного",
+    "en": "bit",
+    "tr": ""
+  },
+  {
+    "id": 732,
+    "it": "costa",
+    "ru": "побережье",
+    "en": "coast",
+    "tr": ""
+  },
+  {
+    "id": 733,
+    "it": "copia",
+    "ru": "копия",
+    "en": "copy",
+    "tr": ""
+  },
+  {
+    "id": 734,
+    "it": "frase",
+    "ru": "фраза",
+    "en": "phrase",
+    "tr": ""
+  },
+  {
+    "id": 735,
+    "it": "silenzioso",
+    "ru": "тихий",
+    "en": "silent",
+    "tr": ""
+  },
+  {
+    "id": 736,
+    "it": "alto",
+    "ru": "высокий",
+    "en": "tall",
+    "tr": ""
+  },
+  {
+    "id": 737,
+    "it": "sabbia",
+    "ru": "песок",
+    "en": "sand",
+    "tr": ""
+  },
+  {
+    "id": 738,
+    "it": "suolo",
+    "ru": "почвы",
+    "en": "soil",
+    "tr": ""
+  },
+  {
+    "id": 739,
+    "it": "rotolo",
+    "ru": "рулон",
+    "en": "roll",
+    "tr": ""
+  },
+  {
+    "id": 740,
+    "it": "temperatura",
+    "ru": "температура",
+    "en": "temperature",
+    "tr": ""
+  },
+  {
+    "id": 741,
+    "it": "dito",
+    "ru": "палец",
+    "en": "finger",
+    "tr": ""
+  },
+  {
+    "id": 742,
+    "it": "industria",
+    "ru": "промышленность",
+    "en": "industry",
+    "tr": ""
+  },
+  {
+    "id": 743,
+    "it": "valore",
+    "ru": "значение",
+    "en": "value",
+    "tr": ""
+  },
+  {
+    "id": 744,
+    "it": "lotta",
+    "ru": "борьба",
+    "en": "fight",
+    "tr": ""
+  },
+  {
+    "id": 745,
+    "it": "bugia",
+    "ru": "ложь",
+    "en": "lie",
+    "tr": ""
+  },
+  {
+    "id": 746,
+    "it": "battere",
+    "ru": "бить",
+    "en": "beat",
+    "tr": ""
+  },
+  {
+    "id": 747,
+    "it": "eccitare",
+    "ru": "возбуждать",
+    "en": "excite",
+    "tr": ""
+  },
+  {
+    "id": 748,
+    "it": "naturale",
+    "ru": "естественный",
+    "en": "natural",
+    "tr": ""
+  },
+  {
+    "id": 749,
+    "it": "vista",
+    "ru": "вид",
+    "en": "view",
+    "tr": ""
+  },
+  {
+    "id": 750,
+    "it": "senso",
+    "ru": "смысл",
+    "en": "sense",
+    "tr": ""
+  },
+  {
+    "id": 751,
+    "it": "capitale",
+    "ru": "капитал",
+    "en": "capital",
+    "tr": ""
+  },
+  {
+    "id": 752,
+    "it": "non sarà",
+    "ru": "не будет",
+    "en": "won’t",
+    "tr": ""
+  },
+  {
+    "id": 753,
+    "it": "sedia",
+    "ru": "стул",
+    "en": "chair",
+    "tr": ""
+  },
+  {
+    "id": 754,
+    "it": "pericolo",
+    "ru": "опасность",
+    "en": "danger",
+    "tr": ""
+  },
+  {
+    "id": 755,
+    "it": "frutta",
+    "ru": "фрукты",
+    "en": "fruit",
+    "tr": ""
+  },
+  {
+    "id": 756,
+    "it": "ricco",
+    "ru": "богатые",
+    "en": "rich",
+    "tr": ""
+  },
+  {
+    "id": 757,
+    "it": "spesso",
+    "ru": "толщиной",
+    "en": "thick",
+    "tr": ""
+  },
+  {
+    "id": 758,
+    "it": "soldato",
+    "ru": "солдат",
+    "en": "soldier",
+    "tr": ""
+  },
+  {
+    "id": 759,
+    "it": "processo",
+    "ru": "процесс",
+    "en": "process",
+    "tr": ""
+  },
+  {
+    "id": 760,
+    "it": "operare",
+    "ru": "работать",
+    "en": "operate",
+    "tr": ""
+  },
+  {
+    "id": 761,
+    "it": "pratica",
+    "ru": "практика",
+    "en": "practice",
+    "tr": ""
+  },
+  {
+    "id": 762,
+    "it": "separato",
+    "ru": "отдельный",
+    "en": "separate",
+    "tr": ""
+  },
+  {
+    "id": 763,
+    "it": "difficile",
+    "ru": "трудный",
+    "en": "difficult",
+    "tr": ""
+  },
+  {
+    "id": 764,
+    "it": "medico",
+    "ru": "врач",
+    "en": "doctor",
+    "tr": ""
+  },
+  {
+    "id": 765,
+    "it": "per favore",
+    "ru": "пожалуйста",
+    "en": "please",
+    "tr": ""
+  },
+  {
+    "id": 766,
+    "it": "proteggere",
+    "ru": "защищать",
+    "en": "protect",
+    "tr": ""
+  },
+  {
+    "id": 767,
+    "it": "mezzogiorno",
+    "ru": "полдень",
+    "en": "noon",
+    "tr": ""
+  },
+  {
+    "id": 768,
+    "it": "raccolto",
+    "ru": "урожай",
+    "en": "crop",
+    "tr": ""
+  },
+  {
+    "id": 769,
+    "it": "moderno",
+    "ru": "современный",
+    "en": "modern",
+    "tr": ""
+  },
+  {
+    "id": 770,
+    "it": "elemento",
+    "ru": "элемент",
+    "en": "element",
+    "tr": ""
+  },
+  {
+    "id": 771,
+    "it": "colpire",
+    "ru": "хит",
+    "en": "hit",
+    "tr": ""
+  },
+  {
+    "id": 772,
+    "it": "studente",
+    "ru": "студент",
+    "en": "student",
+    "tr": ""
+  },
+  {
+    "id": 773,
+    "it": "angolo",
+    "ru": "угол",
+    "en": "corner",
+    "tr": ""
+  },
+  {
+    "id": 774,
+    "it": "partito",
+    "ru": "партия",
+    "en": "party",
+    "tr": ""
+  },
+  {
+    "id": 775,
+    "it": "fornitura",
+    "ru": "поставка",
+    "en": "supply",
+    "tr": ""
+  },
+  {
+    "id": 776,
+    "it": "la cui",
+    "ru": "чьи",
+    "en": "whose",
+    "tr": ""
+  },
+  {
+    "id": 777,
+    "it": "individuare",
+    "ru": "разместить",
+    "en": "locate",
+    "tr": ""
+  },
+  {
+    "id": 778,
+    "it": "anello",
+    "ru": "кольцо",
+    "en": "ring",
+    "tr": ""
+  },
+  {
+    "id": 779,
+    "it": "carattere",
+    "ru": "характер",
+    "en": "character",
+    "tr": ""
+  },
+  {
+    "id": 780,
+    "it": "insetto",
+    "ru": "насекомое",
+    "en": "insect",
+    "tr": ""
+  },
+  {
+    "id": 781,
+    "it": "catturato",
+    "ru": "пойманный",
+    "en": "caught",
+    "tr": ""
+  },
+  {
+    "id": 782,
+    "it": "periodo",
+    "ru": "период",
+    "en": "period",
+    "tr": ""
+  },
+  {
+    "id": 783,
+    "it": "indicare",
+    "ru": "указывать",
+    "en": "indicate",
+    "tr": ""
+  },
+  {
+    "id": 784,
+    "it": "radio",
+    "ru": "радио",
+    "en": "radio",
+    "tr": ""
+  },
+  {
+    "id": 785,
+    "it": "raggio",
+    "ru": "говорил",
+    "en": "spoke",
+    "tr": ""
+  },
+  {
+    "id": 786,
+    "it": "atomo",
+    "ru": "атом",
+    "en": "atom",
+    "tr": ""
+  },
+  {
+    "id": 787,
+    "it": "umano",
+    "ru": "человек",
+    "en": "human",
+    "tr": ""
+  },
+  {
+    "id": 788,
+    "it": "storia",
+    "ru": "история",
+    "en": "history",
+    "tr": ""
+  },
+  {
+    "id": 789,
+    "it": "effetto",
+    "ru": "эффект",
+    "en": "effect",
+    "tr": ""
+  },
+  {
+    "id": 790,
+    "it": "elettrico",
+    "ru": "электрический",
+    "en": "electric",
+    "tr": ""
+  },
+  {
+    "id": 791,
+    "it": "aspettare",
+    "ru": "ожидать",
+    "en": "expect",
+    "tr": ""
+  },
+  {
+    "id": 792,
+    "it": "osso",
+    "ru": "кость",
+    "en": "bone",
+    "tr": ""
+  },
+  {
+    "id": 793,
+    "it": "ferrovia",
+    "ru": "железнодорожные",
+    "en": "rail",
+    "tr": ""
+  },
+  {
+    "id": 794,
+    "it": "immaginare",
+    "ru": "вообразить",
+    "en": "imagine",
+    "tr": ""
+  },
+  {
+    "id": 795,
+    "it": "fornire",
+    "ru": "обеспечить",
+    "en": "provide",
+    "tr": ""
+  },
+  {
+    "id": 796,
+    "it": "concordare",
+    "ru": "соглашаться",
+    "en": "agree",
+    "tr": ""
+  },
+  {
+    "id": 797,
+    "it": "così",
+    "ru": "таким образом",
+    "en": "thus",
+    "tr": ""
+  },
+  {
+    "id": 798,
+    "it": "dolce",
+    "ru": "нежный",
+    "en": "gentle",
+    "tr": ""
+  },
+  {
+    "id": 799,
+    "it": "donna",
+    "ru": "женщина",
+    "en": "woman",
+    "tr": ""
+  },
+  {
+    "id": 800,
+    "it": "capitano",
+    "ru": "капитан",
+    "en": "captain",
+    "tr": ""
+  },
+  {
+    "id": 801,
+    "it": "indovinare",
+    "ru": "догадываться",
+    "en": "guess",
+    "tr": ""
+  },
+  {
+    "id": 802,
+    "it": "necessario",
+    "ru": "необходимо",
+    "en": "necessary",
+    "tr": ""
+  },
+  {
+    "id": 803,
+    "it": "tagliente",
+    "ru": "резкое",
+    "en": "sharp",
+    "tr": ""
+  },
+  {
+    "id": 804,
+    "it": "ala",
+    "ru": "крыло",
+    "en": "wing",
+    "tr": ""
+  },
+  {
+    "id": 805,
+    "it": "creare",
+    "ru": "создавать",
+    "en": "create",
+    "tr": ""
+  },
+  {
+    "id": 806,
+    "it": "prossimo",
+    "ru": "сосед",
+    "en": "neighbor",
+    "tr": ""
+  },
+  {
+    "id": 807,
+    "it": "lavaggio",
+    "ru": "стирка",
+    "en": "wash",
+    "tr": ""
+  },
+  {
+    "id": 808,
+    "it": "pipistrello",
+    "ru": "летучая мышь",
+    "en": "bat",
+    "tr": ""
+  },
+  {
+    "id": 809,
+    "it": "piuttosto",
+    "ru": "а",
+    "en": "rather",
+    "tr": ""
+  },
+  {
+    "id": 810,
+    "it": "folla",
+    "ru": "толпа",
+    "en": "crowd",
+    "tr": ""
+  },
+  {
+    "id": 811,
+    "it": "mais",
+    "ru": "кукуруза",
+    "en": "corn",
+    "tr": ""
+  },
+  {
+    "id": 812,
+    "it": "confrontare",
+    "ru": "сравнить",
+    "en": "compare",
+    "tr": ""
+  },
+  {
+    "id": 813,
+    "it": "poesia",
+    "ru": "стихотворение",
+    "en": "poem",
+    "tr": ""
+  },
+  {
+    "id": 814,
+    "it": "stringa",
+    "ru": "строка",
+    "en": "string",
+    "tr": ""
+  },
+  {
+    "id": 815,
+    "it": "campana",
+    "ru": "колокол",
+    "en": "bell",
+    "tr": ""
+  },
+  {
+    "id": 816,
+    "it": "dipendere",
+    "ru": "зависеть",
+    "en": "depend",
+    "tr": ""
+  },
+  {
+    "id": 817,
+    "it": "carne",
+    "ru": "мясо",
+    "en": "meat",
+    "tr": ""
+  },
+  {
+    "id": 818,
+    "it": "strofinare",
+    "ru": "руб",
+    "en": "rub",
+    "tr": ""
+  },
+  {
+    "id": 819,
+    "it": "tubo",
+    "ru": "трубка",
+    "en": "tube",
+    "tr": ""
+  },
+  {
+    "id": 820,
+    "it": "famoso",
+    "ru": "известный",
+    "en": "famous",
+    "tr": ""
+  },
+  {
+    "id": 821,
+    "it": "dollaro",
+    "ru": "доллар",
+    "en": "dollar",
+    "tr": ""
+  },
+  {
+    "id": 822,
+    "it": "ruscello",
+    "ru": "поток",
+    "en": "stream",
+    "tr": ""
+  },
+  {
+    "id": 823,
+    "it": "paura",
+    "ru": "страх",
+    "en": "fear",
+    "tr": ""
+  },
+  {
+    "id": 824,
+    "it": "vista",
+    "ru": "зрение",
+    "en": "sight",
+    "tr": ""
+  },
+  {
+    "id": 825,
+    "it": "sottile",
+    "ru": "тонкий",
+    "en": "thin",
+    "tr": ""
+  },
+  {
+    "id": 826,
+    "it": "triangolo",
+    "ru": "треугольник",
+    "en": "triangle",
+    "tr": ""
+  },
+  {
+    "id": 827,
+    "it": "pianeta",
+    "ru": "планета",
+    "en": "planet",
+    "tr": ""
+  },
+  {
+    "id": 828,
+    "it": "fretta",
+    "ru": "спешить",
+    "en": "hurry",
+    "tr": ""
+  },
+  {
+    "id": 829,
+    "it": "capo",
+    "ru": "главный",
+    "en": "chief",
+    "tr": ""
+  },
+  {
+    "id": 830,
+    "it": "colonia",
+    "ru": "колония",
+    "en": "colony",
+    "tr": ""
+  },
+  {
+    "id": 831,
+    "it": "orologio",
+    "ru": "часы",
+    "en": "clock",
+    "tr": ""
+  },
+  {
+    "id": 832,
+    "it": "miniera",
+    "ru": "шахта",
+    "en": "mine",
+    "tr": ""
+  },
+  {
+    "id": 833,
+    "it": "cravatta",
+    "ru": "связать",
+    "en": "tie",
+    "tr": ""
+  },
+  {
+    "id": 834,
+    "it": "inserire",
+    "ru": "введите",
+    "en": "enter",
+    "tr": ""
+  },
+  {
+    "id": 835,
+    "it": "maggiore",
+    "ru": "основным",
+    "en": "major",
+    "tr": ""
+  },
+  {
+    "id": 836,
+    "it": "fresco",
+    "ru": "свежий",
+    "en": "fresh",
+    "tr": ""
+  },
+  {
+    "id": 837,
+    "it": "ricerca",
+    "ru": "поиск",
+    "en": "search",
+    "tr": ""
+  },
+  {
+    "id": 838,
+    "it": "inviare",
+    "ru": "отправить",
+    "en": "send",
+    "tr": ""
+  },
+  {
+    "id": 839,
+    "it": "giallo",
+    "ru": "желтый",
+    "en": "yellow",
+    "tr": ""
+  },
+  {
+    "id": 840,
+    "it": "pistola",
+    "ru": "пистолет",
+    "en": "gun",
+    "tr": ""
+  },
+  {
+    "id": 841,
+    "it": "consentire",
+    "ru": "позволять",
+    "en": "allow",
+    "tr": ""
+  },
+  {
+    "id": 842,
+    "it": "stampa",
+    "ru": "печать",
+    "en": "print",
+    "tr": ""
+  },
+  {
+    "id": 843,
+    "it": "morto",
+    "ru": "мертвый",
+    "en": "dead",
+    "tr": ""
+  },
+  {
+    "id": 844,
+    "it": "spot",
+    "ru": "место",
+    "en": "spot",
+    "tr": ""
+  },
+  {
+    "id": 845,
+    "it": "deserto",
+    "ru": "пустыня",
+    "en": "desert",
+    "tr": ""
+  },
+  {
+    "id": 846,
+    "it": "tuta",
+    "ru": "костюм",
+    "en": "suit",
+    "tr": ""
+  },
+  {
+    "id": 847,
+    "it": "corrente",
+    "ru": "ток",
+    "en": "current",
+    "tr": ""
+  },
+  {
+    "id": 848,
+    "it": "ascensore",
+    "ru": "лифт",
+    "en": "lift",
+    "tr": ""
+  },
+  {
+    "id": 849,
+    "it": "rosa",
+    "ru": "выросла",
+    "en": "rose",
+    "tr": ""
+  },
+  {
+    "id": 850,
+    "it": "arrivare",
+    "ru": "приходим",
+    "en": "arrive",
+    "tr": ""
+  },
+  {
+    "id": 851,
+    "it": "master",
+    "ru": "мастер",
+    "en": "master",
+    "tr": ""
+  },
+  {
+    "id": 852,
+    "it": "pista",
+    "ru": "трек",
+    "en": "track",
+    "tr": ""
+  },
+  {
+    "id": 853,
+    "it": "genitore",
+    "ru": "родитель",
+    "en": "parent",
+    "tr": ""
+  },
+  {
+    "id": 854,
+    "it": "riva",
+    "ru": "берег",
+    "en": "shore",
+    "tr": ""
+  },
+  {
+    "id": 855,
+    "it": "divisione",
+    "ru": "деление",
+    "en": "division",
+    "tr": ""
+  },
+  {
+    "id": 856,
+    "it": "foglio",
+    "ru": "лист",
+    "en": "sheet",
+    "tr": ""
+  },
+  {
+    "id": 857,
+    "it": "sostanza",
+    "ru": "вещество",
+    "en": "substance",
+    "tr": ""
+  },
+  {
+    "id": 858,
+    "it": "favorire",
+    "ru": "пользу",
+    "en": "favor",
+    "tr": ""
+  },
+  {
+    "id": 859,
+    "it": "collegare",
+    "ru": "подключать",
+    "en": "connect",
+    "tr": ""
+  },
+  {
+    "id": 860,
+    "it": "Messaggio",
+    "ru": "пост",
+    "en": "post",
+    "tr": ""
+  },
+  {
+    "id": 861,
+    "it": "spendere",
+    "ru": "провести",
+    "en": "spend",
+    "tr": ""
+  },
+  {
+    "id": 862,
+    "it": "accordo",
+    "ru": "аккорд",
+    "en": "chord",
+    "tr": ""
+  },
+  {
+    "id": 863,
+    "it": "grasso",
+    "ru": "жира",
+    "en": "fat",
+    "tr": ""
+  },
+  {
+    "id": 864,
+    "it": "felice",
+    "ru": "довольный",
+    "en": "glad",
+    "tr": ""
+  },
+  {
+    "id": 865,
+    "it": "originale",
+    "ru": "оригинальный",
+    "en": "original",
+    "tr": ""
+  },
+  {
+    "id": 866,
+    "it": "quota",
+    "ru": "доля",
+    "en": "share",
+    "tr": ""
+  },
+  {
+    "id": 867,
+    "it": "stazione",
+    "ru": "станция",
+    "en": "station",
+    "tr": ""
+  },
+  {
+    "id": 868,
+    "it": "papà",
+    "ru": "папа",
+    "en": "dad",
+    "tr": ""
+  },
+  {
+    "id": 869,
+    "it": "pane",
+    "ru": "хлеб",
+    "en": "bread",
+    "tr": ""
+  },
+  {
+    "id": 870,
+    "it": "carica",
+    "ru": "взимать",
+    "en": "charge",
+    "tr": ""
+  },
+  {
+    "id": 871,
+    "it": "corretto",
+    "ru": "собственно",
+    "en": "proper",
+    "tr": ""
+  },
+  {
+    "id": 872,
+    "it": "bar",
+    "ru": "бар",
+    "en": "bar",
+    "tr": ""
+  },
+  {
+    "id": 873,
+    "it": "offerta",
+    "ru": "предложение",
+    "en": "offer",
+    "tr": ""
+  },
+  {
+    "id": 874,
+    "it": "segmento",
+    "ru": "сегмент",
+    "en": "segment",
+    "tr": ""
+  },
+  {
+    "id": 875,
+    "it": "schiavo",
+    "ru": "раб",
+    "en": "slave",
+    "tr": ""
+  },
+  {
+    "id": 876,
+    "it": "anatra",
+    "ru": "утка",
+    "en": "duck",
+    "tr": ""
+  },
+  {
+    "id": 877,
+    "it": "immediato",
+    "ru": "растворимый",
+    "en": "instant",
+    "tr": ""
+  },
+  {
+    "id": 878,
+    "it": "mercato",
+    "ru": "рынок",
+    "en": "market",
+    "tr": ""
+  },
+  {
+    "id": 879,
+    "it": "grado",
+    "ru": "степень",
+    "en": "degree",
+    "tr": ""
+  },
+  {
+    "id": 880,
+    "it": "popolare",
+    "ru": "заселять",
+    "en": "populate",
+    "tr": ""
+  },
+  {
+    "id": 881,
+    "it": "pulcino",
+    "ru": "цыпленок",
+    "en": "chick",
+    "tr": ""
+  },
+  {
+    "id": 882,
+    "it": "caro",
+    "ru": "дорогой",
+    "en": "dear",
+    "tr": ""
+  },
+  {
+    "id": 883,
+    "it": "nemico",
+    "ru": "враг",
+    "en": "enemy",
+    "tr": ""
+  },
+  {
+    "id": 884,
+    "it": "rispondere",
+    "ru": "ответ",
+    "en": "reply",
+    "tr": ""
+  },
+  {
+    "id": 885,
+    "it": "bevanda",
+    "ru": "напиток",
+    "en": "drink",
+    "tr": ""
+  },
+  {
+    "id": 886,
+    "it": "verificarsi",
+    "ru": "происходить",
+    "en": "occur",
+    "tr": ""
+  },
+  {
+    "id": 887,
+    "it": "supporto",
+    "ru": "поддержка",
+    "en": "support",
+    "tr": ""
+  },
+  {
+    "id": 888,
+    "it": "discorso",
+    "ru": "речь",
+    "en": "speech",
+    "tr": ""
+  },
+  {
+    "id": 889,
+    "it": "natura",
+    "ru": "природа",
+    "en": "nature",
+    "tr": ""
+  },
+  {
+    "id": 890,
+    "it": "gamma",
+    "ru": "диапазон",
+    "en": "range",
+    "tr": ""
+  },
+  {
+    "id": 891,
+    "it": "vapore",
+    "ru": "пара",
+    "en": "steam",
+    "tr": ""
+  },
+  {
+    "id": 892,
+    "it": "moto",
+    "ru": "движение",
+    "en": "motion",
+    "tr": ""
+  },
+  {
+    "id": 893,
+    "it": "sentiero",
+    "ru": "путь",
+    "en": "path",
+    "tr": ""
+  },
+  {
+    "id": 894,
+    "it": "liquido",
+    "ru": "жидкости",
+    "en": "liquid",
+    "tr": ""
+  },
+  {
+    "id": 895,
+    "it": "log",
+    "ru": "войти",
+    "en": "log",
+    "tr": ""
+  },
+  {
+    "id": 896,
+    "it": "significava",
+    "ru": "означало",
+    "en": "meant",
+    "tr": ""
+  },
+  {
+    "id": 897,
+    "it": "quoziente",
+    "ru": "фактор",
+    "en": "quotient",
+    "tr": ""
+  },
+  {
+    "id": 898,
+    "it": "denti",
+    "ru": "зубы",
+    "en": "teeth",
+    "tr": ""
+  },
+  {
+    "id": 899,
+    "it": "guscio",
+    "ru": "оболочка",
+    "en": "shell",
+    "tr": ""
+  },
+  {
+    "id": 900,
+    "it": "collo",
+    "ru": "шея",
+    "en": "neck",
+    "tr": ""
+  },
+  {
+    "id": 901,
+    "it": "ossigeno",
+    "ru": "кислорода",
+    "en": "oxygen",
+    "tr": ""
+  },
+  {
+    "id": 902,
+    "it": "zucchero",
+    "ru": "сахар",
+    "en": "sugar",
+    "tr": ""
+  },
+  {
+    "id": 903,
+    "it": "morte",
+    "ru": "смерть",
+    "en": "death",
+    "tr": ""
+  },
+  {
+    "id": 904,
+    "it": "piuttosto",
+    "ru": "довольно",
+    "en": "pretty",
+    "tr": ""
+  },
+  {
+    "id": 905,
+    "it": "abilità",
+    "ru": "умение",
+    "en": "skill",
+    "tr": ""
+  },
+  {
+    "id": 906,
+    "it": "donne",
+    "ru": "женщины",
+    "en": "women",
+    "tr": ""
+  },
+  {
+    "id": 907,
+    "it": "stagione",
+    "ru": "сезон",
+    "en": "season",
+    "tr": ""
+  },
+  {
+    "id": 908,
+    "it": "soluzione",
+    "ru": "решение",
+    "en": "solution",
+    "tr": ""
+  },
+  {
+    "id": 909,
+    "it": "magnete",
+    "ru": "магнит",
+    "en": "magnet",
+    "tr": ""
+  },
+  {
+    "id": 910,
+    "it": "argento",
+    "ru": "серебро",
+    "en": "silver",
+    "tr": ""
+  },
+  {
+    "id": 911,
+    "it": "grazie",
+    "ru": "спасибо",
+    "en": "thank",
+    "tr": ""
+  },
+  {
+    "id": 912,
+    "it": "ramo",
+    "ru": "филиал",
+    "en": "branch",
+    "tr": ""
+  },
+  {
+    "id": 913,
+    "it": "partita",
+    "ru": "матч",
+    "en": "match",
+    "tr": ""
+  },
+  {
+    "id": 914,
+    "it": "suffisso",
+    "ru": "суффикс",
+    "en": "suffix",
+    "tr": ""
+  },
+  {
+    "id": 915,
+    "it": "particolarmente",
+    "ru": "особенно",
+    "en": "especially",
+    "tr": ""
+  },
+  {
+    "id": 916,
+    "it": "fico",
+    "ru": "рис",
+    "en": "fig",
+    "tr": ""
+  },
+  {
+    "id": 917,
+    "it": "impaurito",
+    "ru": "боится",
+    "en": "afraid",
+    "tr": ""
+  },
+  {
+    "id": 918,
+    "it": "enorme",
+    "ru": "огромный",
+    "en": "huge",
+    "tr": ""
+  },
+  {
+    "id": 919,
+    "it": "sorella",
+    "ru": "сестра",
+    "en": "sister",
+    "tr": ""
+  },
+  {
+    "id": 920,
+    "it": "acciaio",
+    "ru": "сталь",
+    "en": "steel",
+    "tr": ""
+  },
+  {
+    "id": 921,
+    "it": "discutere",
+    "ru": "обсуждать",
+    "en": "discuss",
+    "tr": ""
+  },
+  {
+    "id": 922,
+    "it": "avanti",
+    "ru": "вперед",
+    "en": "forward",
+    "tr": ""
+  },
+  {
+    "id": 923,
+    "it": "simile",
+    "ru": "похожи",
+    "en": "similar",
+    "tr": ""
+  },
+  {
+    "id": 924,
+    "it": "guidare",
+    "ru": "направлять",
+    "en": "guide",
+    "tr": ""
+  },
+  {
+    "id": 925,
+    "it": "esperienza",
+    "ru": "опыт",
+    "en": "experience",
+    "tr": ""
+  },
+  {
+    "id": 926,
+    "it": "punteggio",
+    "ru": "счет",
+    "en": "score",
+    "tr": ""
+  },
+  {
+    "id": 927,
+    "it": "mela",
+    "ru": "яблоко",
+    "en": "apple",
+    "tr": ""
+  },
+  {
+    "id": 928,
+    "it": "comprato",
+    "ru": "купленный",
+    "en": "bought",
+    "tr": ""
+  },
+  {
+    "id": 929,
+    "it": "portato",
+    "ru": "привело",
+    "en": "led",
+    "tr": ""
+  },
+  {
+    "id": 930,
+    "it": "pece",
+    "ru": "шаг",
+    "en": "pitch",
+    "tr": ""
+  },
+  {
+    "id": 931,
+    "it": "cappotto",
+    "ru": "пальто",
+    "en": "coat",
+    "tr": ""
+  },
+  {
+    "id": 932,
+    "it": "massa",
+    "ru": "масса",
+    "en": "mass",
+    "tr": ""
+  },
+  {
+    "id": 933,
+    "it": "scheda",
+    "ru": "карта",
+    "en": "card",
+    "tr": ""
+  },
+  {
+    "id": 934,
+    "it": "banda",
+    "ru": "полоса",
+    "en": "band",
+    "tr": ""
+  },
+  {
+    "id": 935,
+    "it": "corda",
+    "ru": "веревка",
+    "en": "rope",
+    "tr": ""
+  },
+  {
+    "id": 936,
+    "it": "slittamento",
+    "ru": "скольжение",
+    "en": "slip",
+    "tr": ""
+  },
+  {
+    "id": 937,
+    "it": "vittoria",
+    "ru": "выиграть",
+    "en": "win",
+    "tr": ""
+  },
+  {
+    "id": 938,
+    "it": "sognare",
+    "ru": "мечтать",
+    "en": "dream",
+    "tr": ""
+  },
+  {
+    "id": 939,
+    "it": "sera",
+    "ru": "вечер",
+    "en": "evening",
+    "tr": ""
+  },
+  {
+    "id": 940,
+    "it": "condizione",
+    "ru": "состояние",
+    "en": "condition",
+    "tr": ""
+  },
+  {
+    "id": 941,
+    "it": "alimentazione",
+    "ru": "корма",
+    "en": "feed",
+    "tr": ""
+  },
+  {
+    "id": 942,
+    "it": "strumento",
+    "ru": "инструмент",
+    "en": "tool",
+    "tr": ""
+  },
+  {
+    "id": 943,
+    "it": "totale",
+    "ru": "общий",
+    "en": "total",
+    "tr": ""
+  },
+  {
+    "id": 944,
+    "it": "di base",
+    "ru": "основной",
+    "en": "basic",
+    "tr": ""
+  },
+  {
+    "id": 945,
+    "it": "odore",
+    "ru": "запах",
+    "en": "smell",
+    "tr": ""
+  },
+  {
+    "id": 946,
+    "it": "valle",
+    "ru": "долина",
+    "en": "valley",
+    "tr": ""
+  },
+  {
+    "id": 947,
+    "it": "né",
+    "ru": "ни",
+    "en": "nor",
+    "tr": ""
+  },
+  {
+    "id": 948,
+    "it": "doppio",
+    "ru": "двойной",
+    "en": "double",
+    "tr": ""
+  },
+  {
+    "id": 949,
+    "it": "sedile",
+    "ru": "сиденья",
+    "en": "seat",
+    "tr": ""
+  },
+  {
+    "id": 950,
+    "it": "continuare",
+    "ru": "продолжать",
+    "en": "continue",
+    "tr": ""
+  },
+  {
+    "id": 951,
+    "it": "blocco",
+    "ru": "блок",
+    "en": "block",
+    "tr": ""
+  },
+  {
+    "id": 952,
+    "it": "grafico",
+    "ru": "диаграмма",
+    "en": "chart",
+    "tr": ""
+  },
+  {
+    "id": 953,
+    "it": "cappello",
+    "ru": "шляпа",
+    "en": "hat",
+    "tr": ""
+  },
+  {
+    "id": 954,
+    "it": "vendere",
+    "ru": "продать",
+    "en": "sell",
+    "tr": ""
+  },
+  {
+    "id": 955,
+    "it": "successo",
+    "ru": "успех",
+    "en": "success",
+    "tr": ""
+  },
+  {
+    "id": 956,
+    "it": "azienda",
+    "ru": "компания",
+    "en": "company",
+    "tr": ""
+  },
+  {
+    "id": 957,
+    "it": "sottrarre",
+    "ru": "вычитать",
+    "en": "subtract",
+    "tr": ""
+  },
+  {
+    "id": 958,
+    "it": "evento",
+    "ru": "мероприятие",
+    "en": "event",
+    "tr": ""
+  },
+  {
+    "id": 959,
+    "it": "particolare",
+    "ru": "частности",
+    "en": "particular",
+    "tr": ""
+  },
+  {
+    "id": 960,
+    "it": "affare",
+    "ru": "сделка",
+    "en": "deal",
+    "tr": ""
+  },
+  {
+    "id": 961,
+    "it": "nuoto",
+    "ru": "плавать",
+    "en": "swim",
+    "tr": ""
+  },
+  {
+    "id": 962,
+    "it": "termine",
+    "ru": "термин",
+    "en": "term",
+    "tr": ""
+  },
+  {
+    "id": 963,
+    "it": "opposto",
+    "ru": "напротив",
+    "en": "opposite",
+    "tr": ""
+  },
+  {
+    "id": 964,
+    "it": "moglie",
+    "ru": "жена",
+    "en": "wife",
+    "tr": ""
+  },
+  {
+    "id": 965,
+    "it": "scarpa",
+    "ru": "обуви",
+    "en": "shoe",
+    "tr": ""
+  },
+  {
+    "id": 966,
+    "it": "spalla",
+    "ru": "плечо",
+    "en": "shoulder",
+    "tr": ""
+  },
+  {
+    "id": 967,
+    "it": "spread",
+    "ru": "распространение",
+    "en": "spread",
+    "tr": ""
+  },
+  {
+    "id": 968,
+    "it": "organizzare",
+    "ru": "организовать",
+    "en": "arrange",
+    "tr": ""
+  },
+  {
+    "id": 969,
+    "it": "campo",
+    "ru": "лагерь",
+    "en": "camp",
+    "tr": ""
+  },
+  {
+    "id": 970,
+    "it": "inventare",
+    "ru": "изобретать",
+    "en": "invent",
+    "tr": ""
+  },
+  {
+    "id": 971,
+    "it": "cotone",
+    "ru": "хлопок",
+    "en": "cotton",
+    "tr": ""
+  },
+  {
+    "id": 972,
+    "it": "nascita",
+    "ru": "родившийся",
+    "en": "born",
+    "tr": ""
+  },
+  {
+    "id": 973,
+    "it": "determinare",
+    "ru": "определять",
+    "en": "determine",
+    "tr": ""
+  },
+  {
+    "id": 974,
+    "it": "quarto di gallone",
+    "ru": "кварта",
+    "en": "quart",
+    "tr": ""
+  },
+  {
+    "id": 975,
+    "it": "nove",
+    "ru": "девять",
+    "en": "nine",
+    "tr": ""
+  },
+  {
+    "id": 976,
+    "it": "camion",
+    "ru": "грузовик",
+    "en": "truck",
+    "tr": ""
+  },
+  {
+    "id": 977,
+    "it": "rumore",
+    "ru": "шум",
+    "en": "noise",
+    "tr": ""
+  },
+  {
+    "id": 978,
+    "it": "livello",
+    "ru": "уровень",
+    "en": "level",
+    "tr": ""
+  },
+  {
+    "id": 979,
+    "it": "possibilità",
+    "ru": "шанс",
+    "en": "chance",
+    "tr": ""
+  },
+  {
+    "id": 980,
+    "it": "raccogliere",
+    "ru": "собирать",
+    "en": "gather",
+    "tr": ""
+  },
+  {
+    "id": 981,
+    "it": "negozio",
+    "ru": "магазин",
+    "en": "shop",
+    "tr": ""
+  },
+  {
+    "id": 982,
+    "it": "tratto",
+    "ru": "протяжение",
+    "en": "stretch",
+    "tr": ""
+  },
+  {
+    "id": 983,
+    "it": "gettare",
+    "ru": "бросать",
+    "en": "throw",
+    "tr": ""
+  },
+  {
+    "id": 984,
+    "it": "shine",
+    "ru": "блеск",
+    "en": "shine",
+    "tr": ""
+  },
+  {
+    "id": 985,
+    "it": "proprietà",
+    "ru": "имущество",
+    "en": "property",
+    "tr": ""
+  },
+  {
+    "id": 986,
+    "it": "colonna",
+    "ru": "колонка",
+    "en": "column",
+    "tr": ""
+  },
+  {
+    "id": 987,
+    "it": "molecola",
+    "ru": "молекула",
+    "en": "molecule",
+    "tr": ""
+  },
+  {
+    "id": 988,
+    "it": "selezionare",
+    "ru": "выбирать",
+    "en": "select",
+    "tr": ""
+  },
+  {
+    "id": 989,
+    "it": "sbagliato",
+    "ru": "неправильно",
+    "en": "wrong",
+    "tr": ""
+  },
+  {
+    "id": 990,
+    "it": "grigio",
+    "ru": "серый",
+    "en": "gray",
+    "tr": ""
+  },
+  {
+    "id": 991,
+    "it": "ripetizione",
+    "ru": "повторение",
+    "en": "repeat",
+    "tr": ""
+  },
+  {
+    "id": 992,
+    "it": "richiedere",
+    "ru": "требовать",
+    "en": "require",
+    "tr": ""
+  },
+  {
+    "id": 993,
+    "it": "ampio",
+    "ru": "широкий",
+    "en": "broad",
+    "tr": ""
+  },
+  {
+    "id": 994,
+    "it": "preparare",
+    "ru": "подготовить",
+    "en": "prepare",
+    "tr": ""
+  },
+  {
+    "id": 995,
+    "it": "sale",
+    "ru": "соль",
+    "en": "salt",
+    "tr": ""
+  },
+  {
+    "id": 996,
+    "it": "naso",
+    "ru": "нос",
+    "en": "nose",
+    "tr": ""
+  },
+  {
+    "id": 997,
+    "it": "plurale",
+    "ru": "множественное",
+    "en": "plural",
+    "tr": ""
+  },
+  {
+    "id": 998,
+    "it": "rabbia",
+    "ru": "гнев",
+    "en": "anger",
+    "tr": ""
+  },
+  {
+    "id": 999,
+    "it": "richiesta",
+    "ru": "претензии",
+    "en": "claim",
+    "tr": ""
+  },
+  {
+    "id": 1000,
+    "it": "continente",
+    "ru": "континент",
+    "en": "continent",
+    "tr": ""
+  }
+]

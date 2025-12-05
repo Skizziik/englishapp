@@ -44,18 +44,19 @@ export class SRSEngine {
   /**
    * Get words due for review
    */
-  getNextReviewWords(count: number): ReviewCard[] {
+  getNextReviewWords(count: number, targetLanguage: string = 'en'): ReviewCard[] {
     const now = new Date().toISOString();
 
-    // Get words that are due for review
+    // Get words that are due for review, filtered by target language
     const dueWords = this.db['db'].prepare(`
       SELECT w.*, up.*
       FROM words w
       INNER JOIN user_progress up ON w.id = up.word_id
       WHERE up.next_review <= ? AND up.status IN ('learning', 'review')
+        AND w.target_language = ?
       ORDER BY up.next_review ASC
       LIMIT ?
-    `).all(now, count) as any[];
+    `).all(now, targetLanguage, count) as any[];
 
     return dueWords.map(row => ({
       word: this.mapWordFromRow(row),
@@ -67,7 +68,7 @@ export class SRSEngine {
   /**
    * Get new words to learn
    */
-  getNewWordsToLearn(count: number, level?: string, category?: string): ReviewCard[] {
+  getNewWordsToLearn(count: number, level?: string, category?: string, targetLanguage: string = 'en'): ReviewCard[] {
     let query = `
       SELECT w.*,
         GROUP_CONCAT(DISTINCT t.translation) as translations_str,
@@ -77,10 +78,10 @@ export class SRSEngine {
       LEFT JOIN word_tags wt ON w.id = wt.word_id
       LEFT JOIN tags tg ON wt.tag_id = tg.id
       LEFT JOIN user_progress up ON w.id = up.word_id
-      WHERE up.word_id IS NULL
+      WHERE up.word_id IS NULL AND w.target_language = ?
     `;
 
-    const params: any[] = [];
+    const params: any[] = [targetLanguage];
 
     if (level) {
       query += ' AND w.level = ?';
@@ -276,24 +277,26 @@ export class SRSEngine {
   /**
    * Get review statistics
    */
-  getReviewStats(): SRSStats {
+  getReviewStats(targetLanguage: string = 'en'): SRSStats {
     const now = new Date().toISOString();
     const today = new Date().toISOString().split('T')[0];
 
-    // Count due cards
+    // Count due cards for specific language
     const dueToday = (this.db['db'].prepare(`
       SELECT COUNT(*) as count
-      FROM user_progress
-      WHERE next_review <= ? AND status IN ('learning', 'review')
-    `).get(now) as any).count;
+      FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      WHERE up.next_review <= ? AND up.status IN ('learning', 'review')
+        AND w.target_language = ?
+    `).get(now, targetLanguage) as any).count;
 
-    // Count available new cards
+    // Count available new cards for specific language
     const newAvailable = (this.db['db'].prepare(`
       SELECT COUNT(*) as count
       FROM words w
       LEFT JOIN user_progress up ON w.id = up.word_id
-      WHERE up.word_id IS NULL
-    `).get() as any).count;
+      WHERE up.word_id IS NULL AND w.target_language = ?
+    `).get(targetLanguage) as any).count;
 
     // Get today's stats
     const todayStats = this.db['db'].prepare(`
@@ -312,13 +315,15 @@ export class SRSEngine {
   /**
    * Get count of due reviews
    */
-  getDueReviewCount(): number {
+  getDueReviewCount(targetLanguage: string = 'en'): number {
     const now = new Date().toISOString();
     const result = this.db['db'].prepare(`
       SELECT COUNT(*) as count
-      FROM user_progress
-      WHERE next_review <= ? AND status IN ('learning', 'review')
-    `).get(now) as any;
+      FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      WHERE up.next_review <= ? AND up.status IN ('learning', 'review')
+        AND w.target_language = ?
+    `).get(now, targetLanguage) as any;
     return result.count;
   }
 
