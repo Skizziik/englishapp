@@ -1,6 +1,7 @@
 export * from './HomePage';
 export * from './LearnPage';
 export * from './ReviewPage';
+export * from './SprintPage';
 export * from './DictionaryPage';
 export * from './StatisticsPage';
 export * from './AchievementsPage';

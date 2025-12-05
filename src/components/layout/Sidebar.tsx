@@ -153,6 +153,11 @@ export const Sidebar: React.FC = () => {
           label="Повторение"
         />
         <NavItem
+          to="/sprint"
+          icon={<Zap className="w-5 h-5" />}
+          label="Спринт"
+        />
+        <NavItem
           to="/dictionary"
           icon={<Search className="w-5 h-5" />}
           label="Словарь"

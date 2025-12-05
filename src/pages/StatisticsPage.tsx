@@ -19,6 +19,7 @@ import {
 } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { formatTime, formatNumber } from '@/lib/utils';
+import { PersonalizedInsights } from '@/components/learning';
 import {
   AreaChart,
   Area,
@@ -334,6 +335,9 @@ export const StatisticsPage: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* AI-Powered Insights */}
+        <PersonalizedInsights className="mt-8" variant="full" />
       </motion.div>
     </div>
   );

@@ -211,4 +211,180 @@ Choose useful, commonly used words. Start with easier ones.`;
 
     return this.makeRequest(prompt);
   }
+
+  /**
+   * Generate context sentences from famous books and movies
+   */
+  async generateContextSentences(word: string, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const langFlag = targetLanguage === 'it' ? '🇮🇹' : '🇬🇧';
+
+    const booksAndMovies = targetLanguage === 'it'
+      ? `
+Famous Italian sources:
+- Books: "Il nome della rosa" (Umberto Eco), "La Divina Commedia" (Dante), "Il Gattopardo" (Giuseppe di Lampedusa), "Se questo è un uomo" (Primo Levi), "I Promessi Sposi" (Manzoni)
+- Movies: "La vita è bella", "Cinema Paradiso", "La dolce vita", "Il Padrino", "Caro Diario"
+- TV Series: "Gomorra", "Suburra", "L'amica geniale", "Baby", "DOC - Nelle tue mani"
+`
+      : `
+Famous English sources:
+- Books: "Harry Potter" (J.K. Rowling), "The Lord of the Rings" (Tolkien), "Pride and Prejudice" (Austen), "1984" (Orwell), "The Great Gatsby" (Fitzgerald), "To Kill a Mockingbird" (Harper Lee), "Sherlock Holmes" (Doyle)
+- Movies: "The Shawshank Redemption", "Forrest Gump", "The Godfather", "Pulp Fiction", "Titanic", "Star Wars", "The Dark Knight", "Inception"
+- TV Series: "Friends", "Game of Thrones", "Breaking Bad", "The Office", "Stranger Things", "Sherlock", "The Crown"
+`;
+
+    const prompt = `You are a ${langName} literature and cinema expert. Find or create authentic-feeling example sentences with the word "${word}" that could appear in famous books, movies, or TV series.
+${booksAndMovies}
+Generate 4 context sentences in this exact JSON format:
+{
+  "contexts": [
+    {
+      "sentence": "[${langName} sentence with the word]",
+      "translation": "[Russian translation]",
+      "source": "[Name of the book/movie/series]",
+      "sourceType": "book|movie|series",
+      "character": "[Character name if applicable, or null]",
+      "year": "[Year of release/publication]",
+      "note": "[Brief explanation in Russian why this context is interesting for learning]"
+    }
+  ]
+}
+
+Rules:
+- Create sentences that feel authentic to the source's style and era
+- Include at least one from a book, one from a movie, and one from a TV series
+- Make sentences that demonstrate how the word is used in natural context
+- Sentences should be memorable and help learn the word better
+- Character quotes should match their personality
+- Respond ONLY with valid JSON, no markdown formatting`;
+
+    return this.makeRequest(prompt);
+  }
+
+  /**
+   * Get word usage statistics and interesting facts
+   */
+  async getWordInsights(word: string, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+    const prompt = `You are a ${langName} language expert. Provide interesting insights about the word "${word}".
+
+Respond in Russian with this structure:
+📊 **Частота использования**: [common/rare/very common]
+📜 **Происхождение**: [brief etymology]
+🎭 **Интересный факт**: [an interesting fact about this word]
+🔄 **Эволюция значения**: [how the meaning changed over time, if applicable]
+⚠️ **Важно знать**: [cultural context or usage warnings]
+
+Keep it concise and engaging.`;
+
+    return this.makeRequest(prompt);
+  }
+
+  /**
+   * Analyze user's learning patterns and provide personalized recommendations
+   */
+  async analyzeProgress(stats: {
+    totalWords: number;
+    learnedWords: number;
+    learningWords: number;
+    totalXP: number;
+    streak: number;
+    accuracy: number;
+    difficultWords: string[];
+    strongCategories: string[];
+    weakCategories: string[];
+    averageSessionTime: number;
+    sessionsPerWeek: number;
+  }, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+
+    const prompt = `You are a personalized ${langName} learning coach for a Russian-speaking student. Analyze their learning progress and provide personalized recommendations.
+
+Student's current progress:
+- Total words in vocabulary: ${stats.totalWords}
+- Words learned: ${stats.learnedWords}
+- Words in progress: ${stats.learningWords}
+- Total XP: ${stats.totalXP}
+- Current streak: ${stats.streak} days
+- Overall accuracy: ${stats.accuracy}%
+- Average session time: ${stats.averageSessionTime} minutes
+- Sessions per week: ${stats.sessionsPerWeek}
+- Words they struggle with: ${stats.difficultWords.join(', ') || 'none identified'}
+- Strong categories: ${stats.strongCategories.join(', ') || 'none yet'}
+- Weak categories: ${stats.weakCategories.join(', ') || 'none identified'}
+
+Provide a personalized analysis in Russian in this JSON format:
+{
+  "level": "beginner|intermediate|advanced",
+  "strengths": ["strength 1", "strength 2"],
+  "areasToImprove": ["area 1", "area 2"],
+  "recommendations": [
+    {
+      "type": "focus|practice|habit|tip",
+      "title": "Short title",
+      "description": "Detailed recommendation",
+      "priority": "high|medium|low"
+    }
+  ],
+  "weeklyGoal": {
+    "wordsToLearn": number,
+    "reviewSessions": number,
+    "focusArea": "category or skill to focus on"
+  },
+  "motivation": "A short motivational message personalized to their progress",
+  "nextMilestone": {
+    "description": "Next achievement to aim for",
+    "wordsNeeded": number
+  }
+}
+
+Base your recommendations on their actual stats. Be encouraging but realistic.
+Respond ONLY with valid JSON, no markdown formatting.`;
+
+    return this.makeRequest(prompt);
+  }
+
+  /**
+   * Generate personalized learning tips based on specific mistakes
+   */
+  async analyzeMistakes(mistakes: Array<{
+    word: string;
+    correctAnswer: string;
+    userAnswer: string;
+    timestamp: string;
+  }>, targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+
+    const mistakesList = mistakes
+      .map(m => `- "${m.word}": expected "${m.correctAnswer}", user answered "${m.userAnswer}"`)
+      .join('\n');
+
+    const prompt = `You are a ${langName} teacher analyzing a student's mistakes. Here are their recent errors:
+
+${mistakesList}
+
+Analyze patterns in these mistakes and provide advice in Russian in this JSON format:
+{
+  "patterns": [
+    {
+      "type": "spelling|meaning|confusion|grammar",
+      "description": "Description of the pattern",
+      "affectedWords": ["word1", "word2"],
+      "tip": "How to avoid this mistake"
+    }
+  ],
+  "commonConfusions": [
+    {
+      "words": ["word1", "word2"],
+      "explanation": "Why these are often confused",
+      "mnemonic": "Memory trick to remember the difference"
+    }
+  ],
+  "practiceRecommendation": "What to practice to improve"
+}
+
+Respond ONLY with valid JSON, no markdown formatting.`;
+
+    return this.makeRequest(prompt);
+  }
 }

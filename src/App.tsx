@@ -5,6 +5,7 @@ import {
   HomePage,
   LearnPage,
   ReviewPage,
+  SprintPage,
   DictionaryPage,
   StatisticsPage,
   AchievementsPage,
@@ -59,6 +60,7 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/review" element={<ReviewPage />} />
+        <Route path="/sprint" element={<SprintPage />} />
         <Route path="/dictionary" element={<DictionaryPage />} />
         <Route path="/statistics" element={<StatisticsPage />} />
         <Route path="/achievements" element={<AchievementsPage />} />

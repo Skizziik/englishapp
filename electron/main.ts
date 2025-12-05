@@ -1,9 +1,12 @@
-import type { App, BrowserWindow as BW, IpcMain, NativeTheme } from 'electron';
+import type { App, BrowserWindow as BW, IpcMain, NativeTheme, Tray as TrayType, Menu as MenuType, Notification as NotificationType } from 'electron';
 const electron = require('electron');
 const app: App = electron.app;
 const BrowserWindow: typeof BW = electron.BrowserWindow;
 const ipcMain: IpcMain = electron.ipcMain;
 const nativeTheme: NativeTheme = electron.nativeTheme;
+const Tray: typeof TrayType = electron.Tray;
+const Menu: typeof MenuType = electron.Menu;
+const Notification: typeof NotificationType = electron.Notification;
 
 import * as path from 'path';
 import { DatabaseManager } from './database';
@@ -11,9 +14,12 @@ import { SRSEngine } from './srs-engine';
 import { GeminiService } from './gemini-service';
 
 let mainWindow: BW | null = null;
+let tray: TrayType | null = null;
 let database: DatabaseManager;
 let srsEngine: SRSEngine;
 let geminiService: GeminiService;
+let reminderInterval: NodeJS.Timeout | null = null;
+let wordOfDayShown: string | null = null;
 
 function createWindow() {
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
@@ -49,6 +55,174 @@ function createWindow() {
   });
 }
 
+function createTray() {
+  const iconPath = path.join(__dirname, '../public/icon.png');
+  tray = new Tray(iconPath);
+  tray.setToolTip('English Learning');
+  updateTrayMenu();
+
+  tray.on('click', () => {
+    if (mainWindow) {
+      if (mainWindow.isVisible()) {
+        mainWindow.focus();
+      } else {
+        mainWindow.show();
+      }
+    }
+  });
+}
+
+function updateTrayMenu() {
+  if (!tray || !database) return;
+
+  const settings = database.getSettings();
+  const wordOfDay = database.getWordOfTheDay(settings?.target_language || 'en');
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '📖 Слово дня',
+      enabled: false,
+    },
+    {
+      label: wordOfDay ? `${wordOfDay.word} - ${wordOfDay.translations[0] || ''}` : 'Загрузка...',
+      enabled: false,
+    },
+    { type: 'separator' },
+    {
+      label: '🎯 Начать тренировку',
+      click: () => {
+        if (mainWindow) {
+          mainWindow.show();
+          mainWindow.webContents.send('navigate', '/learn');
+        }
+      },
+    },
+    {
+      label: '⚡ Sprint Mode',
+      click: () => {
+        if (mainWindow) {
+          mainWindow.show();
+          mainWindow.webContents.send('navigate', '/sprint');
+        }
+      },
+    },
+    { type: 'separator' },
+    {
+      label: '📊 Статистика',
+      click: () => {
+        if (mainWindow) {
+          mainWindow.show();
+          mainWindow.webContents.send('navigate', '/stats');
+        }
+      },
+    },
+    { type: 'separator' },
+    {
+      label: 'Показать приложение',
+      click: () => {
+        mainWindow?.show();
+      },
+    },
+    {
+      label: 'Выход',
+      click: () => {
+        app.quit();
+      },
+    },
+  ]);
+
+  tray.setContextMenu(contextMenu);
+}
+
+function showWordOfDayNotification() {
+  if (!database) return;
+
+  const settings = database.getSettings();
+  if (!settings?.word_of_day_notifications) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  if (wordOfDayShown === today) return; // Already shown today
+
+  const wordOfDay = database.getWordOfTheDay(settings?.target_language || 'en');
+  if (!wordOfDay) return;
+
+  wordOfDayShown = today;
+
+  const notification = new Notification({
+    title: '📖 Слово дня',
+    body: `${wordOfDay.word} (${wordOfDay.level})\n${wordOfDay.translations.slice(0, 2).join(', ')}`,
+    icon: path.join(__dirname, '../public/icon.png'),
+  });
+
+  notification.on('click', () => {
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.webContents.send('navigate', '/dictionary');
+    }
+  });
+
+  notification.show();
+}
+
+function showReminderNotification() {
+  if (!database) return;
+
+  const settings = database.getSettings();
+  if (!settings?.reminder_enabled) return;
+
+  const stats = database.getUserStats();
+  const dueCount = srsEngine.getDueReviewCount(settings?.target_language || 'en');
+
+  let body = '';
+  if (dueCount > 0) {
+    body = `У вас ${dueCount} слов для повторения!`;
+  } else {
+    body = 'Время изучить новые слова!';
+  }
+
+  const notification = new Notification({
+    title: '🎯 Время учиться!',
+    body: body + `\n🔥 Серия: ${stats.currentStreak} дней`,
+    icon: path.join(__dirname, '../public/icon.png'),
+  });
+
+  notification.on('click', () => {
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.webContents.send('navigate', '/learn');
+    }
+  });
+
+  notification.show();
+}
+
+function setupReminders() {
+  if (reminderInterval) {
+    clearInterval(reminderInterval);
+    reminderInterval = null;
+  }
+
+  // Check every minute if it's time for a reminder
+  reminderInterval = setInterval(() => {
+    if (!database) return;
+
+    const settings = database.getSettings();
+    if (!settings?.reminder_enabled) return;
+
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    if (currentTime === settings.reminder_time) {
+      showReminderNotification();
+    }
+
+    // Show word of the day at 8:00 AM
+    if (currentTime === '08:00') {
+      showWordOfDayNotification();
+    }
+  }, 60000); // Check every minute
+}
+
 app.whenReady().then(async () => {
   // Initialize database
   database = new DatabaseManager();
@@ -61,6 +235,20 @@ app.whenReady().then(async () => {
   geminiService = new GeminiService();
 
   createWindow();
+
+  // Create system tray
+  const settings = database.getSettings();
+  if (settings?.tray_enabled !== 0) {
+    createTray();
+  }
+
+  // Setup reminders
+  setupReminders();
+
+  // Show word of the day notification on startup (if enabled)
+  setTimeout(() => {
+    showWordOfDayNotification();
+  }, 5000); // Delay 5 seconds after startup
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -261,6 +449,22 @@ ipcMain.handle('gemini:chat', async (_, messages: any[], targetLanguage?: string
   return geminiService.chat(messages, targetLanguage);
 });
 
+ipcMain.handle('gemini:getContextSentences', async (_, word: string, targetLanguage?: string) => {
+  return geminiService.generateContextSentences(word, targetLanguage);
+});
+
+ipcMain.handle('gemini:getWordInsights', async (_, word: string, targetLanguage?: string) => {
+  return geminiService.getWordInsights(word, targetLanguage);
+});
+
+ipcMain.handle('gemini:analyzeProgress', async (_, stats: any, targetLanguage?: string) => {
+  return geminiService.analyzeProgress(stats, targetLanguage);
+});
+
+ipcMain.handle('gemini:analyzeMistakes', async (_, mistakes: any[], targetLanguage?: string) => {
+  return geminiService.analyzeMistakes(mistakes, targetLanguage);
+});
+
 // User settings handlers
 ipcMain.handle('settings:get', async () => {
   return database.getSettings();
@@ -286,4 +490,36 @@ ipcMain.handle('profile:get', async () => {
 
 ipcMain.handle('profile:update', async (_, profile: any) => {
   return database.updateUserProfile(profile);
+});
+
+// Word of the Day handlers
+ipcMain.handle('wordOfDay:get', async (_, targetLanguage?: string) => {
+  return database.getWordOfTheDay(targetLanguage || 'en');
+});
+
+ipcMain.handle('wordOfDay:showNotification', async () => {
+  showWordOfDayNotification();
+  return true;
+});
+
+// Tray handlers
+ipcMain.handle('tray:update', async () => {
+  updateTrayMenu();
+  return true;
+});
+
+ipcMain.handle('tray:enable', async (_, enabled: boolean) => {
+  if (enabled && !tray) {
+    createTray();
+  } else if (!enabled && tray) {
+    tray.destroy();
+    tray = null;
+  }
+  return true;
+});
+
+// Reminder handlers
+ipcMain.handle('reminders:test', async () => {
+  showReminderNotification();
+  return true;
 });

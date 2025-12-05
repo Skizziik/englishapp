@@ -10,8 +10,10 @@ import {
   Award,
   ArrowRight,
   Sparkles,
+  Zap,
 } from 'lucide-react';
 import { Button, Card, CardContent, XPProgress, StreakBadge, XPBadge, LevelBadge } from '@/components/ui';
+import { WordOfDay } from '@/components/widgets';
 import { useAppStore } from '@/stores/appStore';
 import { getGreeting, formatTime, formatNumber } from '@/lib/utils';
 
@@ -222,6 +224,28 @@ export const HomePage: React.FC = () => {
               </CardContent>
             </Card>
           </Link>
+
+          {/* Sprint Mode */}
+          <Link to="/sprint">
+            <Card className="group cursor-pointer hover:border-yellow-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/10">
+              <CardContent className="p-5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-500 shadow-lg shadow-yellow-500/30">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Режим Спринт</h3>
+                    <p className="text-sm text-muted-foreground">
+                      <span className="text-yellow-400 font-medium">
+                        60 секунд на максимум очков!
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-yellow-400 group-hover:translate-x-1 transition-all" />
+              </CardContent>
+            </Card>
+          </Link>
         </motion.div>
       </div>
 
@@ -253,8 +277,10 @@ export const HomePage: React.FC = () => {
         </Card>
       </motion.div>
 
-      {/* Tips Section */}
-      <motion.div variants={item} className="mt-8">
+      {/* Word of the Day and Tips Section */}
+      <motion.div variants={item} className="mt-8 grid grid-cols-2 gap-6">
+        <WordOfDay />
+
         <Card className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/20">
           <CardContent className="p-6">
             <div className="flex items-start gap-4">

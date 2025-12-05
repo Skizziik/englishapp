@@ -1,0 +1,1 @@
+export { WordOfDay } from './WordOfDay';

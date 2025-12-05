@@ -8,7 +8,7 @@ import {
   SearchInput,
   LevelBadge,
 } from '@/components/ui';
-import { WordCard } from '@/components/learning';
+import { WordCard, ContextSentences } from '@/components/learning';
 import type { Word, Category, Level } from '@/types';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
@@ -400,6 +400,9 @@ export const DictionaryPage: React.FC = () => {
                 </CardContent>
               </Card>
             )}
+
+            {/* Context Sentences from Books/Movies */}
+            <ContextSentences word={selectedWord.word} className="mt-4" variant="compact" />
           </div>
         ) : (
           <div className="h-full flex items-center justify-center">

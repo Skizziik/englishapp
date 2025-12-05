@@ -126,6 +126,10 @@ interface ElectronAPI {
     generateExamples: (word: string, count?: number, targetLanguage?: string) => Promise<GeminiResponse>;
     checkGrammar: (text: string, targetLanguage?: string) => Promise<GeminiResponse>;
     chat: (messages: Array<{ role: 'user' | 'model'; content: string }>, targetLanguage?: string) => Promise<GeminiResponse>;
+    getContextSentences: (word: string, targetLanguage?: string) => Promise<GeminiResponse>;
+    getWordInsights: (word: string, targetLanguage?: string) => Promise<GeminiResponse>;
+    analyzeProgress: (stats: any, targetLanguage?: string) => Promise<GeminiResponse>;
+    analyzeMistakes: (mistakes: any[], targetLanguage?: string) => Promise<GeminiResponse>;
   };
 
   settings: {
@@ -141,6 +145,27 @@ interface ElectronAPI {
   profile: {
     get: () => Promise<UserProfile>;
     update: (profile: Partial<UserProfile>) => Promise<void>;
+  };
+
+  wordOfDay: {
+    get: (targetLanguage?: string) => Promise<{
+      id: string;
+      word: string;
+      transcription: string;
+      partOfSpeech: string;
+      level: string;
+      translations: string[];
+    } | null>;
+    showNotification: () => Promise<boolean>;
+  };
+
+  tray: {
+    update: () => Promise<boolean>;
+    enable: (enabled: boolean) => Promise<boolean>;
+  };
+
+  reminders: {
+    test: () => Promise<boolean>;
   };
 }
 

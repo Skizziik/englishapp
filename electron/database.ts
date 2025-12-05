@@ -275,9 +275,27 @@ export class DatabaseManager {
         srs_review_cards_per_day INTEGER DEFAULT 100,
         gemini_api_key TEXT,
         gemini_enabled INTEGER DEFAULT 0,
-        language TEXT DEFAULT 'ru'
+        language TEXT DEFAULT 'ru',
+        reminder_enabled INTEGER DEFAULT 1,
+        reminder_time TEXT DEFAULT '09:00',
+        tray_enabled INTEGER DEFAULT 1,
+        word_of_day_notifications INTEGER DEFAULT 1
       );
     `);
+
+    // Add new columns to existing settings table if they don't exist
+    try {
+      this.db.exec('ALTER TABLE settings ADD COLUMN reminder_enabled INTEGER DEFAULT 1');
+    } catch (e) { /* column exists */ }
+    try {
+      this.db.exec('ALTER TABLE settings ADD COLUMN reminder_time TEXT DEFAULT "09:00"');
+    } catch (e) { /* column exists */ }
+    try {
+      this.db.exec('ALTER TABLE settings ADD COLUMN tray_enabled INTEGER DEFAULT 1');
+    } catch (e) { /* column exists */ }
+    try {
+      this.db.exec('ALTER TABLE settings ADD COLUMN word_of_day_notifications INTEGER DEFAULT 1');
+    } catch (e) { /* column exists */ }
 
     // Initialize default records
     this.db.exec(`
@@ -1349,6 +1367,44 @@ export class DatabaseManager {
 
   getOverallStats(): any {
     return this.getUserStats();
+  }
+
+  // Word of the Day method
+  getWordOfTheDay(targetLanguage: string = 'en'): any {
+    // Use date as seed to get consistent word for the day
+    const today = new Date().toISOString().split('T')[0];
+    const dateHash = today.split('-').reduce((acc, val) => acc + parseInt(val), 0);
+
+    // Get total count of words for this language
+    const totalResult = this.db.prepare(
+      'SELECT COUNT(*) as count FROM words WHERE target_language = ?'
+    ).get(targetLanguage) as { count: number };
+
+    if (totalResult.count === 0) return null;
+
+    // Calculate offset based on date (cycles through all words)
+    const offset = dateHash % totalResult.count;
+
+    const word = this.db.prepare(`
+      SELECT w.*,
+        GROUP_CONCAT(DISTINCT t.translation) as translations_str
+      FROM words w
+      LEFT JOIN translations t ON w.id = t.word_id
+      WHERE w.target_language = ?
+      GROUP BY w.id
+      LIMIT 1 OFFSET ?
+    `).get(targetLanguage, offset) as any;
+
+    if (!word) return null;
+
+    return {
+      id: word.id,
+      word: word.word,
+      transcription: word.transcription,
+      partOfSpeech: word.part_of_speech,
+      level: word.level,
+      translations: word.translations_str ? word.translations_str.split(',') : [],
+    };
   }
 
   // Settings methods

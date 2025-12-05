@@ -110,6 +110,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.invoke('gemini:generateExamples', word, count, targetLanguage),
     checkGrammar: (text: string, targetLanguage?: string) => ipcRenderer.invoke('gemini:checkGrammar', text, targetLanguage),
     chat: (messages: any[], targetLanguage?: string) => ipcRenderer.invoke('gemini:chat', messages, targetLanguage),
+    getContextSentences: (word: string, targetLanguage?: string) =>
+      ipcRenderer.invoke('gemini:getContextSentences', word, targetLanguage),
+    getWordInsights: (word: string, targetLanguage?: string) =>
+      ipcRenderer.invoke('gemini:getWordInsights', word, targetLanguage),
+    analyzeProgress: (stats: any, targetLanguage?: string) =>
+      ipcRenderer.invoke('gemini:analyzeProgress', stats, targetLanguage),
+    analyzeMistakes: (mistakes: any[], targetLanguage?: string) =>
+      ipcRenderer.invoke('gemini:analyzeMistakes', mistakes, targetLanguage),
   },
 
   // Settings
@@ -128,5 +136,22 @@ contextBridge.exposeInMainWorld('electronAPI', {
   profile: {
     get: () => ipcRenderer.invoke('profile:get'),
     update: (profile: any) => ipcRenderer.invoke('profile:update', profile),
+  },
+
+  // Word of the Day
+  wordOfDay: {
+    get: (targetLanguage?: string) => ipcRenderer.invoke('wordOfDay:get', targetLanguage),
+    showNotification: () => ipcRenderer.invoke('wordOfDay:showNotification'),
+  },
+
+  // System Tray
+  tray: {
+    update: () => ipcRenderer.invoke('tray:update'),
+    enable: (enabled: boolean) => ipcRenderer.invoke('tray:enable', enabled),
+  },
+
+  // Reminders
+  reminders: {
+    test: () => ipcRenderer.invoke('reminders:test'),
   },
 });
