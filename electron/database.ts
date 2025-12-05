@@ -353,13 +353,23 @@ export class DatabaseManager {
 
   private async seedWords(): Promise<void> {
     // Try to load 8000+ words from external JSON file
+    // In packaged app, extraResources are in process.resourcesPath
+    // In development, they're relative to the project root
     const possiblePaths = [
-      path.join(__dirname, '..', 'data', 'words-8000.json'),
-      path.join(__dirname, '..', '..', 'data', 'words-8000.json'),
+      // Packaged app - extraResources folder
       path.join(process.resourcesPath || '', 'data', 'words-8000.json'),
+      // Development - relative to dist/main
+      path.join(__dirname, '..', '..', 'data', 'words-8000.json'),
+      // Development - relative to project root
+      path.join(__dirname, '..', 'data', 'words-8000.json'),
+      // Absolute path for development
+      path.join(process.cwd(), 'data', 'words-8000.json'),
     ];
 
+    console.log('Looking for words database in paths:', possiblePaths);
+
     for (const jsonPath of possiblePaths) {
+      console.log(`Checking path: ${jsonPath}, exists: ${fs.existsSync(jsonPath)}`);
       if (fs.existsSync(jsonPath)) {
         console.log(`Loading 8000+ words from: ${jsonPath}`);
         this.seedWordsFromJson(jsonPath);

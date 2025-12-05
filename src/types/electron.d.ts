@@ -70,6 +70,8 @@ interface ElectronAPI {
     getByCategory: (category: string) => Promise<Word[]>;
     getCategories: () => Promise<Category[]>;
     getLevels: () => Promise<Level[]>;
+    getWithProgress: (filters?: WordFilters) => Promise<any[]>;
+    getStatusCounts: () => Promise<{ status: string; count: number }[]>;
   };
 
   progress: {

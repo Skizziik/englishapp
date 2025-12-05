@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, X, BookOpen, Volume2, CheckCircle, BookMarked, Clock, Sparkles } from 'lucide-react';
 import {
@@ -54,23 +54,27 @@ export const DictionaryPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<WordWithProgress | null>(null);
 
   useEffect(() => {
-    loadData();
+    loadInitialData();
   }, []);
 
-  const loadData = async () => {
+  // Reload words when filters change
+  useEffect(() => {
+    loadWords();
+  }, [selectedLevel, selectedCategory, selectedStatus, searchQuery]);
+
+  const loadInitialData = async () => {
     setIsLoading(true);
 
     if (window.electronAPI) {
-      const [wordsData, categoriesData, levelsData, statusCountsData] = await Promise.all([
-        window.electronAPI.words.getWithProgress({ limit: 500 }),
+      const [categoriesData, levelsData, statusCountsData] = await Promise.all([
         window.electronAPI.words.getCategories(),
         window.electronAPI.words.getLevels(),
         window.electronAPI.words.getStatusCounts(),
       ]);
-      setWords(wordsData);
       setCategories(categoriesData);
       setLevels(levelsData);
       setStatusCounts(statusCountsData);
+      await loadWords();
     } else {
       // Mock data
       setWords(getMockWords());
@@ -98,33 +102,24 @@ export const DictionaryPage: React.FC = () => {
     setIsLoading(false);
   };
 
-  const filteredWords = useMemo(() => {
-    return words.filter((word) => {
-      // Search filter
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchesWord = word.word.toLowerCase().includes(query);
-        const matchesTranslation = word.translations.some((t) =>
-          t.translation.toLowerCase().includes(query)
-        );
-        if (!matchesWord && !matchesTranslation) return false;
-      }
+  const loadWords = async () => {
+    if (!window.electronAPI) return;
 
-      // Level filter
-      if (selectedLevel && word.level !== selectedLevel) return false;
+    const filters: any = {};
+    if (selectedLevel) filters.level = selectedLevel;
+    if (selectedCategory) filters.category = selectedCategory;
+    if (selectedStatus) filters.status = selectedStatus;
+    if (searchQuery) filters.search = searchQuery;
 
-      // Category filter
-      if (selectedCategory && !word.tags.includes(selectedCategory)) return false;
+    // Limit to 3000 words max for performance, 100 if no filters
+    filters.limit = (selectedLevel || selectedCategory || selectedStatus || searchQuery) ? 3000 : 100;
 
-      // Status filter
-      if (selectedStatus) {
-        const wordStatus = word.progress?.status || 'new';
-        if (wordStatus !== selectedStatus) return false;
-      }
+    const wordsData = await window.electronAPI.words.getWithProgress(filters);
+    setWords(wordsData);
+  };
 
-      return true;
-    });
-  }, [words, searchQuery, selectedLevel, selectedCategory, selectedStatus]);
+  // Words are now loaded with filters from backend, just return them
+  const filteredWords = words;
 
   const clearFilters = () => {
     setSearchQuery('');
