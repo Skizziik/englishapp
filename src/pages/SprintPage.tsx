@@ -62,6 +62,12 @@ export const SprintPage: React.FC = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Refs to track current values for the timer callback
+  const scoreRef = useRef(0);
+  const correctCountRef = useRef(0);
+  const wrongCountRef = useRef(0);
+  const maxComboRef = useRef(0);
+
   // Load words for sprint
   useEffect(() => {
     const loadWords = async () => {
@@ -138,6 +144,12 @@ export const SprintPage: React.FC = () => {
     setCurrentIndex(0);
     setLastAnswer(null);
 
+    // Reset refs
+    scoreRef.current = 0;
+    correctCountRef.current = 0;
+    wrongCountRef.current = 0;
+    maxComboRef.current = 0;
+
     // Shuffle words again
     setWords((prev) => shuffleArray([...prev]));
 
@@ -163,18 +175,34 @@ export const SprintPage: React.FC = () => {
       const comboMultiplier = Math.min(Math.floor(combo / 5) + 1, 5);
       const points = 10 * comboMultiplier;
 
-      setScore((prev) => prev + points);
+      setScore((prev) => {
+        const newScore = prev + points;
+        scoreRef.current = newScore;
+        return newScore;
+      });
       setCombo((prev) => {
         const newCombo = prev + 1;
-        setMaxCombo((max) => Math.max(max, newCombo));
+        setMaxCombo((max) => {
+          const newMax = Math.max(max, newCombo);
+          maxComboRef.current = newMax;
+          return newMax;
+        });
         return newCombo;
       });
-      setCorrectCount((prev) => prev + 1);
+      setCorrectCount((prev) => {
+        const newCount = prev + 1;
+        correctCountRef.current = newCount;
+        return newCount;
+      });
       setLastAnswer('correct');
     } else {
       // Wrong answer
       setCombo(0);
-      setWrongCount((prev) => prev + 1);
+      setWrongCount((prev) => {
+        const newCount = prev + 1;
+        wrongCountRef.current = newCount;
+        return newCount;
+      });
       setLastAnswer('wrong');
     }
 
@@ -196,23 +224,29 @@ export const SprintPage: React.FC = () => {
   const endGame = async () => {
     setPhase('complete');
 
-    const totalAnswers = correctCount + wrongCount;
-    const xpEarned = Math.floor(score / 10) + correctCount * 2;
+    // Use refs for accurate values (state may be stale in timer callback)
+    const finalScore = scoreRef.current;
+    const finalCorrect = correctCountRef.current;
+    const finalWrong = wrongCountRef.current;
+    const finalMaxCombo = maxComboRef.current;
+
+    const totalAnswers = finalCorrect + finalWrong;
+    const xpEarned = Math.floor(finalScore / 10) + finalCorrect * 2;
     const wordsPerMinute = Math.round((totalAnswers / sprintDuration) * 60);
 
     setResult({
-      score,
-      correctCount,
-      wrongCount,
-      combo: maxCombo,
-      maxCombo,
+      score: finalScore,
+      correctCount: finalCorrect,
+      wrongCount: finalWrong,
+      combo: finalMaxCombo,
+      maxCombo: finalMaxCombo,
       xpEarned,
       timeElapsed: sprintDuration,
       wordsPerMinute,
     });
 
     // Save XP
-    if (window.electronAPI) {
+    if (window.electronAPI && xpEarned > 0) {
       await window.electronAPI.gamification.addXP(xpEarned, 'sprint');
       await window.electronAPI.gamification.updateStreak();
     }
