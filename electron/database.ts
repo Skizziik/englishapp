@@ -744,6 +744,10 @@ export class DatabaseManager {
     const conditions: string[] = [];
     const params: any[] = [];
 
+    // Always filter by target language (default to 'en' for English)
+    conditions.push('w.target_language = ?');
+    params.push(filters?.targetLanguage || 'en');
+
     if (filters?.level) {
       conditions.push('w.level = ?');
       params.push(filters.level);
@@ -757,9 +761,8 @@ export class DatabaseManager {
       params.push(`%${filters.search}%`, `%${filters.search}%`);
     }
 
-    if (conditions.length > 0) {
-      query += ' WHERE ' + conditions.join(' AND ');
-    }
+    // conditions always has at least targetLanguage
+    query += ' WHERE ' + conditions.join(' AND ');
 
     query += ' GROUP BY w.id ORDER BY w.frequency DESC';
 

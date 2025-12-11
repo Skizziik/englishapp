@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Zap,
-  Play,
   Trophy,
   Clock,
   Target,
@@ -67,6 +66,15 @@ export const SprintPage: React.FC = () => {
   const correctCountRef = useRef(0);
   const wrongCountRef = useRef(0);
   const maxComboRef = useRef(0);
+  const sprintDurationRef = useRef(sprintDuration);
+
+  // Update sprintDurationRef when sprintDuration changes
+  useEffect(() => {
+    sprintDurationRef.current = sprintDuration;
+  }, [sprintDuration]);
+
+  // Ref to hold the endGame function for timer callback
+  const endGameRef = useRef<() => void>(() => {});
 
   // Load words for sprint
   useEffect(() => {
@@ -158,7 +166,8 @@ export const SprintPage: React.FC = () => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timerRef.current!);
-          endGame();
+          // Use ref to call the latest endGame function
+          endGameRef.current();
           return 0;
         }
         return prev - 1;
@@ -220,8 +229,8 @@ export const SprintPage: React.FC = () => {
     }
   }, [currentIndex, phase, setupQuestion]);
 
-  // End game
-  const endGame = async () => {
+  // End game - called when timer reaches 0
+  const endGame = useCallback(async () => {
     setPhase('complete');
 
     // Use refs for accurate values (state may be stale in timer callback)
@@ -229,21 +238,24 @@ export const SprintPage: React.FC = () => {
     const finalCorrect = correctCountRef.current;
     const finalWrong = wrongCountRef.current;
     const finalMaxCombo = maxComboRef.current;
+    const duration = sprintDurationRef.current;
 
     const totalAnswers = finalCorrect + finalWrong;
     const xpEarned = Math.floor(finalScore / 10) + finalCorrect * 2;
-    const wordsPerMinute = Math.round((totalAnswers / sprintDuration) * 60);
+    const wordsPerMinute = totalAnswers > 0 ? Math.round((totalAnswers / duration) * 60) : 0;
 
-    setResult({
+    const gameResult: SprintResult = {
       score: finalScore,
       correctCount: finalCorrect,
       wrongCount: finalWrong,
       combo: finalMaxCombo,
       maxCombo: finalMaxCombo,
       xpEarned,
-      timeElapsed: sprintDuration,
+      timeElapsed: duration,
       wordsPerMinute,
-    });
+    };
+
+    setResult(gameResult);
 
     // Save XP
     if (window.electronAPI && xpEarned > 0) {
@@ -252,7 +264,12 @@ export const SprintPage: React.FC = () => {
     }
 
     refreshData();
-  };
+  }, [refreshData]);
+
+  // Keep endGameRef updated with latest endGame function
+  useEffect(() => {
+    endGameRef.current = endGame;
+  }, [endGame]);
 
   // Cleanup timers
   useEffect(() => {
