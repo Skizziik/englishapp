@@ -112,14 +112,15 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
       }
 
       // Prepare stats for analysis
+      const totalAnswers = (stats?.correctAnswers || 0) + (stats?.wrongAnswers || 0);
       const progressStats = {
         totalWords: stats?.totalWords || 0,
         learnedWords: stats?.learnedWords || 0,
         learningWords: stats?.learningWords || 0,
         totalXP: stats?.totalXP || 0,
         streak: streak?.current || 0,
-        accuracy: stats?.wordsReviewed
-          ? Math.round((stats.learnedWords / stats.wordsReviewed) * 100)
+        accuracy: totalAnswers > 0
+          ? Math.round((stats?.correctAnswers || 0) / totalAnswers * 100)
           : 0,
         difficultWords: [], // Would need to fetch from database
         strongCategories: [],

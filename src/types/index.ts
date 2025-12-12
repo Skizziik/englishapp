@@ -53,6 +53,8 @@ export interface UserStats {
   learnedWords: number;
   learningWords: number;
   wordsReviewed: number;
+  correctAnswers: number;
+  wrongAnswers: number;
   totalXP: number;
   currentStreak: number;
   longestStreak: number;

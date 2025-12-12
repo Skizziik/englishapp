@@ -53,6 +53,8 @@ export interface UserStats {
   learnedWords: number;
   learningWords: number;
   wordsReviewed: number;
+  correctAnswers: number;
+  wrongAnswers: number;
   totalXP: number;
   currentStreak: number;
   longestStreak: number;
@@ -1062,6 +1064,8 @@ export class DatabaseManager {
     const learnedWords = (this.db.prepare("SELECT COUNT(*) as count FROM user_progress WHERE status = 'learned'").get() as any).count;
     const learningWords = (this.db.prepare("SELECT COUNT(*) as count FROM user_progress WHERE status = 'learning'").get() as any).count;
     const wordsReviewed = (this.db.prepare('SELECT COALESCE(SUM(words_reviewed), 0) as total FROM daily_stats').get() as any).total;
+    const correctAnswers = (this.db.prepare('SELECT COALESCE(SUM(correct_answers), 0) as total FROM daily_stats').get() as any).total;
+    const wrongAnswers = (this.db.prepare('SELECT COALESCE(SUM(wrong_answers), 0) as total FROM daily_stats').get() as any).total;
     const totalXP = (this.db.prepare('SELECT COALESCE(SUM(amount), 0) as total FROM xp_log').get() as any).total;
     const streak = this.db.prepare('SELECT * FROM streak WHERE id = 1').get() as any;
     const totalTime = (this.db.prepare('SELECT COALESCE(SUM(time_spent), 0) as total FROM daily_stats').get() as any).total;
@@ -1072,6 +1076,8 @@ export class DatabaseManager {
       learnedWords,
       learningWords,
       wordsReviewed,
+      correctAnswers,
+      wrongAnswers,
       totalXP,
       currentStreak: streak?.current_streak || 0,
       longestStreak: streak?.longest_streak || 0,
