@@ -15,6 +15,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
 import { CircularProgress } from '@/components/ui/Progress';
+import { gbFlag, itFlag } from '@/assets/flags';
 
 interface NavItemProps {
   to: string;
@@ -74,11 +75,11 @@ export const Sidebar: React.FC = () => {
             className={cn(
               'flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg transition-all',
               targetLanguage === 'en'
-                ? 'bg-primary text-primary-foreground'
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'bg-secondary hover:bg-secondary/80 text-muted-foreground'
             )}
           >
-            <span className="text-lg">🇬🇧</span>
+            <img src={gbFlag} alt="UK" className="w-6 h-4 rounded-sm object-cover shadow-sm" />
             <span className="text-sm font-medium">English</span>
           </button>
           <button
@@ -86,11 +87,11 @@ export const Sidebar: React.FC = () => {
             className={cn(
               'flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg transition-all',
               targetLanguage === 'it'
-                ? 'bg-primary text-primary-foreground'
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
                 : 'bg-secondary hover:bg-secondary/80 text-muted-foreground'
             )}
           >
-            <span className="text-lg">🇮🇹</span>
+            <img src={itFlag} alt="Italy" className="w-6 h-4 rounded-sm object-cover shadow-sm" />
             <span className="text-sm font-medium">Italiano</span>
           </button>
         </div>
