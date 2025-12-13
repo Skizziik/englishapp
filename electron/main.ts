@@ -12,12 +12,14 @@ import * as path from 'path';
 import { DatabaseManager } from './database';
 import { SRSEngine } from './srs-engine';
 import { GeminiService } from './gemini-service';
+import { YouTubeImportService, ProcessedWord } from './youtube-import-service';
 
 let mainWindow: BW | null = null;
 let tray: TrayType | null = null;
 let database: DatabaseManager;
 let srsEngine: SRSEngine;
 let geminiService: GeminiService;
+let youtubeImportService: YouTubeImportService;
 let reminderInterval: NodeJS.Timeout | null = null;
 let wordOfDayShown: string | null = null;
 
@@ -233,6 +235,9 @@ app.whenReady().then(async () => {
 
   // Initialize Gemini Service
   geminiService = new GeminiService();
+
+  // Initialize YouTube Import Service
+  youtubeImportService = new YouTubeImportService(geminiService, database);
 
   createWindow();
 
@@ -522,4 +527,13 @@ ipcMain.handle('tray:enable', async (_, enabled: boolean) => {
 ipcMain.handle('reminders:test', async () => {
   showReminderNotification();
   return true;
+});
+
+// YouTube Import handlers
+ipcMain.handle('youtube:import', async (_, url: string, targetLanguage: string) => {
+  return youtubeImportService.importFromYouTube(url, targetLanguage);
+});
+
+ipcMain.handle('youtube:addWords', async (_, words: ProcessedWord[], targetLanguage: string, source?: string) => {
+  return youtubeImportService.addWordsToDictionary(words, targetLanguage, source || 'youtube');
 });

@@ -50,7 +50,7 @@ export class GeminiService {
     return `${first}${'•'.repeat(20)}${last}`;
   }
 
-  private async makeRequest(prompt: string): Promise<GeminiResponse> {
+  private async makeRequest(prompt: string, maxTokens: number = 1024): Promise<GeminiResponse> {
     if (!this.apiKey) {
       return { success: false, error: 'API ключ не настроен' };
     }
@@ -66,8 +66,8 @@ export class GeminiService {
             parts: [{ text: prompt }]
           }],
           generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 1024,
+            temperature: 0.3,
+            maxOutputTokens: maxTokens,
           }
         })
       });
@@ -386,5 +386,34 @@ Analyze patterns in these mistakes and provide advice in Russian in this JSON fo
 Respond ONLY with valid JSON, no markdown formatting.`;
 
     return this.makeRequest(prompt);
+  }
+
+  /**
+   * Process a batch of words for YouTube import
+   * Returns translations, levels, and transcriptions
+   */
+  async processWordsBatch(words: string[], targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'итальянского' : 'английского';
+
+    const prompt = `Проанализируй следующие слова ${langName} языка и верни JSON массив.
+Для каждого слова определи:
+- word: само слово (как в списке)
+- level: уровень CEFR (A1, A2, B1, B2, C1, C2) - определи реальный уровень сложности
+- translation: перевод на русский (основное значение, одно-два слова)
+- partOfSpeech: часть речи на английском (noun, verb, adjective, adverb, preposition, conjunction, other)
+- transcription: транскрипция (для английского в формате IPA типа /wɜːrd/, для итальянского с ударением)
+
+Слова для анализа: ${words.join(', ')}
+
+ВАЖНО:
+- Верни ТОЛЬКО валидный JSON массив без markdown и без \`\`\`
+- Каждое слово должно быть в результате
+- Уровень определяй реально: простые слова (cat, dog, house) = A1, сложные (sophisticated, eloquent) = C1/C2
+
+Формат ответа:
+[{"word":"example","level":"B1","translation":"пример","partOfSpeech":"noun","transcription":"/ɪɡˈzɑːmpl/"}]`;
+
+    // Увеличенный лимит токенов для обработки слов
+    return this.makeRequest(prompt, 4096);
   }
 }

@@ -154,4 +154,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
   reminders: {
     test: () => ipcRenderer.invoke('reminders:test'),
   },
+
+  // YouTube Import
+  youtube: {
+    import: (url: string, targetLanguage: string) => ipcRenderer.invoke('youtube:import', url, targetLanguage),
+    addWords: (words: any[], targetLanguage: string, source?: string) =>
+      ipcRenderer.invoke('youtube:addWords', words, targetLanguage, source),
+  },
 });

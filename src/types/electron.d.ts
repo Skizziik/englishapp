@@ -50,6 +50,36 @@ interface GeminiResponse {
   error?: string;
 }
 
+interface YouTubeProcessedWord {
+  word: string;
+  frequency: number;
+  contexts: string[];
+  level: string;
+  translation: string;
+  transcription?: string;
+  partOfSpeech?: string;
+  exists: boolean;
+  inProgress: boolean;
+}
+
+interface YouTubeImportResult {
+  success: boolean;
+  error?: string;
+  videoTitle?: string;
+  videoId?: string;
+  language?: string;
+  totalWords?: number;
+  uniqueWords?: number;
+  newWords?: YouTubeProcessedWord[];
+  existingWords?: YouTubeProcessedWord[];
+}
+
+interface YouTubeAddWordsResult {
+  success: boolean;
+  added: number;
+  error?: string;
+}
+
 interface ElectronAPI {
   window: {
     minimize: () => Promise<void>;
@@ -166,6 +196,11 @@ interface ElectronAPI {
 
   reminders: {
     test: () => Promise<boolean>;
+  };
+
+  youtube: {
+    import: (url: string, targetLanguage: string) => Promise<YouTubeImportResult>;
+    addWords: (words: YouTubeProcessedWord[], targetLanguage: string, source?: string) => Promise<YouTubeAddWordsResult>;
   };
 }
 

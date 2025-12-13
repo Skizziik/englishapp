@@ -1,24 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dir:*)",
-      "Bash(npx @electron/rebuild:*)",
-      "Bash(npm run build:main:*)",
-      "Bash(npx electron .)",
-      "Bash(npm ls:*)",
-      "Bash(node_modules/electron/dist/electron.exe .)",
-      "Bash(git init:*)",
-      "Bash(git add:*)",
-      "Bash(git remote add:*)",
-      "Bash(git branch:*)",
-      "Bash(git push:*)",
-      "Bash(npm run build:installer:*)",
+      "Bash(\"node_modules\\electron\\dist\\electron.exe\" test-electron.js)",
       "Bash(npm run build:*)",
-      "Bash(npm run electron:build:*)",
+      "Bash(npm run build:main:*)",
+      "Bash(npm run dist:*)",
       "Bash(npm run:*)",
-      "Bash(git checkout:*)",
-      "Bash(node:*)",
-      "Bash(cat:*)"
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

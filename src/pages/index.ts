@@ -7,3 +7,4 @@ export * from './StatisticsPage';
 export * from './AchievementsPage';
 export * from './SettingsPage';
 export * from './AssistantPage';
+export * from './YouTubeImportPage';

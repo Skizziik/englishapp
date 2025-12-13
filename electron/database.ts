@@ -1416,6 +1416,81 @@ export class DatabaseManager {
     };
   }
 
+  // Add single word method (for YouTube import etc.)
+  addWord(data: {
+    word: string;
+    transcription: string;
+    partOfSpeech: string;
+    level: string;
+    frequency: number;
+    targetLanguage: string;
+    translations: string[];
+    examples?: Array<{ sentence: string; translation: string }>;
+    tags?: string[];
+    synonyms?: string[];
+    antonyms?: string[];
+    forms?: string[];
+  }): string {
+    const wordId = uuidv4();
+
+    // Insert word
+    this.db.prepare(`
+      INSERT INTO words (id, word, transcription, part_of_speech, level, frequency, forms, synonyms, antonyms, target_language)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      wordId,
+      data.word.toLowerCase().trim(),
+      data.transcription || '',
+      data.partOfSpeech || 'other',
+      data.level || 'B1',
+      data.frequency || 50,
+      JSON.stringify(data.forms || []),
+      JSON.stringify(data.synonyms || []),
+      JSON.stringify(data.antonyms || []),
+      data.targetLanguage || 'en'
+    );
+
+    // Insert translations
+    const insertTranslation = this.db.prepare(`
+      INSERT INTO translations (id, word_id, translation, is_primary)
+      VALUES (?, ?, ?, ?)
+    `);
+
+    data.translations.forEach((trans, idx) => {
+      if (trans.trim()) {
+        insertTranslation.run(uuidv4(), wordId, trans.trim(), idx === 0 ? 1 : 0);
+      }
+    });
+
+    // Insert examples if provided
+    if (data.examples && data.examples.length > 0) {
+      const insertExample = this.db.prepare(`
+        INSERT INTO examples (id, word_id, english, russian, difficulty)
+        VALUES (?, ?, ?, ?, ?)
+      `);
+
+      data.examples.forEach(ex => {
+        if (ex.sentence.trim()) {
+          insertExample.run(uuidv4(), wordId, ex.sentence, ex.translation || '', 1);
+        }
+      });
+    }
+
+    // Insert tags if provided
+    if (data.tags && data.tags.length > 0) {
+      const insertTag = this.db.prepare(`
+        INSERT OR IGNORE INTO word_tags (word_id, tag_id)
+        VALUES (?, ?)
+      `);
+
+      data.tags.forEach(tag => {
+        insertTag.run(wordId, tag);
+      });
+    }
+
+    return wordId;
+  }
+
   // Settings methods
   getSettings(): any {
     return this.db.prepare('SELECT * FROM settings WHERE id = 1').get();
