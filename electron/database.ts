@@ -837,6 +837,16 @@ export class DatabaseManager {
         params.push(filters.status);
       }
     }
+    if (filters?.source) {
+      // Filter by source (e.g., 'youtube' to get all YouTube imported words)
+      conditions.push("EXISTS (SELECT 1 FROM word_tags wt2 JOIN tags t2 ON wt2.tag_id = t2.id WHERE wt2.word_id = w.id AND t2.category = 'source' AND t2.id LIKE ?)");
+      params.push(`${filters.source}%`);
+    }
+    if (filters?.tag) {
+      // Filter by specific tag
+      conditions.push('EXISTS (SELECT 1 FROM word_tags wt3 WHERE wt3.word_id = w.id AND wt3.tag_id = ?)');
+      params.push(filters.tag);
+    }
 
     if (conditions.length > 0) {
       query += ' WHERE ' + conditions.join(' AND ');
