@@ -178,6 +178,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // TTS (Text-to-Speech with Chatterbox-Turbo)
   tts: {
     speak: (text: string) => ipcRenderer.invoke('tts:speak', text),
+    speakNoCache: (text: string) => ipcRenderer.invoke('tts:speakNoCache', text),
     getStatus: () => ipcRenderer.invoke('tts:getStatus'),
     start: () => ipcRenderer.invoke('tts:start'),
     stop: () => ipcRenderer.invoke('tts:stop'),

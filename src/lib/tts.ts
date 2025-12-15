@@ -196,3 +196,85 @@ export async function speak(text: string): Promise<boolean> {
 export function stopSpeaking(): void {
   tts.stop();
 }
+
+/**
+ * Извлечь только английский текст из ответа LLM
+ * Удаляет русский текст в скобках, эмодзи, и другие не-английские части
+ */
+export function extractEnglishText(text: string): string {
+  // Удаляем текст в скобках (обычно русский перевод)
+  let result = text.replace(/\([^)]*[а-яА-ЯёЁ][^)]*\)/g, '');
+
+  // Удаляем строки содержащие только кириллицу
+  result = result.split('\n')
+    .filter(line => {
+      // Пропускаем строки которые содержат преимущественно кириллицу
+      const cyrillicMatches = line.match(/[а-яА-ЯёЁ]/g) || [];
+      const latinMatches = line.match(/[a-zA-Z]/g) || [];
+      // Если кириллицы больше чем латиницы - пропускаем
+      return latinMatches.length >= cyrillicMatches.length || latinMatches.length > 0;
+    })
+    .join('\n');
+
+  // Удаляем оставшиеся кириллические слова
+  result = result.replace(/[а-яА-ЯёЁ]+/g, '');
+
+  // Удаляем эмодзи
+  result = result.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]/gu, '');
+
+  // Удаляем markdown форматирование
+  result = result.replace(/\*\*([^*]+)\*\*/g, '$1'); // **bold**
+  result = result.replace(/\*([^*]+)\*/g, '$1'); // *italic*
+
+  // Очищаем лишние пробелы и пунктуацию
+  result = result.replace(/\s+/g, ' ').trim();
+  result = result.replace(/^\s*[,.:;!?-]+\s*/g, '');
+  result = result.replace(/\s*[,.:;!?-]+\s*$/g, '');
+
+  return result;
+}
+
+/**
+ * Озвучить текст без кеширования (для динамических ответов LLM)
+ */
+export async function speakWithoutCache(text: string): Promise<boolean> {
+  if (!window.electronAPI?.tts) {
+    return false;
+  }
+
+  try {
+    // Напрямую запрашиваем озвучку без проверки/сохранения в кэш
+    const result = await window.electronAPI.tts.speakNoCache?.(text);
+
+    if (result?.success && result.audio) {
+      // Воспроизводим напрямую без кеширования
+      return new Promise((resolve) => {
+        try {
+          const audio = new Audio(`data:audio/wav;base64,${result.audio}`);
+          audio.onended = () => resolve(true);
+          audio.onerror = () => resolve(false);
+          audio.play().catch(() => resolve(false));
+        } catch {
+          resolve(false);
+        }
+      });
+    }
+
+    // Fallback: используем обычный speak если speakNoCache не доступен
+    return tts.speak(text);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Озвучить ответ LLM (только английский текст, без кеширования)
+ */
+export async function speakLLMResponse(text: string): Promise<boolean> {
+  const englishOnly = extractEnglishText(text);
+  if (!englishOnly || englishOnly.length < 3) {
+    return false;
+  }
+
+  return speakWithoutCache(englishOnly);
+}

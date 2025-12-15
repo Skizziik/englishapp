@@ -797,3 +797,20 @@ ipcMain.handle('tts:preload', async () => {
     return { success: false, error: error.message };
   }
 });
+
+// Speak without caching (for dynamic LLM responses)
+ipcMain.handle('tts:speakNoCache', async (_, text: string) => {
+  try {
+    // Only works if server is running
+    if (!ttsService.isRunning()) {
+      return { success: false, error: 'TTS server not running' };
+    }
+
+    // Generate directly via server, don't save to disk cache
+    const audioBuffer = await ttsService.speakNoCache(text);
+    return { success: true, audio: audioBuffer.toString('base64') };
+  } catch (error: any) {
+    console.error('TTS speakNoCache error:', error);
+    return { success: false, error: error.message };
+  }
+});

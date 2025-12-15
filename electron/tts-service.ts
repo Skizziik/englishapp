@@ -318,6 +318,39 @@ class TTSService {
     }
     return null;
   }
+
+  /**
+   * Check if TTS server is currently running
+   */
+  isRunning(): boolean {
+    return this.isReady && this.pythonProcess !== null;
+  }
+
+  /**
+   * Generate speech without caching (for dynamic LLM responses)
+   * Requires server to be running
+   */
+  async speakNoCache(text: string): Promise<Buffer> {
+    if (!this.isReady) {
+      throw new Error('TTS server not running');
+    }
+
+    const response = await fetch(`${TTS_URL}/speak_no_cache`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
+    });
+
+    if (!response.ok) {
+      const error = await response.json() as ErrorResponse;
+      throw new Error(error.error || 'TTS generation failed');
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    return Buffer.from(arrayBuffer);
+  }
 }
 
 // Singleton instance

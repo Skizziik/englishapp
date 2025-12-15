@@ -142,6 +142,45 @@ def speak():
         print(f"Error generating speech: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/speak_no_cache', methods=['POST'])
+def speak_no_cache():
+    """Generate speech without caching (for dynamic LLM responses)"""
+    try:
+        data = request.get_json()
+        text = data.get('text', '')
+
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+
+        print(f"[No Cache] Generating: {text[:50]}...")
+
+        # Load model if not loaded
+        tts = load_model()
+
+        # Generate audio
+        wav = tts.generate(text)
+
+        # Flatten to 2D (channels, samples) for torchaudio
+        while wav.dim() > 2:
+            wav = wav.squeeze(0)
+        if wav.dim() == 1:
+            wav = wav.unsqueeze(0)
+
+        # Save to memory buffer instead of file
+        buffer = io.BytesIO()
+        torchaudio.save(buffer, wav.cpu(), 24000, format='wav')
+        buffer.seek(0)
+
+        return send_file(
+            buffer,
+            mimetype='audio/wav',
+            as_attachment=False
+        )
+
+    except Exception as e:
+        print(f"Error generating speech (no cache): {e}")
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/preload', methods=['POST'])
 def preload():
     """Preload the model"""

@@ -23,6 +23,7 @@ import {
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
+import { speakLLMResponse } from '@/lib/tts';
 
 interface Message {
   id: string;
@@ -122,6 +123,9 @@ export const AssistantPage: React.FC = () => {
           timestamp: new Date(),
         };
         addChatMessage(assistantMessage, targetLanguage);
+
+        // Auto-speak LLM response (only English text, only if TTS server is running)
+        speakLLMResponse(response.data);
       } else {
         throw new Error(response.error || 'Unknown error');
       }
