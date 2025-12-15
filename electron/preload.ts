@@ -116,6 +116,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       ipcRenderer.invoke('gemini:generateExamples', word, count, targetLanguage),
     checkGrammar: (text: string, targetLanguage?: string) => ipcRenderer.invoke('gemini:checkGrammar', text, targetLanguage),
     chat: (messages: any[], targetLanguage?: string) => ipcRenderer.invoke('gemini:chat', messages, targetLanguage),
+    voiceChat: (messages: any[], targetLanguage?: string) => ipcRenderer.invoke('gemini:voiceChat', messages, targetLanguage),
     getContextSentences: (word: string, targetLanguage?: string) =>
       ipcRenderer.invoke('gemini:getContextSentences', word, targetLanguage),
     getWordInsights: (word: string, targetLanguage?: string) =>
@@ -180,6 +181,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     speak: (text: string) => ipcRenderer.invoke('tts:speak', text),
     speakNoCache: (text: string) => ipcRenderer.invoke('tts:speakNoCache', text),
     getStatus: () => ipcRenderer.invoke('tts:getStatus'),
+    isRunning: () => ipcRenderer.invoke('tts:isRunning'),
     start: () => ipcRenderer.invoke('tts:start'),
     stop: () => ipcRenderer.invoke('tts:stop'),
     preload: () => ipcRenderer.invoke('tts:preload'),

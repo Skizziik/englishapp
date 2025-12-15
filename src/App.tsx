@@ -13,6 +13,7 @@ import {
   AssistantPage,
   YouTubeImportPage,
   WidgetPage,
+  VoiceChatPage,
 } from '@/pages';
 import { useAppStore } from '@/stores/appStore';
 
@@ -83,6 +84,7 @@ const App: React.FC = () => {
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/assistant" element={<AssistantPage />} />
+        <Route path="/voice-chat" element={<VoiceChatPage />} />
         <Route path="/import" element={<YouTubeImportPage />} />
       </Route>
     </Routes>

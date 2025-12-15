@@ -12,6 +12,7 @@ import {
   MessageSquare,
   Zap,
   Youtube,
+  Phone,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
@@ -195,6 +196,11 @@ export const Sidebar: React.FC = () => {
           to="/assistant"
           icon={<MessageSquare className="w-5 h-5" />}
           label="AI Ассистент"
+        />
+        <NavItem
+          to="/voice-chat"
+          icon={<Phone className="w-5 h-5" />}
+          label="Разговор"
         />
         <NavItem
           to="/settings"

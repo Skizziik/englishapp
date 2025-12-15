@@ -540,6 +540,10 @@ ipcMain.handle('gemini:chat', async (_, messages: any[], targetLanguage?: string
   return geminiService.chat(messages, targetLanguage);
 });
 
+ipcMain.handle('gemini:voiceChat', async (_, messages: any[], targetLanguage?: string) => {
+  return geminiService.voiceChat(messages, targetLanguage);
+});
+
 ipcMain.handle('gemini:getContextSentences', async (_, word: string, targetLanguage?: string) => {
   return geminiService.generateContextSentences(word, targetLanguage);
 });
@@ -796,6 +800,11 @@ ipcMain.handle('tts:preload', async () => {
   } catch (error: any) {
     return { success: false, error: error.message };
   }
+});
+
+// Check if TTS server is running
+ipcMain.handle('tts:isRunning', async () => {
+  return ttsService.isRunning();
 });
 
 // Speak without caching (for dynamic LLM responses)

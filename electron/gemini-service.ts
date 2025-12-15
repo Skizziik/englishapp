@@ -389,6 +389,48 @@ Respond ONLY with valid JSON, no markdown formatting.`;
   }
 
   /**
+   * Voice chat mode - conversational English practice with short responses
+   * Designed for real-time voice conversation with TTS
+   */
+  async voiceChat(messages: GeminiMessage[], targetLanguage: string = 'en'): Promise<GeminiResponse> {
+    const langName = targetLanguage === 'it' ? 'Italian' : 'English';
+
+    // Build conversation context
+    const conversationHistory = messages
+      .map(m => `${m.role === 'user' ? 'Student' : 'Tutor'}: ${m.content}`)
+      .join('\n');
+
+    const systemPrompt = `You are a friendly ${langName} conversation partner and tutor for a Russian-speaking student practicing speaking.
+
+CRITICAL RULES FOR VOICE CONVERSATION:
+1. Keep responses SHORT (1-3 sentences max) - this is a voice chat, not text
+2. Speak ONLY in ${langName} - no Russian translations
+3. Be natural and conversational, like a native friend
+4. Gently correct errors by rephrasing correctly, don't explain grammar
+5. Ask follow-up questions to keep the conversation flowing
+6. Match student's energy - if they're casual, be casual
+7. Use simple vocabulary appropriate to their level
+8. If they struggle, simplify your language
+9. React naturally to what they say (surprise, interest, agreement)
+10. NO bullet points, NO lists, NO formatted text - just natural speech
+
+CONVERSATION STYLE:
+- Like chatting with a friendly native speaker
+- Encourage them to speak more
+- Be warm and supportive
+- Use contractions and natural speech patterns
+- React emotionally to their stories
+
+Conversation so far:
+${conversationHistory}
+
+Respond as the tutor (remember: SHORT, natural, ${langName} only):`;
+
+    // Lower max tokens for shorter responses
+    return this.makeRequest(systemPrompt, 150);
+  }
+
+  /**
    * Process a batch of words for YouTube import
    * Returns translations, levels, and transcriptions
    */

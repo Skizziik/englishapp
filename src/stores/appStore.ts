@@ -53,6 +53,10 @@ interface AppState {
   chatMessagesEn: ChatMessage[];
   chatMessagesIt: ChatMessage[];
 
+  // Voice chat history per language
+  voiceChatMessagesEn: ChatMessage[];
+  voiceChatMessagesIt: ChatMessage[];
+
   // Learning state
   currentSession: {
     id: string | null;
@@ -96,6 +100,11 @@ interface AppState {
   clearChatMessages: (language: 'en' | 'it') => void;
   getChatMessages: () => ChatMessage[];
 
+  // Voice chat actions (per language)
+  addVoiceChatMessage: (message: ChatMessage, language: 'en' | 'it') => void;
+  clearVoiceChatMessages: (language: 'en' | 'it') => void;
+  getVoiceChatMessages: () => ChatMessage[];
+
   // YouTube Import actions
   setYouTubeUrl: (url: string) => void;
   setYouTubeLoading: (loading: boolean) => void;
@@ -115,6 +124,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   stats: null,
   chatMessagesEn: [],
   chatMessagesIt: [],
+  voiceChatMessagesEn: [],
+  voiceChatMessagesIt: [],
   dailyGoal: null,
   achievements: [],
   settings: null,
@@ -241,6 +252,24 @@ export const useAppStore = create<AppState>((set, get) => ({
   getChatMessages: () => {
     const state = get();
     return state.targetLanguage === 'en' ? state.chatMessagesEn : state.chatMessagesIt;
+  },
+
+  // Voice chat management (per language)
+  addVoiceChatMessage: (message, language) => {
+    set((state) => ({
+      ...(language === 'en'
+        ? { voiceChatMessagesEn: [...state.voiceChatMessagesEn, message] }
+        : { voiceChatMessagesIt: [...state.voiceChatMessagesIt, message] }),
+    }));
+  },
+
+  clearVoiceChatMessages: (language) => {
+    set(language === 'en' ? { voiceChatMessagesEn: [] } : { voiceChatMessagesIt: [] });
+  },
+
+  getVoiceChatMessages: () => {
+    const state = get();
+    return state.targetLanguage === 'en' ? state.voiceChatMessagesEn : state.voiceChatMessagesIt;
   },
 
   // YouTube Import actions
