@@ -17,7 +17,7 @@ const store = new Store({
 
 export class GeminiService {
   private apiKey: string | null = null;
-  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent';
+  private baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemma-3-27b-it:generateContent';
 
   constructor() {
     // Load API key from secure storage
