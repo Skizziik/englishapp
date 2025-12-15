@@ -48,18 +48,22 @@ export class SRSEngine {
     const now = new Date().toISOString();
 
     // Get words that are due for review, filtered by target language
+    // Also load translations via JOIN
     const dueWords = this.db['db'].prepare(`
-      SELECT w.*, up.*
+      SELECT w.*, up.*,
+        GROUP_CONCAT(DISTINCT t.translation || '|' || COALESCE(t.is_primary, 0)) as translations_data
       FROM words w
       INNER JOIN user_progress up ON w.id = up.word_id
+      LEFT JOIN translations t ON w.id = t.word_id
       WHERE up.next_review <= ? AND up.status IN ('learning', 'review')
         AND w.target_language = ?
+      GROUP BY w.id
       ORDER BY up.next_review ASC
       LIMIT ?
     `).all(now, targetLanguage, count) as any[];
 
     return dueWords.map(row => ({
-      word: this.mapWordFromRow(row),
+      word: this.mapWordFromRowWithTranslations(row),
       progress: this.mapProgressFromRow(row),
       isNew: false
     }));
@@ -71,7 +75,7 @@ export class SRSEngine {
   getNewWordsToLearn(count: number, level?: string, category?: string, targetLanguage: string = 'en'): ReviewCard[] {
     let query = `
       SELECT w.*,
-        GROUP_CONCAT(DISTINCT t.translation) as translations_str,
+        GROUP_CONCAT(DISTINCT t.translation || '|' || COALESCE(t.is_primary, 0)) as translations_data,
         GROUP_CONCAT(DISTINCT tg.name) as tags_str
       FROM words w
       LEFT JOIN translations t ON w.id = t.word_id
@@ -111,21 +115,7 @@ export class SRSEngine {
     const words = this.db['db'].prepare(query).all(...params) as any[];
 
     return words.map(row => ({
-      word: {
-        id: row.id,
-        word: row.word,
-        transcription: row.transcription,
-        partOfSpeech: row.part_of_speech,
-        level: row.level,
-        frequency: row.frequency,
-        translations: row.translations_str ? row.translations_str.split(',').map((t: string) => ({ translation: t })) : [],
-        examples: [],
-        forms: row.forms ? JSON.parse(row.forms) : [],
-        synonyms: row.synonyms ? JSON.parse(row.synonyms) : [],
-        antonyms: row.antonyms ? JSON.parse(row.antonyms) : [],
-        tags: row.tags_str ? row.tags_str.split(',') : [],
-        audioPath: row.audio_path
-      },
+      word: this.mapWordFromRowWithTranslations(row),
       progress: null,
       isNew: true
     }));
@@ -378,6 +368,41 @@ export class SRSEngine {
       synonyms: row.synonyms ? JSON.parse(row.synonyms) : [],
       antonyms: row.antonyms ? JSON.parse(row.antonyms) : [],
       tags: [],
+      audioPath: row.audio_path
+    };
+  }
+
+  /**
+   * Helper: Map database row to Word object with translations
+   */
+  private mapWordFromRowWithTranslations(row: any): Word {
+    // Parse translations from "translation|isPrimary,translation|isPrimary" format
+    const translations = row.translations_data
+      ? row.translations_data.split(',').map((item: string) => {
+          const [translation, isPrimary] = item.split('|');
+          return {
+            translation,
+            isPrimary: isPrimary === '1'
+          };
+        })
+      : [];
+
+    // Parse tags if available
+    const tags = row.tags_str ? row.tags_str.split(',') : [];
+
+    return {
+      id: row.id,
+      word: row.word,
+      transcription: row.transcription,
+      partOfSpeech: row.part_of_speech,
+      level: row.level,
+      frequency: row.frequency,
+      translations,
+      examples: [],
+      forms: row.forms ? JSON.parse(row.forms) : [],
+      synonyms: row.synonyms ? JSON.parse(row.synonyms) : [],
+      antonyms: row.antonyms ? JSON.parse(row.antonyms) : [],
+      tags,
       audioPath: row.audio_path
     };
   }
