@@ -50,7 +50,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getCategories: () => ipcRenderer.invoke('db:words:getCategories'),
     getLevels: (targetLanguage?: string) => ipcRenderer.invoke('db:words:getLevels', targetLanguage),
     getWithProgress: (filters?: WordFilters) => ipcRenderer.invoke('db:words:getWithProgress', filters),
-    getStatusCounts: () => ipcRenderer.invoke('db:words:getStatusCounts'),
+    getStatusCounts: (targetLanguage?: string) => ipcRenderer.invoke('db:words:getStatusCounts', targetLanguage),
     delete: (wordId: string) => ipcRenderer.invoke('db:words:delete', wordId),
     update: (wordId: string, data: any) => ipcRenderer.invoke('db:words:update', wordId, data),
     getSources: (targetLanguage?: string) => ipcRenderer.invoke('db:words:getSources', targetLanguage),

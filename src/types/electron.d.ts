@@ -104,7 +104,7 @@ interface ElectronAPI {
     getCategories: () => Promise<Category[]>;
     getLevels: (targetLanguage?: string) => Promise<Level[]>;
     getWithProgress: (filters?: WordFilters) => Promise<any[]>;
-    getStatusCounts: () => Promise<{ status: string; count: number }[]>;
+    getStatusCounts: (targetLanguage?: string) => Promise<{ status: string; count: number }[]>;
     delete: (wordId: string) => Promise<boolean>;
     update: (wordId: string, data: { translation?: string; level?: string; transcription?: string; partOfSpeech?: string }) => Promise<boolean>;
     getSources: (targetLanguage?: string) => Promise<{ id: string; name: string; count: number }[]>;

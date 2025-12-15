@@ -136,6 +136,9 @@ export class SRSEngine {
     const now = new Date();
     const today = now.toISOString().split('T')[0];
 
+    // Check if this is a new word (no progress record exists)
+    const isNewWord = !progress;
+
     // Initialize progress for new words
     if (!progress) {
       progress = {
@@ -173,8 +176,8 @@ export class SRSEngine {
       wrongCount: progress.wrongCount
     });
 
-    // Update daily statistics
-    this.updateDailyStats(quality >= 3);
+    // Update daily statistics (pass isNewWord to track words_learned)
+    this.updateDailyStats(quality >= 3, isNewWord);
 
     return {
       nextReview: result.nextReview,
@@ -329,25 +332,49 @@ export class SRSEngine {
   /**
    * Helper: Update daily statistics
    */
-  private updateDailyStats(correct: boolean): void {
+  private updateDailyStats(correct: boolean, isNewWord: boolean = false): void {
     const today = new Date().toISOString().split('T')[0];
 
-    if (correct) {
-      this.db['db'].prepare(`
-        INSERT INTO daily_stats (date, words_reviewed, correct_answers)
-        VALUES (?, 1, 1)
-        ON CONFLICT(date) DO UPDATE SET
-          words_reviewed = words_reviewed + 1,
-          correct_answers = correct_answers + 1
-      `).run(today);
+    if (isNewWord) {
+      // New word - increment words_learned
+      if (correct) {
+        this.db['db'].prepare(`
+          INSERT INTO daily_stats (date, words_learned, words_reviewed, correct_answers)
+          VALUES (?, 1, 1, 1)
+          ON CONFLICT(date) DO UPDATE SET
+            words_learned = words_learned + 1,
+            words_reviewed = words_reviewed + 1,
+            correct_answers = correct_answers + 1
+        `).run(today);
+      } else {
+        this.db['db'].prepare(`
+          INSERT INTO daily_stats (date, words_learned, words_reviewed, wrong_answers)
+          VALUES (?, 1, 1, 1)
+          ON CONFLICT(date) DO UPDATE SET
+            words_learned = words_learned + 1,
+            words_reviewed = words_reviewed + 1,
+            wrong_answers = wrong_answers + 1
+        `).run(today);
+      }
     } else {
-      this.db['db'].prepare(`
-        INSERT INTO daily_stats (date, words_reviewed, wrong_answers)
-        VALUES (?, 1, 1)
-        ON CONFLICT(date) DO UPDATE SET
-          words_reviewed = words_reviewed + 1,
-          wrong_answers = wrong_answers + 1
-      `).run(today);
+      // Existing word - only increment words_reviewed
+      if (correct) {
+        this.db['db'].prepare(`
+          INSERT INTO daily_stats (date, words_reviewed, correct_answers)
+          VALUES (?, 1, 1)
+          ON CONFLICT(date) DO UPDATE SET
+            words_reviewed = words_reviewed + 1,
+            correct_answers = correct_answers + 1
+        `).run(today);
+      } else {
+        this.db['db'].prepare(`
+          INSERT INTO daily_stats (date, words_reviewed, wrong_answers)
+          VALUES (?, 1, 1)
+          ON CONFLICT(date) DO UPDATE SET
+            words_reviewed = words_reviewed + 1,
+            wrong_answers = wrong_answers + 1
+        `).run(today);
+      }
     }
   }
 

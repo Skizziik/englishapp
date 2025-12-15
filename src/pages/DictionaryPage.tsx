@@ -85,7 +85,7 @@ export const DictionaryPage: React.FC = () => {
       const [categoriesData, levelsData, statusCountsData, sourcesData] = await Promise.all([
         window.electronAPI.words.getCategories(),
         window.electronAPI.words.getLevels(targetLanguage),
-        window.electronAPI.words.getStatusCounts(),
+        window.electronAPI.words.getStatusCounts(targetLanguage),
         window.electronAPI.words.getSources(targetLanguage),
       ]);
       setCategories(categoriesData);

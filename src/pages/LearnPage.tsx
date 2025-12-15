@@ -116,7 +116,7 @@ export const LearnPage: React.FC = () => {
       if (window.electronAPI) {
         const [words, counts] = await Promise.all([
           window.electronAPI.words.getAll({ limit: 100, targetLanguage }),
-          window.electronAPI.words.getStatusCounts(),
+          window.electronAPI.words.getStatusCounts(targetLanguage),
         ]);
         setAllWords(words);
         // Convert counts array to object

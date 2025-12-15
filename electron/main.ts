@@ -66,9 +66,20 @@ function createWidget() {
 
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
 
+  // Get screen dimensions to position widget in top-right corner
+  const { screen } = require('electron');
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width: screenWidth } = primaryDisplay.workAreaSize;
+
+  const widgetWidth = 380;
+  const widgetHeight = 580;
+  const margin = 20; // margin from screen edges
+
   widgetWindow = new BrowserWindow({
-    width: 380,
-    height: 580,
+    width: widgetWidth,
+    height: widgetHeight,
+    x: screenWidth - widgetWidth - margin,
+    y: margin,
     minWidth: 320,
     minHeight: 500,
     maxWidth: 500,
@@ -376,8 +387,8 @@ ipcMain.handle('db:words:getWithProgress', async (_, filters) => {
   return database.getWordsWithProgress(filters);
 });
 
-ipcMain.handle('db:words:getStatusCounts', async () => {
-  return database.getWordStatusCounts();
+ipcMain.handle('db:words:getStatusCounts', async (_, targetLanguage?: string) => {
+  return database.getWordStatusCounts(targetLanguage || 'en');
 });
 
 // User progress handlers

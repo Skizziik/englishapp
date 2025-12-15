@@ -878,13 +878,14 @@ export class DatabaseManager {
   }
 
   // Get word status counts for statistics
-  getWordStatusCounts(): { status: string; count: number }[] {
+  getWordStatusCounts(targetLanguage: string = 'en'): { status: string; count: number }[] {
     const result = this.db.prepare(`
       SELECT
         COALESCE(up.status, 'new') as status,
         COUNT(*) as count
       FROM words w
       LEFT JOIN user_progress up ON w.id = up.word_id
+      WHERE w.target_language = ?
       GROUP BY COALESCE(up.status, 'new')
       ORDER BY
         CASE COALESCE(up.status, 'new')
@@ -893,7 +894,7 @@ export class DatabaseManager {
           WHEN 'review' THEN 3
           WHEN 'learned' THEN 4
         END
-    `).all() as any[];
+    `).all(targetLanguage) as any[];
     return result;
   }
 
