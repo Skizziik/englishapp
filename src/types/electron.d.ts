@@ -220,7 +220,8 @@ interface WidgetAPI {
   minimize: () => Promise<void>;
   setAlwaysOnTop: (enabled: boolean) => Promise<boolean>;
   isAlwaysOnTop: () => Promise<boolean>;
-  getWords: (count: number, targetLanguage: string) => Promise<ReviewCard[]>;
+  getNextWords: (count: number, targetLanguage: string) => Promise<ReviewCard[]>;
+  getNewWords: (count: number, targetLanguage: string) => Promise<ReviewCard[]>;
   getAnswerOptions: (correctTranslation: string, targetLanguage: string) => Promise<string[]>;
   recordAnswer: (wordId: string, quality: number) => Promise<{
     nextReview: string;

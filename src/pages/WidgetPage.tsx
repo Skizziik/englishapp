@@ -50,6 +50,8 @@ export const WidgetPage: React.FC = () => {
   const [xpEarned, setXpEarned] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
@@ -92,42 +94,54 @@ export const WidgetPage: React.FC = () => {
 
   // Start game
   const startGame = async () => {
+    console.log('Widget: startGame called, widgetAPI exists:', !!window.widgetAPI);
+    setError(null);
+    setIsLoading(true);
+
     if (!window.widgetAPI) {
-      // Mock for development
-      setQuestions(getMockQuestions(bundleSize));
-      setPhase('playing');
+      console.error('Widget: widgetAPI not found!');
+      setError('Ошибка: API виджета недоступен');
+      setIsLoading(false);
       return;
     }
 
     try {
       console.log('Widget: Loading words...', { bundleSize, targetLanguage });
-      const reviewCards = await window.widgetAPI.getWords(bundleSize, targetLanguage);
-      console.log('Widget: Got review cards:', reviewCards);
 
-      if (!reviewCards || reviewCards.length === 0) {
-        console.log('Widget: No words available, using mock data');
-        setQuestions(getMockQuestions(bundleSize));
-        setPhase('playing');
+      // Get due words for review first
+      const dueWords = await window.widgetAPI.getNextWords(bundleSize, targetLanguage);
+      console.log('Widget: Due words:', dueWords?.length || 0);
+
+      // If not enough, get new words
+      let allWords = dueWords || [];
+      if (allWords.length < bundleSize) {
+        const newWords = await window.widgetAPI.getNewWords(bundleSize - allWords.length, targetLanguage);
+        console.log('Widget: New words:', newWords?.length || 0);
+        allWords = [...allWords, ...(newWords || [])];
+      }
+
+      console.log('Widget: Total words:', allWords.length);
+
+      if (!allWords || allWords.length === 0) {
+        console.log('Widget: No words available');
+        setError('Нет слов для изучения. Добавьте слова в словарь.');
+        setIsLoading(false);
         return;
       }
 
       // Build questions with answer options
       const questionsData: QuizQuestion[] = [];
 
-      for (const card of reviewCards) {
-        // Extract translation from ReviewCard structure
-        // card can be ReviewCard { word, progress, isNew } or direct Word object
+      for (const card of allWords) {
+        // Extract word data from ReviewCard structure { word, progress, isNew }
         const wordData = card.word || card;
         console.log('Widget: Processing word:', wordData);
 
-        // Handle different translation formats
+        // Handle translations array format
         let correctAnswer = '';
         if (wordData.translations && Array.isArray(wordData.translations)) {
           const primaryTranslation = wordData.translations.find((t: any) => t.isPrimary);
           correctAnswer = primaryTranslation?.translation || wordData.translations[0]?.translation || '';
-        } else if (wordData.translation) {
-          // Direct translation field
-          correctAnswer = wordData.translation;
         }
 
         if (!correctAnswer) {
@@ -152,29 +166,25 @@ export const WidgetPage: React.FC = () => {
       console.log('Widget: Final questions:', questionsData);
 
       if (questionsData.length === 0) {
-        console.log('Widget: No valid questions, using mock data');
-        setQuestions(getMockQuestions(bundleSize));
-      } else {
-        setQuestions(questionsData);
+        console.log('Widget: No valid questions');
+        setError('Не удалось загрузить слова. Проверьте словарь.');
+        setIsLoading(false);
+        return;
       }
+
+      setQuestions(questionsData);
       setCurrentIndex(0);
       setCorrectCount(0);
       setWrongCount(0);
       setCombo(0);
       setMaxCombo(0);
       setXpEarned(0);
+      setIsLoading(false);
       setPhase('playing');
-    } catch (error) {
-      console.error('Widget: Failed to load words:', error);
-      // Fallback to mock data on error
-      setQuestions(getMockQuestions(bundleSize));
-      setCurrentIndex(0);
-      setCorrectCount(0);
-      setWrongCount(0);
-      setCombo(0);
-      setMaxCombo(0);
-      setXpEarned(0);
-      setPhase('playing');
+    } catch (err) {
+      console.error('Widget: Failed to load words:', err);
+      setError('Ошибка загрузки слов: ' + (err instanceof Error ? err.message : 'Неизвестная ошибка'));
+      setIsLoading(false);
     }
   };
 
@@ -409,14 +419,31 @@ export const WidgetPage: React.FC = () => {
                 </div>
               </div>
 
+              {/* Error Message */}
+              {error && (
+                <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm text-center">
+                  {error}
+                </div>
+              )}
+
               {/* Start Button */}
               <div className="flex-1" />
               <button
                 onClick={startGame}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                disabled={isLoading}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50"
               >
-                <Play className="w-5 h-5" />
-                Начать
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Загрузка...
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-5 h-5" />
+                    Учить
+                  </>
+                )}
               </button>
             </motion.div>
           )}
@@ -599,36 +626,3 @@ export const WidgetPage: React.FC = () => {
     </div>
   );
 };
-
-// Mock data for development
-function getMockQuestions(count: number): QuizQuestion[] {
-  const mockWords: WidgetWord[] = [
-    { id: '1', word: 'hello', transcription: '/həˈləʊ/', translation: 'привет' },
-    { id: '2', word: 'world', transcription: '/wɜːld/', translation: 'мир' },
-    { id: '3', word: 'beautiful', transcription: '/ˈbjuːtɪfl/', translation: 'красивый' },
-    { id: '4', word: 'language', transcription: '/ˈlæŋɡwɪdʒ/', translation: 'язык' },
-    { id: '5', word: 'study', transcription: '/ˈstʌdi/', translation: 'учиться' },
-    { id: '6', word: 'time', transcription: '/taɪm/', translation: 'время' },
-    { id: '7', word: 'friend', transcription: '/frend/', translation: 'друг' },
-    { id: '8', word: 'music', transcription: '/ˈmjuːzɪk/', translation: 'музыка' },
-    { id: '9', word: 'book', transcription: '/bʊk/', translation: 'книга' },
-    { id: '10', word: 'water', transcription: '/ˈwɔːtər/', translation: 'вода' },
-  ];
-
-  const allTranslations = mockWords.map(w => w.translation);
-
-  return mockWords.slice(0, count).map((word) => {
-    const wrongOptions = allTranslations
-      .filter(t => t !== word.translation)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3);
-
-    const options = [...wrongOptions, word.translation].sort(() => Math.random() - 0.5);
-
-    return {
-      word,
-      options,
-      correctAnswer: word.translation,
-    };
-  });
-}

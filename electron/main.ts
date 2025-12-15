@@ -68,11 +68,11 @@ function createWidget() {
 
   widgetWindow = new BrowserWindow({
     width: 380,
-    height: 500,
+    height: 580,
     minWidth: 320,
-    minHeight: 400,
+    minHeight: 500,
     maxWidth: 500,
-    maxHeight: 700,
+    maxHeight: 800,
     frame: false,
     alwaysOnTop: true,
     transparent: false,
@@ -638,30 +638,56 @@ ipcMain.handle('widget:isAlwaysOnTop', async () => {
 });
 
 ipcMain.handle('widget:getWords', async (_, count: number, targetLanguage: string) => {
-  // First try to get due words for review
-  const dueWords = srsEngine.getNextReviewWords(count, targetLanguage);
+  try {
+    console.log('Widget: Getting words for', targetLanguage, 'count:', count);
 
-  // If we don't have enough due words, fill with new words
-  const remaining = count - dueWords.length;
-  let newWords: any[] = [];
-  if (remaining > 0) {
-    newWords = srsEngine.getNewWordsToLearn(remaining, undefined, undefined, targetLanguage);
-  }
+    // First try to get due words for review
+    const dueWords = srsEngine.getNextReviewWords(count, targetLanguage) || [];
+    console.log('Widget: Due words:', dueWords.length);
 
-  // If still not enough, get random words from database
-  let allWords = [...dueWords, ...newWords];
-  if (allWords.length < count) {
-    const randomWords = database.getWords({ targetLanguage, limit: count * 2 });
+    // If we don't have enough due words, fill with new words
+    const remaining = count - dueWords.length;
+    let newWords: any[] = [];
+    if (remaining > 0) {
+      newWords = srsEngine.getNewWordsToLearn(remaining, undefined, undefined, targetLanguage) || [];
+      console.log('Widget: New words:', newWords.length);
+    }
+
+    // Combine and track IDs
+    let allWords = [...dueWords, ...newWords];
     const existingIds = new Set(allWords.map((w: any) => w.word?.id || w.id));
-    const additional = randomWords
-      .filter(w => !existingIds.has(w.id))
-      .slice(0, count - allWords.length)
-      .map(w => ({ word: w, progress: null, isNew: true }));
-    allWords = [...allWords, ...additional];
-  }
 
-  // Return exactly the requested count, shuffled
-  return allWords.slice(0, count).sort(() => Math.random() - 0.5);
+    // If still not enough, get random words directly from database
+    if (allWords.length < count) {
+      console.log('Widget: Getting random words from database');
+      const randomWords = database.getWords({ targetLanguage, limit: count * 3 }) || [];
+      console.log('Widget: Random words from DB:', randomWords.length);
+
+      const additional = randomWords
+        .filter(w => !existingIds.has(w.id))
+        .slice(0, count - allWords.length)
+        .map(w => ({ word: w, progress: null, isNew: true }));
+      allWords = [...allWords, ...additional];
+    }
+
+    console.log('Widget: Total words collected:', allWords.length);
+
+    // If we have no words at all, return empty array (will trigger mock data in UI)
+    if (allWords.length === 0) {
+      console.log('Widget: No words found for language:', targetLanguage);
+      return [];
+    }
+
+    // Remove duplicates by word ID and return exactly the requested count, shuffled
+    const uniqueWords = Array.from(
+      new Map(allWords.map(w => [w.word?.id || w.id, w])).values()
+    );
+
+    return uniqueWords.slice(0, count).sort(() => Math.random() - 0.5);
+  } catch (error) {
+    console.error('Widget: Error getting words:', error);
+    return [];
+  }
 });
 
 ipcMain.handle('widget:getAnswerOptions', async (_, correctTranslation: string, targetLanguage: string) => {
