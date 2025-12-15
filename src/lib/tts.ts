@@ -268,7 +268,23 @@ export async function speakWithoutCache(text: string): Promise<boolean> {
 }
 
 /**
- * Озвучить ответ LLM (только английский текст, без кеширования)
+ * Разбить текст на предложения
+ */
+function splitIntoSentences(text: string): string[] {
+  // Разбиваем по точкам, вопросам, восклицаниям, но сохраняем знаки
+  const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+  return sentences
+    .map(s => s.trim())
+    .filter(s => s.length > 2);
+}
+
+/**
+ * Озвучить ответ LLM по предложениям (для более быстрого отклика)
+ * Генерирует и воспроизводит предложения последовательно с перекрытием:
+ * - Генерируем предложение 1
+ * - Начинаем воспроизводить 1, одновременно генерируем 2
+ * - Когда 1 закончилось, воспроизводим 2, генерируем 3
+ * - и т.д.
  */
 export async function speakLLMResponse(text: string): Promise<boolean> {
   const englishOnly = extractEnglishText(text);
@@ -276,5 +292,79 @@ export async function speakLLMResponse(text: string): Promise<boolean> {
     return false;
   }
 
-  return speakWithoutCache(englishOnly);
+  if (!window.electronAPI?.tts) {
+    return false;
+  }
+
+  const sentences = splitIntoSentences(englishOnly);
+  if (sentences.length === 0) {
+    return false;
+  }
+
+  // Воспроизвести аудио (возвращает Promise который резолвится когда закончится)
+  const playAudio = (audio: string): Promise<void> => {
+    return new Promise((resolve) => {
+      try {
+        const audioEl = new Audio(`data:audio/wav;base64,${audio}`);
+        audioEl.onended = () => resolve();
+        audioEl.onerror = () => resolve();
+        audioEl.play().catch(() => resolve());
+      } catch {
+        resolve();
+      }
+    });
+  };
+
+  // Генерировать аудио для предложения
+  const generateAudio = async (sentence: string): Promise<string | null> => {
+    try {
+      const result = await window.electronAPI!.tts.speakNoCache?.(sentence);
+      if (result?.success && result.audio) {
+        return result.audio;
+      }
+    } catch {
+      // Ошибка генерации
+    }
+    return null;
+  };
+
+  // Пайплайн: генерируем следующее пока воспроизводится текущее
+  let currentPlayPromise: Promise<void> | null = null;
+  let nextAudioPromise: Promise<string | null> | null = null;
+
+  for (let i = 0; i < sentences.length; i++) {
+    // Если это первое предложение - просто генерируем
+    // Если нет - используем заранее запущенную генерацию
+    let audio: string | null;
+
+    if (nextAudioPromise) {
+      audio = await nextAudioPromise;
+    } else {
+      audio = await generateAudio(sentences[i]);
+    }
+
+    // Запускаем генерацию следующего предложения пока будем воспроизводить текущее
+    if (i + 1 < sentences.length) {
+      nextAudioPromise = generateAudio(sentences[i + 1]);
+    } else {
+      nextAudioPromise = null;
+    }
+
+    // Ждём окончания предыдущего воспроизведения
+    if (currentPlayPromise) {
+      await currentPlayPromise;
+    }
+
+    // Воспроизводим текущее (не ждём окончания, чтобы генерация следующего шла параллельно)
+    if (audio) {
+      currentPlayPromise = playAudio(audio);
+    }
+  }
+
+  // Ждём окончания последнего воспроизведения
+  if (currentPlayPromise) {
+    await currentPlayPromise;
+  }
+
+  return true;
 }
