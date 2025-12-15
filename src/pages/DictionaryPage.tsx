@@ -370,26 +370,8 @@ export const DictionaryPage: React.FC = () => {
                           )}
                         >
                           <Youtube className="w-3 h-3" />
-                          Все из YouTube ({sources.reduce((sum, s) => sum + s.count, 0)})
+                          Из YouTube ({sources.reduce((sum, s) => sum + s.count, 0)})
                         </button>
-                        {sources.map((s) => (
-                          <button
-                            key={s.id}
-                            onClick={() =>
-                              setSelectedSource(
-                                selectedSource === s.id ? null : s.id
-                              )
-                            }
-                            className={cn(
-                              'px-3 py-1 rounded-full text-xs font-medium transition-all',
-                              selectedSource === s.id
-                                ? 'bg-red-500/20 text-red-400 ring-2 ring-red-500/30 ring-offset-1 ring-offset-background'
-                                : 'bg-secondary text-muted-foreground hover:text-foreground'
-                            )}
-                          >
-                            {s.name} ({s.count})
-                          </button>
-                        ))}
                       </div>
                     </div>
                   )}
