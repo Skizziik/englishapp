@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -26,6 +26,7 @@ import { WordCard, QuizCard, SessionComplete } from '@/components/learning';
 import { useAppStore } from '@/stores/appStore';
 import type { Word, ReviewCard, SessionResult } from '@/types';
 import { cn } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 type LearningPhase = 'setup' | 'preview' | 'quiz' | 'complete';
 type QuizType = 'multipleChoice' | 'typing' | 'reverse';
@@ -88,7 +89,7 @@ const LEARNING_MODES = [
 ];
 
 export const LearnPage: React.FC = () => {
-  const { refreshData, targetLanguage } = useAppStore();
+  const { refreshData, targetLanguage, settings } = useAppStore();
 
   // Setup state
   const [learningMode, setLearningMode] = useState<LearningMode>('new');
@@ -133,6 +134,16 @@ export const LearnPage: React.FC = () => {
     };
     loadData();
   }, [targetLanguage]);
+
+  // Auto-speak word in preview phase when card changes
+  useEffect(() => {
+    if (phase === 'preview' && cards.length > 0 && settings?.autoPlayAudio) {
+      const word = cards[previewIndex]?.word?.word;
+      if (word) {
+        speak(word);
+      }
+    }
+  }, [phase, previewIndex, cards, settings?.autoPlayAudio]);
 
   const startSession = async () => {
     let newCards: ReviewCard[] = [];

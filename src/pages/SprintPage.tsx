@@ -37,7 +37,7 @@ interface SprintResult {
 }
 
 export const SprintPage: React.FC = () => {
-  const { refreshData, targetLanguage, profile } = useAppStore();
+  const { refreshData, targetLanguage, profile, settings } = useAppStore();
 
   // Setup state
   const [selectedLevel, setSelectedLevel] = useState('A1');
@@ -229,6 +229,16 @@ export const SprintPage: React.FC = () => {
       setupQuestion();
     }
   }, [currentIndex, phase, setupQuestion]);
+
+  // Auto-speak word when card changes in sprint
+  useEffect(() => {
+    if (phase === 'playing' && words.length > 0 && settings?.autoPlayAudio) {
+      const word = words[currentIndex % words.length]?.word;
+      if (word) {
+        speak(word);
+      }
+    }
+  }, [currentIndex, phase, words, settings?.autoPlayAudio]);
 
   // End game - called when timer reaches 0
   const endGame = useCallback(async () => {

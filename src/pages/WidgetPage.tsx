@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui';
 import { gbFlag, itFlag } from '@/assets/flags';
 import { cn } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 type WidgetPhase = 'setup' | 'playing' | 'complete';
 
@@ -282,6 +283,16 @@ export const WidgetPage: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [phase, currentIndex, questions, showResult]);
+
+  // Auto-speak word when card changes in widget
+  useEffect(() => {
+    if (phase === 'playing' && questions.length > 0) {
+      const word = questions[currentIndex]?.word?.word;
+      if (word) {
+        speak(word);
+      }
+    }
+  }, [currentIndex, phase, questions]);
 
   // Custom drag implementation for frameless window
   useEffect(() => {

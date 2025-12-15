@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { speak } from '@/lib/tts';
 
 export const ReviewPage: React.FC = () => {
-  const { refreshData, targetLanguage } = useAppStore();
+  const { refreshData, targetLanguage, settings } = useAppStore();
 
   const [cards, setCards] = useState<ReviewCard[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,6 +27,16 @@ export const ReviewPage: React.FC = () => {
   useEffect(() => {
     loadReviewCards();
   }, [targetLanguage]);
+
+  // Auto-speak word when card changes
+  useEffect(() => {
+    if (cards.length > 0 && !isComplete && settings?.autoPlayAudio) {
+      const word = cards[currentIndex]?.word?.word;
+      if (word) {
+        speak(word);
+      }
+    }
+  }, [currentIndex, cards, isComplete, settings?.autoPlayAudio]);
 
   const loadReviewCards = async () => {
     setIsLoading(true);
