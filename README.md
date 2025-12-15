@@ -1,299 +1,354 @@
-# Language Learning App 🎓
+# Language Learning App
 
-Современное настольное приложение для изучения английского и итальянского языков с системой интервального повторения, геймификацией, AI-ассистентом и множеством режимов обучения.
+Modern desktop application for learning English and Italian with spaced repetition, gamification, AI assistant, and neural text-to-speech.
 
-![License](https://img.shields.io/badge/license-MIT-green)
+![Electron](https://img.shields.io/badge/Electron-27.3-47848F?logo=electron&logoColor=white)
+![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)
-![Electron](https://img.shields.io/badge/electron-27.x-blue)
-![React](https://img.shields.io/badge/react-18.x-61dafb)
 
-## ✨ Ключевые особенности
+<p align="center">
+  <img src="docs/screenshot-main.png" alt="App Screenshot" width="800">
+</p>
 
-### 🌍 Многоязычность
-- **Английский язык** — 8000+ слов от A1 до C2 уровня CEFR
-- **Итальянский язык** — 3000+ слов с русским переводом
-- **Переключение между языками** — мгновенная смена изучаемого языка
-- **Отдельный прогресс** — статистика ведётся для каждого языка
+## Overview
 
-### 📚 Режимы обучения
+Language Learning App is a comprehensive desktop application designed to accelerate vocabulary acquisition through scientifically-proven methods. It combines the **SM-2 spaced repetition algorithm** with gamification elements, **AI-powered explanations** (Google Gemini), and high-quality **neural TTS** (Chatterbox-Turbo) to create an engaging and effective learning experience.
 
-#### Классическое обучение
-- **Карточки (Flashcards)** — просмотр слов с переводом, транскрипцией и примерами
-- **Тесты с выбором ответа** — проверка знаний с 4 вариантами ответов
-- **Ввод перевода** — свободный ввод для закрепления написания
-- **Фильтрация по уровням** — выбор слов по уровню CEFR (A1-C2)
+## Key Features
 
-#### ⚡ Режим Спринт (Sprint Mode)
-- **60 секунд на максимум очков** — быстрая проверка знаний
-- **Настраиваемое время** — 30, 60, 90 или 120 секунд
-- **Комбо-множитель** — до x4 бонусных очков за серию правильных ответов
-- **Клавиатурное управление** — стрелки влево/вправо или 1/2 для быстрых ответов
-- **XP награды** — дополнительные очки за комбо и точность
-
-#### 📖 Повторение (SRS)
-- **Алгоритм SM-2** — как в Anki, интервалы подстраиваются под ваш прогресс
-- **4 уровня оценки** — Забыл / Сложно / Нормально / Легко
-- **Автоматическое планирование** — система сама напомнит, когда повторять
-
-### 🤖 AI-ассистент (Gemini)
-
-#### Контекстные предложения
-- **Цитаты из книг** — примеры использования слов в литературе
-- **Сцены из фильмов** — диалоги из популярных фильмов
-- **Сцены из сериалов** — примеры из TV-шоу
-- **Красивое оформление** — иконки источников, годы, персонажи
-
-#### Персонализированные рекомендации
-- **AI-анализ прогресса** — определение сильных и слабых сторон
-- **Недельные цели** — персональные рекомендации на неделю
-- **Советы по обучению** — индивидуальные подсказки от AI
-- **Следующая цель** — мотивация через ближайшие достижения
-
-#### Другие AI-функции
-- **Объяснение слов** — подробные объяснения значений
-- **Генерация примеров** — создание контекстных предложений
-- **Проверка грамматики** — анализ и исправление ошибок
-- **Разговорный AI** — практика диалогов на изучаемом языке
-
-### 🔔 Виджеты и напоминания
-
-#### Слово дня
-- **Виджет на главной** — новое слово каждый день
-- **Системный трей** — быстрый доступ к слову дня
-- **Уведомления** — показ слова дня при запуске приложения
-
-#### Системный трей
-- **Иконка в трее** — быстрый доступ к приложению
-- **Контекстное меню** — слово дня, быстрый запуск режимов
-- **Sprint Mode** — один клик для запуска спринта
-- **Статистика** — быстрый переход к статистике
-
-#### Напоминания
-- **Настраиваемое время** — выбор времени напоминаний
-- **Уведомления о повторении** — напоминание о словах для повторения
-- **Информация о серии** — отображение текущей серии дней
-
-### 🎮 Геймификация
-
-#### Система опыта
-- **XP за каждое действие** — изучение, повторение, тесты
-- **Уровни** — прогрессия от новичка до эксперта
-- **Множители XP** — бонусы за комбо в Sprint Mode
-
-#### Серия дней (Streak)
-- **Ежедневные занятия** — поддерживайте серию каждый день
-- **Защита серии** — не теряйте прогресс
-- **Рекорд серии** — отслеживание максимальной серии
-
-#### Достижения
-- **16+ ачивок** — за различные успехи в обучении
-- **Разные категории** — слова, XP, серии, время
-- **Прогресс достижений** — отслеживание прогресса к каждой ачивке
-
-#### Ежедневные цели
-- **По карточкам** — выучите N карточек в день
-- **По времени** — занимайтесь N минут в день
-- **Настраиваемый таргет** — установите свою цель
-
-### 📊 Статистика
-
-#### Графики и аналитика
-- **Прогресс по дням** — график XP и выученных слов
-- **Недельная/месячная статистика** — сводка за период
-- **Всё время** — общая статистика с начала использования
-
-#### Отслеживание прогресса
-- **Выученные слова** — сколько слов вы знаете
-- **В процессе изучения** — слова, которые вы учите
-- **Повторения** — сколько слов повторено
-- **Время обучения** — общее время занятий
-
-#### AI-аналитика
-- **Персональный анализ** — AI оценивает ваш уровень
-- **Сильные стороны** — что у вас получается хорошо
-- **Области для улучшения** — над чем стоит поработать
-- **Рекомендации** — персональные советы от AI
-
-### 📖 Словарь
-
-#### Поиск и фильтрация
-- **Поиск по словам** — быстрый поиск по английским словам
-- **Поиск по переводу** — поиск по русскому переводу
-- **Фильтрация по уровню** — A1, A2, B1, B2, C1, C2
-- **Фильтрация по статусу** — новые, изучаемые, выученные
-
-#### Детальные карточки
-- **Транскрипция** — произношение слова
-- **Часть речи** — noun, verb, adjective и т.д.
-- **Множественные переводы** — все значения слова
-- **Примеры использования** — предложения с переводом
-- **Контекст из книг/фильмов** — AI-генерированные примеры
-
-#### Управление словами
-- **Статус слова** — отметка изученных слов
-- **История повторений** — когда и как вы отвечали
-- **Прогресс изучения** — процент освоения каждого слова
-
-### ⚙️ Настройки
-
-#### Профиль
-- **Имя пользователя** — персонализация приложения
-- **Целевой уровень** — к какому уровню CEFR стремитесь
-- **Изучаемый язык** — выбор между английским и итальянским
-
-#### Обучение
-- **Новые карточки в день** — лимит новых слов
-- **Повторения в день** — лимит повторений
-- **Ежедневная цель** — тип и количество
-
-#### Уведомления
-- **Включить/выключить** — управление уведомлениями
-- **Время напоминания** — когда присылать напоминания
-- **Слово дня** — уведомления о слове дня
-- **Системный трей** — показывать ли иконку в трее
-
-#### AI (Gemini)
-- **API ключ** — настройка интеграции с Gemini
-- **Включить/выключить** — использовать ли AI функции
-
-### 💾 Данные
-
-#### Локальное хранение
-- **Полностью офлайн** — работает без интернета (кроме AI функций)
-- **SQLite база данных** — быстро и надёжно
-- **Автосохранение** — все данные сохраняются автоматически
-
-#### Экспорт/Импорт
-- **Экспорт прогресса** — сохранение данных в JSON
-- **Импорт данных** — восстановление из резервной копии
-- **Переносимость** — легко перенести на другой компьютер
-
-## 🚀 Установка
-
-### Готовый установщик
-Скачайте последнюю версию из [Releases](https://github.com/Skizziik/englishapp/releases):
-- `English Learning Setup 1.0.0.exe` — установщик для Windows
-
-### Сборка из исходников
-
-#### Требования
-- Node.js 18+
-- npm или yarn
-
-#### Установка зависимостей
-
-```bash
-npm install
-```
-
-#### Запуск в режиме разработки
-
-```bash
-npm run dev
-```
-
-#### Сборка приложения
-
-```bash
-# Для Windows
-npm run package:win
-
-# Для macOS
-npm run package:mac
-
-# Для Linux
-npm run package:linux
-```
-
-## 🛠 Технологии
-
-### Frontend
-- **React 18** — UI библиотека
-- **TypeScript** — типизация
-- **Tailwind CSS** — стилизация
-- **Framer Motion** — анимации
-- **Radix UI** — доступные компоненты
-- **Recharts** — графики статистики
-- **Zustand** — управление состоянием
-
-### Backend (Electron)
-- **Electron 27** — кроссплатформенное настольное приложение
-- **better-sqlite3** — локальная SQLite база данных
-- **Google Gemini API** — AI-ассистент
-
-### Инструменты
-- **Vite** — сборка и dev-сервер
-- **electron-builder** — создание установщиков
-
-## 📁 Структура проекта
-
-```
-english-app/
-├── electron/                 # Electron main process
-│   ├── main.ts              # Главный процесс, tray, notifications
-│   ├── preload.ts           # Preload скрипт (IPC bridge)
-│   ├── database.ts          # SQLite база данных
-│   ├── srs-engine.ts        # Алгоритм интервального повторения
-│   └── gemini-service.ts    # Интеграция с Gemini AI
-├── src/
-│   ├── components/
-│   │   ├── ui/              # UI компоненты (Button, Card, Badge, etc.)
-│   │   ├── layout/          # Layout (Sidebar, TitleBar)
-│   │   ├── learning/        # Компоненты обучения
-│   │   │   ├── WordCard.tsx
-│   │   │   ├── QuizCard.tsx
-│   │   │   ├── ContextSentences.tsx   # Цитаты из книг/фильмов
-│   │   │   └── PersonalizedInsights.tsx # AI рекомендации
-│   │   └── widgets/         # Виджеты
-│   │       └── WordOfDay.tsx # Слово дня
-│   ├── pages/
-│   │   ├── HomePage.tsx     # Главная страница
-│   │   ├── LearnPage.tsx    # Изучение новых слов
-│   │   ├── ReviewPage.tsx   # Повторение (SRS)
-│   │   ├── SprintPage.tsx   # Режим Спринт
-│   │   ├── DictionaryPage.tsx # Словарь
-│   │   ├── StatisticsPage.tsx # Статистика
-│   │   ├── AchievementsPage.tsx # Достижения
-│   │   └── SettingsPage.tsx # Настройки
-│   ├── stores/              # Zustand stores
-│   ├── hooks/               # React hooks
-│   ├── lib/                 # Утилиты
-│   └── types/               # TypeScript типы
-├── data/                    # Исходные данные слов
-├── public/                  # Статические файлы
-├── release/                 # Собранные установщики
-└── package.json
-```
-
-## 🎯 Быстрый старт
-
-1. **Выберите язык** — английский или итальянский в настройках
-2. **Начните с изучения** — перейдите в раздел "Учить" и выберите уровень
-3. **Проходите тесты** — закрепляйте знания через тестирование
-4. **Повторяйте** — используйте SRS для долговременного запоминания
-5. **Играйте в Sprint** — соревнуйтесь с собой за лучший результат
-6. **Отслеживайте прогресс** — смотрите статистику и достижения
-
-## 🔑 Настройка AI (опционально)
-
-Для использования AI-функций:
-1. Получите API ключ на [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Перейдите в Настройки → AI Assistant
-3. Вставьте ваш API ключ
-4. Готово! Теперь доступны контекстные предложения и рекомендации
-
-## 📝 Лицензия
-
-MIT License
-
-## 🙏 Благодарности
-
-Вдохновлено лучшими практиками:
-- [Duolingo](https://www.duolingo.com/) — геймификация
-- [Anki](https://apps.ankiweb.net/) — SRS алгоритм
-- [Memrise](https://www.memrise.com/) — режимы обучения
-- [Quizlet](https://quizlet.com/) — карточки и тесты
+### Multi-Language Support
+- **English** — 8,000+ words from A1 to C2 CEFR levels
+- **Italian** — 3,000+ words with Russian translations
+- **Instant language switching** with separate progress tracking
+- **More languages coming soon**
 
 ---
 
-Сделано с ❤️ для изучающих языки
+## Learning Modes
+
+### Learn Mode (Flashcards)
+Interactive flashcard-based learning with contextual sentences:
+- Three response options: **Know**, **Don't Know**, **Hard**
+- Auto-pronunciation using neural TTS
+- Progress tracking with visual indicators
+- Filter by CEFR level (A1-C2)
+
+### Review Mode (Spaced Repetition)
+SM-2 algorithm implementation for optimal long-term retention:
+- Four quality levels: **Again**, **Hard**, **Good**, **Easy**
+- Dynamic interval adjustment based on performance
+- Ease factor tracking per word
+- Review forecasting and statistics
+
+### Sprint Mode
+Timed vocabulary challenges for rapid recall:
+- **60-second** default (configurable: 30, 60, 90, 120s)
+- **Combo system** for consecutive correct answers
+- **Score multipliers** up to 4x for streaks
+- Keyboard controls (Arrow keys or 1/2)
+- Personal best tracking
+
+### Widget Mode
+Compact always-on-top floating window:
+- Passive learning while working
+- Auto-advancement with configurable intervals
+- One-click word status updates
+- Minimalist design
+
+---
+
+## AI Assistant (Gemini)
+
+Four specialized modes powered by **Google Gemini**:
+
+| Mode | Description |
+|------|-------------|
+| **Chat** | Free-form conversation practice with AI tutor |
+| **Explain** | Detailed explanations with etymology, usage, mnemonics |
+| **Examples** | Context-rich sentences from books, movies, TV shows |
+| **Grammar** | Real-time grammar correction and feedback |
+
+### AI Features
+- **Context sentences** — AI generates examples from literature and popular media
+- **Personalized recommendations** — Weekly goals based on your progress
+- **Automatic TTS for responses** — AI responses are read aloud (English only)
+- **Streaming TTS** — Sentence-by-sentence generation for faster playback
+
+---
+
+## Neural Text-to-Speech
+
+Powered by **Chatterbox-Turbo** for high-quality speech synthesis:
+
+- **GPU acceleration** — CUDA/MPS with CPU fallback
+- **Intelligent caching** — Generated audio is cached to disk
+- **Offline playback** — Cached words play without TTS server
+- **Streaming for AI** — Sentence-by-sentence generation with overlap pipeline
+- **Background server** — Automatic lifecycle management
+
+### How TTS Works
+```
+User clicks word → Check cache → Hit? Play from file
+                              → Miss? Generate → Cache → Play
+```
+
+---
+
+## Gamification System
+
+### Experience Points (XP)
+- Earn XP for learning activities
+- Level progression from beginner to expert
+- Bonus XP for combos and accuracy
+
+### Daily Streaks
+- Track consecutive learning days
+- Streak protection
+- Personal streak records
+
+### Achievements
+- **16+ achievements** across categories
+- Words learned, XP earned, streaks maintained
+- Progress tracking for each achievement
+
+### Daily Goals
+- Set targets by cards or time
+- Visual progress indicators
+- Customizable goals
+
+---
+
+## YouTube Integration
+
+Import vocabulary directly from YouTube videos:
+- Automatic subtitle extraction
+- AI-powered word extraction from captions
+- Context preservation from video content
+- Difficulty estimation for extracted words
+
+---
+
+## Statistics & Analytics
+
+### Progress Tracking
+- Daily/weekly/monthly learning activity
+- Words learned over time visualization
+- Review performance metrics
+- Accuracy tracking per word
+
+### AI Analytics
+- Personalized progress analysis
+- Strength and weakness identification
+- Custom learning recommendations
+
+---
+
+## Technical Stack
+
+| Component | Technology |
+|-----------|------------|
+| Framework | Electron 27.3 |
+| Frontend | React 18.2 + TypeScript 5.3 |
+| Styling | Tailwind CSS 3.4 + Framer Motion |
+| State | Zustand |
+| Database | better-sqlite3 |
+| AI | Google Gemini API |
+| TTS | Chatterbox-Turbo (PyTorch) |
+| Build | Vite + electron-builder |
+| UI | Radix UI + Lucide Icons |
+| Charts | Recharts |
+
+---
+
+## Installation
+
+### Download Installer
+Get the latest release from [Releases](https://github.com/yourusername/english-learning-app/releases):
+- `English Learning Setup 1.0.0.exe` — Windows installer
+
+### Build from Source
+
+#### Prerequisites
+- Node.js 18+
+- Python 3.10+ (for TTS)
+- CUDA-compatible GPU (optional, for accelerated TTS)
+
+#### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/english-learning-app.git
+cd english-learning-app
+
+# Install dependencies
+npm install
+
+# Rebuild native modules for Electron
+npm run rebuild
+
+# Start development server
+npm run dev
+```
+
+### TTS Setup (Optional)
+
+For neural text-to-speech functionality:
+
+```bash
+# Install Python dependencies
+pip install flask flask-cors torch torchaudio
+pip install chatterbox-tts
+
+# The TTS server starts automatically when enabled in settings
+```
+
+### Build for Production
+
+```bash
+# Build for Windows
+npm run package:win
+
+# Build for macOS
+npm run package:mac
+
+# Build for Linux
+npm run package:linux
+```
+
+---
+
+## Configuration
+
+### Gemini API
+1. Get API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Navigate to Settings → AI Assistant
+3. Enter your API key
+4. Test the connection
+
+### TTS Settings
+1. Enable TTS in Settings
+2. Click "Start TTS Server"
+3. Wait for model preload (first launch only)
+4. Auto-pronunciation activates
+
+---
+
+## Project Structure
+
+```
+english-learning-app/
+├── electron/                # Electron main process
+│   ├── main.ts             # Application entry point
+│   ├── preload.ts          # IPC bridge
+│   ├── database.ts         # SQLite database service
+│   ├── tts-service.ts      # TTS server management
+│   ├── srs-engine.ts       # SM-2 algorithm
+│   └── gemini.ts           # AI API integration
+├── src/                    # React renderer process
+│   ├── components/
+│   │   ├── ui/             # UI primitives
+│   │   ├── layout/         # Sidebar, TitleBar
+│   │   ├── learning/       # WordCard, QuizCard
+│   │   └── widgets/        # WordOfDay, etc.
+│   ├── pages/
+│   │   ├── HomePage.tsx
+│   │   ├── LearnPage.tsx
+│   │   ├── ReviewPage.tsx
+│   │   ├── SprintPage.tsx
+│   │   ├── DictionaryPage.tsx
+│   │   ├── AssistantPage.tsx
+│   │   ├── StatisticsPage.tsx
+│   │   ├── AchievementsPage.tsx
+│   │   ├── WidgetPage.tsx
+│   │   └── SettingsPage.tsx
+│   ├── stores/             # Zustand state stores
+│   ├── lib/                # Utilities (tts.ts, srs.ts)
+│   └── types/              # TypeScript definitions
+├── python/                 # Python TTS server
+│   └── tts_server.py       # Flask TTS API
+├── data/                   # Word databases (JSON)
+│   ├── english-raw.json
+│   └── italian-raw.json
+└── public/                 # Static assets
+```
+
+---
+
+## Data Format
+
+Words are stored in JSON format:
+
+```json
+{
+  "word": "ephemeral",
+  "translation": "ephemeral (short-lived)",
+  "transcription": "/ɪˈfem(ə)rəl/",
+  "example": "Fame is ephemeral in the digital age.",
+  "difficulty": 3,
+  "level": "C1"
+}
+```
+
+---
+
+## Quick Start Guide
+
+1. **Select language** — English or Italian in Settings
+2. **Start learning** — Go to "Learn" and select your level
+3. **Take quizzes** — Reinforce knowledge through testing
+4. **Review regularly** — Use SRS for long-term retention
+5. **Play Sprint** — Compete with yourself for high scores
+6. **Track progress** — View statistics and achievements
+
+---
+
+## Keyboard Shortcuts
+
+| Action | Shortcut |
+|--------|----------|
+| Know word | `→` or `2` |
+| Don't know | `←` or `1` |
+| Hard | `↓` or `3` |
+| Play audio | `Space` |
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read our contributing guidelines before submitting PRs.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+- [SM-2 Algorithm](https://www.supermemo.com/en/archives1990-2015/english/ol/sm2) — Spaced repetition by Piotr Wozniak
+- [Chatterbox](https://github.com/resemble-ai/chatterbox) — Neural TTS by Resemble AI
+- [Google Gemini](https://ai.google.dev/) — AI language model
+- [Radix UI](https://www.radix-ui.com/) — Accessible components
+
+### Inspired by
+- [Duolingo](https://www.duolingo.com/) — Gamification
+- [Anki](https://apps.ankiweb.net/) — SRS algorithm
+- [Memrise](https://www.memrise.com/) — Learning modes
+- [Quizlet](https://quizlet.com/) — Flashcards
+
+---
+
+<p align="center">
+  <b>Built with passion for language learners</b>
+</p>
