@@ -8,7 +8,20 @@
       "Bash(npm run:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(mkdir:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(pip install:*)",
+      "Bash(timeout:*)",
+      "Bash(curl:*)",
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(powershell \"Get-ChildItem -Recurse ''''C:\\Users\\utente\\AppData\\Roaming\\EnglishLearningApp\\models'''' | Select-Object FullName, Length\")",
+      "Bash(set HF_HOME=C:UsersutenteAppDataRoamingEnglishLearningAppmodels)",
+      "Bash(python:*)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

@@ -13,6 +13,7 @@ import { DatabaseManager } from './database';
 import { SRSEngine } from './srs-engine';
 import { GeminiService } from './gemini-service';
 import { YouTubeImportService, ProcessedWord } from './youtube-import-service';
+import { ttsService } from './tts-service';
 
 let mainWindow: BW | null = null;
 let widgetWindow: BW | null = null;
@@ -333,6 +334,11 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('before-quit', async () => {
+  // Stop TTS server when app is closing
+  await ttsService.stop();
 });
 
 // Window control handlers
@@ -745,4 +751,42 @@ ipcMain.handle('widget:recordAnswer', async (_, wordId: string, quality: number)
 
 ipcMain.handle('widget:addXP', async (_, amount: number) => {
   return database.addXP(amount, 'widget');
+});
+
+// TTS handlers
+ipcMain.handle('tts:speak', async (_, text: string) => {
+  try {
+    const audioBuffer = await ttsService.speak(text);
+    return { success: true, audio: audioBuffer.toString('base64') };
+  } catch (error: any) {
+    console.error('TTS error:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('tts:getStatus', async () => {
+  return ttsService.getStatus();
+});
+
+ipcMain.handle('tts:start', async () => {
+  try {
+    await ttsService.start();
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle('tts:stop', async () => {
+  await ttsService.stop();
+  return { success: true };
+});
+
+ipcMain.handle('tts:preload', async () => {
+  try {
+    await ttsService.preload();
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
 });

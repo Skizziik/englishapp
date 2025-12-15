@@ -4,6 +4,7 @@ import { Volume2, Check, X, Keyboard } from 'lucide-react';
 import { Card, CardContent, Button, LevelBadge, Input } from '@/components/ui';
 import type { Word } from '@/types';
 import { cn, shuffleArray } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 interface QuizCardProps {
   word: Word;
@@ -52,10 +53,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({
   }, [word, type, allWords]);
 
   const playAudio = () => {
-    const utterance = new SpeechSynthesisUtterance(word.word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    speak(word.word);
   };
 
   useEffect(() => {

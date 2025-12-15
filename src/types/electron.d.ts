@@ -217,6 +217,14 @@ interface ElectronAPI {
     isOpen: () => Promise<boolean>;
   };
 
+  tts: {
+    speak: (text: string) => Promise<{ success: boolean; audio?: string; error?: string }>;
+    getStatus: () => Promise<{ available: boolean; modelLoaded: boolean; device: string }>;
+    start: () => Promise<{ success: boolean; error?: string }>;
+    stop: () => Promise<{ success: boolean }>;
+    preload: () => Promise<{ success: boolean; error?: string }>;
+  };
+
   // Event listeners
   onRefreshData: (callback: () => void) => () => void;
 }

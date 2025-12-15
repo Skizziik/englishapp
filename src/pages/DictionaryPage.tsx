@@ -12,6 +12,7 @@ import { WordCard, ContextSentences } from '@/components/learning';
 import type { Word, Category, Level } from '@/types';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
+import { speak } from '@/lib/tts';
 
 interface Source {
   id: string;
@@ -210,10 +211,7 @@ export const DictionaryPage: React.FC = () => {
 
   const playAudio = (word: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    speak(word);
   };
 
   const getStatusBadge = (progress: WordWithProgress['progress']) => {

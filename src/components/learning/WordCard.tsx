@@ -4,6 +4,7 @@ import { Volume2, Eye, EyeOff, Lightbulb } from 'lucide-react';
 import { Card, CardContent, Button, LevelBadge, Badge } from '@/components/ui';
 import type { Word } from '@/types';
 import { cn } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 interface WordCardProps {
   word: Word;
@@ -23,11 +24,7 @@ export const WordCard: React.FC<WordCardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
 
   const playAudio = () => {
-    // Audio playback implementation
-    const utterance = new SpeechSynthesisUtterance(word.word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    speak(word.word);
   };
 
   const primaryTranslation =

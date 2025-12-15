@@ -175,6 +175,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
     isOpen: () => ipcRenderer.invoke('widget:isOpen'),
   },
 
+  // TTS (Text-to-Speech with Chatterbox-Turbo)
+  tts: {
+    speak: (text: string) => ipcRenderer.invoke('tts:speak', text),
+    getStatus: () => ipcRenderer.invoke('tts:getStatus'),
+    start: () => ipcRenderer.invoke('tts:start'),
+    stop: () => ipcRenderer.invoke('tts:stop'),
+    preload: () => ipcRenderer.invoke('tts:preload'),
+  },
+
   // Event listeners for IPC events from main process
   onRefreshData: (callback: () => void) => {
     ipcRenderer.on('refresh-data', callback);

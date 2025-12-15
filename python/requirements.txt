@@ -1,0 +1,6 @@
+chatterbox-tts
+flask
+flask-cors
+torch
+torchaudio
+scipy

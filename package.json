@@ -89,6 +89,10 @@
       {
         "from": "resources/yt-dlp",
         "to": "yt-dlp"
+      },
+      {
+        "from": "python",
+        "to": "python"
       }
     ],
     "win": {

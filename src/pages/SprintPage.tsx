@@ -17,6 +17,7 @@ import { Button, Card, CardContent, LevelBadge } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import type { Word } from '@/types';
 import { cn } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 type SprintPhase = 'setup' | 'countdown' | 'playing' | 'complete';
 
@@ -299,10 +300,7 @@ export const SprintPage: React.FC = () => {
 
   const playAudio = () => {
     if (!currentWord) return;
-    const utterance = new SpeechSynthesisUtterance(currentWord.word);
-    utterance.lang = targetLanguage === 'it' ? 'it-IT' : 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    speak(currentWord.word);
   };
 
   const resetGame = () => {

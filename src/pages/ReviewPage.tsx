@@ -7,6 +7,7 @@ import { SRSButtons, SessionComplete } from '@/components/learning';
 import { useAppStore } from '@/stores/appStore';
 import type { ReviewCard, SessionResult, Word } from '@/types';
 import { cn } from '@/lib/utils';
+import { speak } from '@/lib/tts';
 
 export const ReviewPage: React.FC = () => {
   const { refreshData, targetLanguage } = useAppStore();
@@ -50,10 +51,7 @@ export const ReviewPage: React.FC = () => {
 
   const playAudio = () => {
     if (!currentCard) return;
-    const utterance = new SpeechSynthesisUtterance(currentCard.word.word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    speechSynthesis.speak(utterance);
+    speak(currentCard.word.word);
   };
 
   const handleAnswer = async (quality: number) => {
