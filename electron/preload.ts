@@ -60,7 +60,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   progress: {
     get: (wordId: string) => ipcRenderer.invoke('db:progress:get', wordId),
     update: (wordId: string, data: any) => ipcRenderer.invoke('db:progress:update', wordId, data),
-    getStats: () => ipcRenderer.invoke('db:progress:getStats'),
+    getStats: (targetLanguage?: string) => ipcRenderer.invoke('db:progress:getStats', targetLanguage),
     getDailyGoal: () => ipcRenderer.invoke('db:progress:getDailyGoal'),
     updateDailyGoal: (goal: DailyGoal) => ipcRenderer.invoke('db:progress:updateDailyGoal', goal),
   },
@@ -101,6 +101,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getWeekly: () => ipcRenderer.invoke('stats:getWeekly'),
     getMonthly: () => ipcRenderer.invoke('stats:getMonthly'),
     getOverall: () => ipcRenderer.invoke('stats:getOverall'),
+    getDifficultWords: (targetLanguage?: string) => ipcRenderer.invoke('stats:getDifficultWords', targetLanguage),
+    getStrongCategories: (targetLanguage?: string) => ipcRenderer.invoke('stats:getStrongCategories', targetLanguage),
+    getWeakCategories: (targetLanguage?: string) => ipcRenderer.invoke('stats:getWeakCategories', targetLanguage),
   },
 
   // Gemini AI

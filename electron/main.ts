@@ -400,8 +400,8 @@ ipcMain.handle('db:progress:update', async (_, wordId: string, data: any) => {
   return database.updateWordProgress(wordId, data);
 });
 
-ipcMain.handle('db:progress:getStats', async () => {
-  return database.getUserStats();
+ipcMain.handle('db:progress:getStats', async (_, targetLanguage?: string) => {
+  return database.getUserStats(targetLanguage || 'en');
 });
 
 ipcMain.handle('db:progress:getDailyGoal', async () => {
@@ -490,6 +490,19 @@ ipcMain.handle('stats:getMonthly', async () => {
 
 ipcMain.handle('stats:getOverall', async () => {
   return database.getOverallStats();
+});
+
+// AI анализ - получение данных для персонализированных рекомендаций
+ipcMain.handle('stats:getDifficultWords', async (_, targetLanguage?: string) => {
+  return database.getDifficultWords(targetLanguage || 'en');
+});
+
+ipcMain.handle('stats:getStrongCategories', async (_, targetLanguage?: string) => {
+  return database.getStrongCategories(targetLanguage || 'en');
+});
+
+ipcMain.handle('stats:getWeakCategories', async (_, targetLanguage?: string) => {
+  return database.getWeakCategories(targetLanguage || 'en');
 });
 
 // Gemini AI handlers

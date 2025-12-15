@@ -60,6 +60,7 @@ export interface UserStats {
   longestStreak: number;
   totalTimeSpent: number;
   sessionsCompleted: number;
+  sessionsThisWeek?: number;
 }
 
 export interface Achievement {
@@ -1080,10 +1081,19 @@ export class DatabaseManager {
     }
   }
 
-  getUserStats(): UserStats {
-    const totalWords = (this.db.prepare('SELECT COUNT(*) as count FROM words').get() as any).count;
-    const learnedWords = (this.db.prepare("SELECT COUNT(*) as count FROM user_progress WHERE status = 'learned'").get() as any).count;
-    const learningWords = (this.db.prepare("SELECT COUNT(*) as count FROM user_progress WHERE status = 'learning'").get() as any).count;
+  getUserStats(targetLanguage: string = 'en'): UserStats {
+    // Фильтруем по языку
+    const totalWords = (this.db.prepare('SELECT COUNT(*) as count FROM words WHERE target_language = ?').get(targetLanguage) as any).count;
+    const learnedWords = (this.db.prepare(`
+      SELECT COUNT(*) as count FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      WHERE up.status = 'learned' AND w.target_language = ?
+    `).get(targetLanguage) as any).count;
+    const learningWords = (this.db.prepare(`
+      SELECT COUNT(*) as count FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      WHERE up.status = 'learning' AND w.target_language = ?
+    `).get(targetLanguage) as any).count;
     const wordsReviewed = (this.db.prepare('SELECT COALESCE(SUM(words_reviewed), 0) as total FROM daily_stats').get() as any).total;
     const correctAnswers = (this.db.prepare('SELECT COALESCE(SUM(correct_answers), 0) as total FROM daily_stats').get() as any).total;
     const wrongAnswers = (this.db.prepare('SELECT COALESCE(SUM(wrong_answers), 0) as total FROM daily_stats').get() as any).total;
@@ -1091,6 +1101,14 @@ export class DatabaseManager {
     const streak = this.db.prepare('SELECT * FROM streak WHERE id = 1').get() as any;
     const totalTime = (this.db.prepare('SELECT COALESCE(SUM(time_spent), 0) as total FROM daily_stats').get() as any).total;
     const sessions = (this.db.prepare('SELECT COUNT(*) as count FROM sessions WHERE ended_at IS NOT NULL').get() as any).count;
+
+    // Сессии за последнюю неделю
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    const sessionsThisWeek = (this.db.prepare(`
+      SELECT COUNT(*) as count FROM sessions
+      WHERE ended_at IS NOT NULL AND started_at >= ?
+    `).get(weekAgo.toISOString()) as any).count;
 
     return {
       totalWords,
@@ -1103,7 +1121,8 @@ export class DatabaseManager {
       currentStreak: streak?.current_streak || 0,
       longestStreak: streak?.longest_streak || 0,
       totalTimeSpent: totalTime,
-      sessionsCompleted: sessions
+      sessionsCompleted: sessions,
+      sessionsThisWeek
     };
   }
 
@@ -1397,6 +1416,68 @@ export class DatabaseManager {
 
   getOverallStats(): any {
     return this.getUserStats();
+  }
+
+  // Получить сложные слова (с высоким количеством ошибок)
+  getDifficultWords(targetLanguage: string = 'en', limit: number = 10): string[] {
+    const result = this.db.prepare(`
+      SELECT w.word
+      FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      WHERE w.target_language = ?
+        AND up.wrong_count > up.correct_count
+        AND up.wrong_count > 0
+      ORDER BY up.wrong_count DESC
+      LIMIT ?
+    `).all(targetLanguage, limit) as { word: string }[];
+
+    return result.map(r => r.word);
+  }
+
+  // Получить сильные категории (с высокой точностью)
+  getStrongCategories(targetLanguage: string = 'en'): string[] {
+    const result = this.db.prepare(`
+      SELECT tg.name,
+        SUM(up.correct_count) as correct,
+        SUM(up.wrong_count) as wrong,
+        CAST(SUM(up.correct_count) AS REAL) / NULLIF(SUM(up.correct_count) + SUM(up.wrong_count), 0) as accuracy
+      FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      LEFT JOIN word_tags wt ON w.id = wt.word_id
+      LEFT JOIN tags tg ON wt.tag_id = tg.id
+      WHERE w.target_language = ?
+        AND tg.name IS NOT NULL
+        AND (up.correct_count + up.wrong_count) >= 5
+      GROUP BY tg.name
+      HAVING accuracy > 0.7
+      ORDER BY accuracy DESC
+      LIMIT 5
+    `).all(targetLanguage) as { name: string }[];
+
+    return result.map(r => r.name);
+  }
+
+  // Получить слабые категории (с низкой точностью)
+  getWeakCategories(targetLanguage: string = 'en'): string[] {
+    const result = this.db.prepare(`
+      SELECT tg.name,
+        SUM(up.correct_count) as correct,
+        SUM(up.wrong_count) as wrong,
+        CAST(SUM(up.correct_count) AS REAL) / NULLIF(SUM(up.correct_count) + SUM(up.wrong_count), 0) as accuracy
+      FROM user_progress up
+      INNER JOIN words w ON up.word_id = w.id
+      LEFT JOIN word_tags wt ON w.id = wt.word_id
+      LEFT JOIN tags tg ON wt.tag_id = tg.id
+      WHERE w.target_language = ?
+        AND tg.name IS NOT NULL
+        AND (up.correct_count + up.wrong_count) >= 5
+      GROUP BY tg.name
+      HAVING accuracy < 0.5
+      ORDER BY accuracy ASC
+      LIMIT 5
+    `).all(targetLanguage) as { name: string }[];
+
+    return result.map(r => r.name);
   }
 
   // Word of the Day method

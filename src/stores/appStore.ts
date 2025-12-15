@@ -344,8 +344,9 @@ export const useAppStore = create<AppState>((set, get) => ({
         return;
       }
 
+      const currentLang = get().targetLanguage;
       const [stats, dailyGoal, userLevel, streak, profile, settings, achievements] = await Promise.all([
-        window.electronAPI.progress.getStats(),
+        window.electronAPI.progress.getStats(currentLang),
         window.electronAPI.progress.getDailyGoal(),
         window.electronAPI.gamification.getLevel(),
         window.electronAPI.gamification.getStreak(),
@@ -377,8 +378,9 @@ export const useAppStore = create<AppState>((set, get) => ({
     try {
       if (!window.electronAPI) return;
 
+      const currentLang = get().targetLanguage;
       const [stats, dailyGoal, userLevel, streak] = await Promise.all([
-        window.electronAPI.progress.getStats(),
+        window.electronAPI.progress.getStats(currentLang),
         window.electronAPI.progress.getDailyGoal(),
         window.electronAPI.gamification.getLevel(),
         window.electronAPI.gamification.getStreak(),

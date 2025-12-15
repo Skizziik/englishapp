@@ -111,6 +111,13 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         return;
       }
 
+      // Получаем реальные данные из базы
+      const [difficultWords, strongCategories, weakCategories] = await Promise.all([
+        window.electronAPI.stats.getDifficultWords(targetLanguage),
+        window.electronAPI.stats.getStrongCategories(targetLanguage),
+        window.electronAPI.stats.getWeakCategories(targetLanguage),
+      ]);
+
       // Prepare stats for analysis
       const totalAnswers = (stats?.correctAnswers || 0) + (stats?.wrongAnswers || 0);
       const progressStats = {
@@ -122,11 +129,11 @@ export const PersonalizedInsights: React.FC<PersonalizedInsightsProps> = ({
         accuracy: totalAnswers > 0
           ? Math.round((stats?.correctAnswers || 0) / totalAnswers * 100)
           : 0,
-        difficultWords: [], // Would need to fetch from database
-        strongCategories: [],
-        weakCategories: [],
+        difficultWords,
+        strongCategories,
+        weakCategories,
         averageSessionTime: Math.round((stats?.totalTimeSpent || 0) / Math.max(stats?.sessionsCompleted || 1, 1) / 60),
-        sessionsPerWeek: Math.min(stats?.sessionsCompleted || 0, 7),
+        sessionsPerWeek: stats?.sessionsThisWeek || 0,
       };
 
       const response = await window.electronAPI.gemini.analyzeProgress(progressStats, targetLanguage);

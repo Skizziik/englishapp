@@ -60,6 +60,7 @@ export interface UserStats {
   longestStreak: number;
   totalTimeSpent: number;
   sessionsCompleted: number;
+  sessionsThisWeek?: number;
 }
 
 export interface DailyGoal {

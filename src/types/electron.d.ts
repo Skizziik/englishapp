@@ -113,7 +113,7 @@ interface ElectronAPI {
   progress: {
     get: (wordId: string) => Promise<WordProgress | null>;
     update: (wordId: string, data: Partial<WordProgress>) => Promise<void>;
-    getStats: () => Promise<UserStats>;
+    getStats: (targetLanguage?: string) => Promise<UserStats>;
     getDailyGoal: () => Promise<DailyGoal>;
     updateDailyGoal: (goal: DailyGoal) => Promise<void>;
   };
@@ -152,6 +152,9 @@ interface ElectronAPI {
     getWeekly: () => Promise<DailyStats>;
     getMonthly: () => Promise<DailyStats>;
     getOverall: () => Promise<UserStats>;
+    getDifficultWords: (targetLanguage?: string) => Promise<string[]>;
+    getStrongCategories: (targetLanguage?: string) => Promise<string[]>;
+    getWeakCategories: (targetLanguage?: string) => Promise<string[]>;
   };
 
   gemini: {
