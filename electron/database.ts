@@ -758,6 +758,16 @@ export class DatabaseManager {
       conditions.push('tg.id = ?');
       params.push(filters.category);
     }
+    if (filters?.source) {
+      // Filter by source (e.g., 'youtube' to get all YouTube imported words)
+      conditions.push("EXISTS (SELECT 1 FROM word_tags wt2 JOIN tags t2 ON wt2.tag_id = t2.id WHERE wt2.word_id = w.id AND t2.category = 'source' AND t2.id LIKE ?)");
+      params.push(`${filters.source}%`);
+    }
+    if (filters?.tag) {
+      // Filter by specific tag
+      conditions.push('EXISTS (SELECT 1 FROM word_tags wt3 WHERE wt3.word_id = w.id AND wt3.tag_id = ?)');
+      params.push(filters.tag);
+    }
     if (filters?.search) {
       conditions.push('(w.word LIKE ? OR t.translation LIKE ?)');
       params.push(`%${filters.search}%`, `%${filters.search}%`);
@@ -1478,17 +1488,120 @@ export class DatabaseManager {
 
     // Insert tags if provided
     if (data.tags && data.tags.length > 0) {
-      const insertTag = this.db.prepare(`
+      // First, ensure tags exist in tags table
+      const ensureTag = this.db.prepare(`
+        INSERT OR IGNORE INTO tags (id, name, category)
+        VALUES (?, ?, ?)
+      `);
+
+      const insertWordTag = this.db.prepare(`
         INSERT OR IGNORE INTO word_tags (word_id, tag_id)
         VALUES (?, ?)
       `);
 
       data.tags.forEach(tag => {
-        insertTag.run(wordId, tag);
+        // Create tag if it doesn't exist
+        const tagId = tag.toLowerCase().replace(/[^a-z0-9_:-]/g, '_');
+        const tagName = tag.startsWith('youtube:') ? `YouTube: ${tag.split(':')[1]}` : tag;
+        const category = tag.startsWith('youtube:') ? 'source' : 'custom';
+
+        ensureTag.run(tagId, tagName, category);
+        insertWordTag.run(wordId, tagId);
       });
     }
 
     return wordId;
+  }
+
+  /**
+   * Delete a word and all related data
+   */
+  deleteWord(wordId: string): boolean {
+    try {
+      // Due to CASCADE, related translations, examples, word_tags, and user_progress will be deleted automatically
+      const result = this.db.prepare('DELETE FROM words WHERE id = ?').run(wordId);
+      return result.changes > 0;
+    } catch (error) {
+      console.error('Error deleting word:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Update word translation
+   */
+  updateWordTranslation(wordId: string, translation: string): boolean {
+    try {
+      // Update primary translation
+      const existing = this.db.prepare('SELECT id FROM translations WHERE word_id = ? AND is_primary = 1').get(wordId) as any;
+
+      if (existing) {
+        this.db.prepare('UPDATE translations SET translation = ? WHERE id = ?').run(translation, existing.id);
+      } else {
+        this.db.prepare('INSERT INTO translations (id, word_id, translation, is_primary) VALUES (?, ?, ?, 1)').run(uuidv4(), wordId, translation);
+      }
+      return true;
+    } catch (error) {
+      console.error('Error updating translation:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Update word details
+   */
+  updateWord(wordId: string, data: {
+    translation?: string;
+    level?: string;
+    transcription?: string;
+    partOfSpeech?: string;
+  }): boolean {
+    try {
+      if (data.translation) {
+        this.updateWordTranslation(wordId, data.translation);
+      }
+
+      const updates: string[] = [];
+      const params: any[] = [];
+
+      if (data.level) {
+        updates.push('level = ?');
+        params.push(data.level);
+      }
+      if (data.transcription !== undefined) {
+        updates.push('transcription = ?');
+        params.push(data.transcription);
+      }
+      if (data.partOfSpeech) {
+        updates.push('part_of_speech = ?');
+        params.push(data.partOfSpeech);
+      }
+
+      if (updates.length > 0) {
+        params.push(wordId);
+        this.db.prepare(`UPDATE words SET ${updates.join(', ')} WHERE id = ?`).run(...params);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Error updating word:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Get all sources (YouTube imports, etc.)
+   */
+  getSources(targetLanguage: string = 'en'): { id: string; name: string; count: number }[] {
+    return this.db.prepare(`
+      SELECT t.id, t.name, COUNT(DISTINCT wt.word_id) as count
+      FROM tags t
+      JOIN word_tags wt ON t.id = wt.tag_id
+      JOIN words w ON wt.word_id = w.id
+      WHERE t.category = 'source' AND w.target_language = ?
+      GROUP BY t.id
+      ORDER BY t.name
+    `).all(targetLanguage) as any[];
   }
 
   // Settings methods

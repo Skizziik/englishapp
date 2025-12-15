@@ -537,3 +537,16 @@ ipcMain.handle('youtube:import', async (_, url: string, targetLanguage: string) 
 ipcMain.handle('youtube:addWords', async (_, words: ProcessedWord[], targetLanguage: string, source?: string) => {
   return youtubeImportService.addWordsToDictionary(words, targetLanguage, source || 'youtube');
 });
+
+// Word management handlers
+ipcMain.handle('db:words:delete', async (_, wordId: string) => {
+  return database.deleteWord(wordId);
+});
+
+ipcMain.handle('db:words:update', async (_, wordId: string, data: any) => {
+  return database.updateWord(wordId, data);
+});
+
+ipcMain.handle('db:words:getSources', async (_, targetLanguage?: string) => {
+  return database.getSources(targetLanguage || 'en');
+});

@@ -12,27 +12,13 @@ import {
   ChevronDown,
   ChevronUp,
   BookOpen,
-  Sparkles,
-  Download,
   Info,
   Play,
+  RotateCcw,
 } from 'lucide-react';
 import { Card, CardContent, Button, Badge } from '@/components/ui';
 import { useAppStore } from '@/stores/appStore';
 import { cn } from '@/lib/utils';
-
-interface ProcessedWord {
-  word: string;
-  frequency: number;
-  contexts: string[];
-  level: string;
-  translation: string;
-  transcription?: string;
-  partOfSpeech?: string;
-  exists: boolean;
-  inProgress: boolean;
-  selected?: boolean;
-}
 
 const levelColors: Record<string, string> = {
   'A1': 'bg-green-500/20 text-green-400 border-green-500/30',
@@ -52,33 +38,34 @@ const partOfSpeechLabels: Record<string, string> = {
 };
 
 export const YouTubeImportPage: React.FC = () => {
-  const { targetLanguage, refreshData } = useAppStore();
-
-  const [url, setUrl] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [importResult, setImportResult] = useState<{
-    videoId?: string;
-    language?: string;
-    totalWords?: number;
-    uniqueWords?: number;
-    newWords: ProcessedWord[];
-    existingWords: ProcessedWord[];
-  } | null>(null);
+  const {
+    targetLanguage,
+    refreshData,
+    youtubeImport,
+    setYouTubeUrl,
+    setYouTubeLoading,
+    setYouTubeError,
+    setYouTubeResult,
+    setYouTubeAddResult,
+    updateYouTubeWords,
+    resetYouTubeImport,
+  } = useAppStore();
 
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [showExisting, setShowExisting] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const [addResult, setAddResult] = useState<{ success: boolean; added: number } | null>(null);
   const [expandedWord, setExpandedWord] = useState<string | null>(null);
+
+  // Use store state
+  const { url, isLoading, error, result: importResult, addResult } = youtubeImport;
 
   const handleImport = async () => {
     if (!url.trim()) return;
 
-    setIsLoading(true);
-    setError(null);
-    setImportResult(null);
-    setAddResult(null);
+    setYouTubeLoading(true);
+    setYouTubeError(null);
+    setYouTubeResult(null);
+    setYouTubeAddResult(null);
 
     try {
       if (!window.electronAPI) {
@@ -88,7 +75,7 @@ export const YouTubeImportPage: React.FC = () => {
       const result = await window.electronAPI.youtube.import(url, targetLanguage);
 
       if (!result.success) {
-        setError(result.error || 'Неизвестная ошибка');
+        setYouTubeError(result.error || 'Неизвестная ошибка');
         return;
       }
 
@@ -98,7 +85,7 @@ export const YouTubeImportPage: React.FC = () => {
         selected: true // Select all by default
       }));
 
-      setImportResult({
+      setYouTubeResult({
         videoId: result.videoId,
         language: result.language,
         totalWords: result.totalWords,
@@ -107,37 +94,34 @@ export const YouTubeImportPage: React.FC = () => {
         existingWords: result.existingWords || []
       });
     } catch (err: any) {
-      setError(err.message || 'Ошибка импорта');
+      setYouTubeError(err.message || 'Ошибка импорта');
     } finally {
-      setIsLoading(false);
+      setYouTubeLoading(false);
     }
   };
 
   const toggleWordSelection = (word: string) => {
     if (!importResult) return;
 
-    setImportResult({
-      ...importResult,
-      newWords: importResult.newWords.map(w =>
+    updateYouTubeWords(
+      importResult.newWords.map(w =>
         w.word === word ? { ...w, selected: !w.selected } : w
       )
-    });
+    );
   };
 
   const selectAll = () => {
     if (!importResult) return;
-    setImportResult({
-      ...importResult,
-      newWords: importResult.newWords.map(w => ({ ...w, selected: true }))
-    });
+    updateYouTubeWords(
+      importResult.newWords.map(w => ({ ...w, selected: true }))
+    );
   };
 
   const deselectAll = () => {
     if (!importResult) return;
-    setImportResult({
-      ...importResult,
-      newWords: importResult.newWords.map(w => ({ ...w, selected: false }))
-    });
+    updateYouTubeWords(
+      importResult.newWords.map(w => ({ ...w, selected: false }))
+    );
   };
 
   const handleAddWords = async () => {
@@ -145,12 +129,12 @@ export const YouTubeImportPage: React.FC = () => {
 
     const selectedWords = importResult.newWords.filter(w => w.selected && w.translation);
     if (selectedWords.length === 0) {
-      setError('Выберите слова для добавления');
+      setYouTubeError('Выберите слова для добавления');
       return;
     }
 
     setIsAdding(true);
-    setError(null);
+    setYouTubeError(null);
 
     try {
       const result = await window.electronAPI.youtube.addWords(
@@ -160,21 +144,27 @@ export const YouTubeImportPage: React.FC = () => {
       );
 
       if (result.success) {
-        setAddResult({ success: true, added: result.added });
+        setYouTubeAddResult({ success: true, added: result.added });
         // Remove added words from the list
-        setImportResult({
-          ...importResult,
-          newWords: importResult.newWords.filter(w => !w.selected)
-        });
+        updateYouTubeWords(
+          importResult.newWords.filter(w => !w.selected)
+        );
         refreshData();
       } else {
-        setError(result.error || 'Ошибка добавления');
+        setYouTubeError(result.error || 'Ошибка добавления');
       }
     } catch (err: any) {
-      setError(err.message);
+      setYouTubeError(err.message);
     } finally {
       setIsAdding(false);
     }
+  };
+
+  const handleReset = () => {
+    resetYouTubeImport();
+    setSelectedLevel(null);
+    setShowExisting(false);
+    setExpandedWord(null);
   };
 
   const filteredWords = importResult?.newWords.filter(w => {
@@ -199,16 +189,30 @@ export const YouTubeImportPage: React.FC = () => {
         className="space-y-6"
       >
         {/* Header */}
-        <div className="flex items-center gap-4">
-          <div className="p-3 rounded-xl bg-red-500/20">
-            <Youtube className="w-8 h-8 text-red-500" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 rounded-xl bg-red-500/20">
+              <Youtube className="w-8 h-8 text-red-500" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold">Импорт из YouTube</h1>
+              <p className="text-muted-foreground">
+                Извлеките слова из субтитров видео и добавьте их в словарь
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold">Импорт из YouTube</h1>
-            <p className="text-muted-foreground">
-              Извлеките слова из субтитров видео и добавьте их в словарь
-            </p>
-          </div>
+
+          {/* Reset button - show when we have results */}
+          {importResult && (
+            <Button
+              variant="outline"
+              onClick={handleReset}
+              className="gap-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Новый импорт
+            </Button>
+          )}
         </div>
 
         {/* URL Input */}
@@ -220,10 +224,11 @@ export const YouTubeImportPage: React.FC = () => {
                 <input
                   type="text"
                   value={url}
-                  onChange={(e) => setUrl(e.target.value)}
+                  onChange={(e) => setYouTubeUrl(e.target.value)}
                   placeholder="Вставьте ссылку на YouTube видео..."
                   className="w-full pl-11 pr-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   onKeyDown={(e) => e.key === 'Enter' && handleImport()}
+                  disabled={isLoading}
                 />
               </div>
               <Button
@@ -272,7 +277,7 @@ export const YouTubeImportPage: React.FC = () => {
                     variant="ghost"
                     size="icon"
                     className="ml-auto"
-                    onClick={() => setError(null)}
+                    onClick={() => setYouTubeError(null)}
                   >
                     <X className="w-4 h-4" />
                   </Button>

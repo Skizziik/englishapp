@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Filter, X, BookOpen, Volume2, CheckCircle, BookMarked, Clock, Sparkles } from 'lucide-react';
+import { Search, Filter, X, BookOpen, Volume2, CheckCircle, BookMarked, Clock, Sparkles, Youtube, Trash2, Edit2, Save } from 'lucide-react';
 import {
   Button,
   Card,
@@ -12,6 +12,12 @@ import { WordCard, ContextSentences } from '@/components/learning';
 import type { Word, Category, Level } from '@/types';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '@/stores/appStore';
+
+interface Source {
+  id: string;
+  name: string;
+  count: number;
+}
 
 interface WordWithProgress extends Word {
   progress: {
@@ -42,6 +48,7 @@ export const DictionaryPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [levels, setLevels] = useState<Level[]>([]);
   const [statusCounts, setStatusCounts] = useState<StatusCount[]>([]);
+  const [sources, setSources] = useState<Source[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Filters
@@ -49,10 +56,16 @@ export const DictionaryPage: React.FC = () => {
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
   // Selected word
   const [selectedWord, setSelectedWord] = useState<WordWithProgress | null>(null);
+
+  // Edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTranslation, setEditTranslation] = useState('');
+  const [editLevel, setEditLevel] = useState('');
 
   useEffect(() => {
     loadInitialData();
@@ -61,21 +74,24 @@ export const DictionaryPage: React.FC = () => {
   // Reload words when filters change
   useEffect(() => {
     loadWords();
-  }, [selectedLevel, selectedCategory, selectedStatus, searchQuery, targetLanguage]);
+  }, [selectedLevel, selectedCategory, selectedStatus, selectedSource, searchQuery, targetLanguage]);
 
   const loadInitialData = async () => {
     setIsLoading(true);
     setSelectedLevel(null); // Reset level filter when language changes
+    setSelectedSource(null); // Reset source filter when language changes
 
     if (window.electronAPI) {
-      const [categoriesData, levelsData, statusCountsData] = await Promise.all([
+      const [categoriesData, levelsData, statusCountsData, sourcesData] = await Promise.all([
         window.electronAPI.words.getCategories(),
         window.electronAPI.words.getLevels(targetLanguage),
         window.electronAPI.words.getStatusCounts(),
+        window.electronAPI.words.getSources(targetLanguage),
       ]);
       setCategories(categoriesData);
       setLevels(levelsData);
       setStatusCounts(statusCountsData);
+      setSources(sourcesData);
       await loadWords();
     } else {
       // Mock data
@@ -111,10 +127,11 @@ export const DictionaryPage: React.FC = () => {
     if (selectedLevel) filters.level = selectedLevel;
     if (selectedCategory) filters.category = selectedCategory;
     if (selectedStatus) filters.status = selectedStatus;
+    if (selectedSource) filters.source = selectedSource;
     if (searchQuery) filters.search = searchQuery;
 
     // Limit to 3000 words max for performance, 100 if no filters
-    filters.limit = (selectedLevel || selectedCategory || selectedStatus || searchQuery) ? 3000 : 100;
+    filters.limit = (selectedLevel || selectedCategory || selectedStatus || selectedSource || searchQuery) ? 3000 : 100;
 
     const wordsData = await window.electronAPI.words.getWithProgress(filters);
     setWords(wordsData);
@@ -128,9 +145,68 @@ export const DictionaryPage: React.FC = () => {
     setSelectedLevel(null);
     setSelectedCategory(null);
     setSelectedStatus(null);
+    setSelectedSource(null);
   };
 
-  const hasFilters = searchQuery || selectedLevel || selectedCategory || selectedStatus;
+  const hasFilters = searchQuery || selectedLevel || selectedCategory || selectedStatus || selectedSource;
+
+  // Delete word handler
+  const handleDeleteWord = async (wordId: string) => {
+    if (!window.electronAPI) return;
+
+    const confirmed = window.confirm('Вы уверены, что хотите удалить это слово?');
+    if (!confirmed) return;
+
+    const success = await window.electronAPI.words.delete(wordId);
+    if (success) {
+      setWords(words.filter(w => w.id !== wordId));
+      if (selectedWord?.id === wordId) {
+        setSelectedWord(null);
+      }
+      // Reload sources count
+      const sourcesData = await window.electronAPI.words.getSources(targetLanguage);
+      setSources(sourcesData);
+    }
+  };
+
+  // Edit word handler
+  const handleEditWord = () => {
+    if (!selectedWord) return;
+    setEditTranslation(selectedWord.translations[0]?.translation || '');
+    setEditLevel(selectedWord.level);
+    setIsEditing(true);
+  };
+
+  // Save edited word
+  const handleSaveEdit = async () => {
+    if (!selectedWord || !window.electronAPI) return;
+
+    const success = await window.electronAPI.words.update(selectedWord.id, {
+      translation: editTranslation,
+      level: editLevel,
+    });
+
+    if (success) {
+      // Update local state
+      const updatedWords = words.map(w => {
+        if (w.id === selectedWord.id) {
+          return {
+            ...w,
+            level: editLevel,
+            translations: [{ ...w.translations[0], translation: editTranslation }],
+          };
+        }
+        return w;
+      });
+      setWords(updatedWords);
+      setSelectedWord({
+        ...selectedWord,
+        level: editLevel,
+        translations: [{ ...selectedWord.translations[0], translation: editTranslation }],
+      });
+      setIsEditing(false);
+    }
+  };
 
   const playAudio = (word: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -271,6 +347,52 @@ export const DictionaryPage: React.FC = () => {
                       ))}
                     </div>
                   </div>
+
+                  {/* Source Filter (YouTube imports) */}
+                  {sources.length > 0 && (
+                    <div>
+                      <label className="text-xs text-muted-foreground mb-2 block flex items-center gap-1">
+                        <Youtube className="w-3 h-3 text-red-500" />
+                        Импорт из YouTube
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() =>
+                            setSelectedSource(
+                              selectedSource === 'youtube' ? null : 'youtube'
+                            )
+                          }
+                          className={cn(
+                            'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all',
+                            selectedSource === 'youtube'
+                              ? 'bg-red-500/20 text-red-400 ring-2 ring-red-500/30 ring-offset-1 ring-offset-background'
+                              : 'bg-secondary text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          <Youtube className="w-3 h-3" />
+                          Все из YouTube ({sources.reduce((sum, s) => sum + s.count, 0)})
+                        </button>
+                        {sources.map((s) => (
+                          <button
+                            key={s.id}
+                            onClick={() =>
+                              setSelectedSource(
+                                selectedSource === s.id ? null : s.id
+                              )
+                            }
+                            className={cn(
+                              'px-3 py-1 rounded-full text-xs font-medium transition-all',
+                              selectedSource === s.id
+                                ? 'bg-red-500/20 text-red-400 ring-2 ring-red-500/30 ring-offset-1 ring-offset-background'
+                                : 'bg-secondary text-muted-foreground hover:text-foreground'
+                            )}
+                          >
+                            {s.name} ({s.count})
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -354,7 +476,94 @@ export const DictionaryPage: React.FC = () => {
       <div className="flex-1 overflow-y-auto">
         {selectedWord ? (
           <div className="p-6">
-            <WordCard word={selectedWord} variant="full" />
+            {/* Edit/Delete Actions */}
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold">{selectedWord.word}</h2>
+              <div className="flex items-center gap-2">
+                {isEditing ? (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsEditing(false)}
+                    >
+                      <X className="w-4 h-4 mr-1" />
+                      Отмена
+                    </Button>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={handleSaveEdit}
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      Сохранить
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleEditWord}
+                    >
+                      <Edit2 className="w-4 h-4 mr-1" />
+                      Изменить
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                      onClick={() => handleDeleteWord(selectedWord.id)}
+                    >
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Удалить
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Edit Form */}
+            {isEditing ? (
+              <Card className="mb-4">
+                <CardContent className="p-4 space-y-4">
+                  <div>
+                    <label className="text-xs text-muted-foreground mb-1 block">
+                      Перевод
+                    </label>
+                    <input
+                      type="text"
+                      value={editTranslation}
+                      onChange={(e) => setEditTranslation(e.target.value)}
+                      className="w-full px-3 py-2 bg-secondary rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs text-muted-foreground mb-1 block">
+                      Уровень CEFR
+                    </label>
+                    <div className="flex gap-2">
+                      {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map((level) => (
+                        <button
+                          key={level}
+                          onClick={() => setEditLevel(level)}
+                          className={cn(
+                            'px-3 py-1 rounded-full text-xs font-medium transition-all',
+                            editLevel === level
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-secondary text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          {level}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <WordCard word={selectedWord} variant="full" />
+            )}
 
             {/* Progress Stats */}
             {selectedWord.progress && (

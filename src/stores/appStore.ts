@@ -8,6 +8,34 @@ interface ChatMessage {
   timestamp: Date;
 }
 
+interface YouTubeProcessedWord {
+  word: string;
+  frequency: number;
+  contexts: string[];
+  level: string;
+  translation: string;
+  transcription?: string;
+  partOfSpeech?: string;
+  exists: boolean;
+  inProgress: boolean;
+  selected?: boolean;
+}
+
+interface YouTubeImportState {
+  url: string;
+  isLoading: boolean;
+  error: string | null;
+  result: {
+    videoId?: string;
+    language?: string;
+    totalWords?: number;
+    uniqueWords?: number;
+    newWords: YouTubeProcessedWord[];
+    existingWords: YouTubeProcessedWord[];
+  } | null;
+  addResult: { success: boolean; added: number } | null;
+}
+
 interface AppState {
   // User data
   stats: UserStats | null;
@@ -41,6 +69,9 @@ interface AppState {
   isLoading: boolean;
   error: string | null;
 
+  // YouTube Import state
+  youtubeImport: YouTubeImportState;
+
   // Actions
   setStats: (stats: UserStats) => void;
   setDailyGoal: (goal: DailyGoal) => void;
@@ -64,6 +95,15 @@ interface AppState {
   addChatMessage: (message: ChatMessage, language: 'en' | 'it') => void;
   clearChatMessages: (language: 'en' | 'it') => void;
   getChatMessages: () => ChatMessage[];
+
+  // YouTube Import actions
+  setYouTubeUrl: (url: string) => void;
+  setYouTubeLoading: (loading: boolean) => void;
+  setYouTubeError: (error: string | null) => void;
+  setYouTubeResult: (result: YouTubeImportState['result']) => void;
+  setYouTubeAddResult: (result: YouTubeImportState['addResult']) => void;
+  updateYouTubeWords: (words: YouTubeProcessedWord[]) => void;
+  resetYouTubeImport: () => void;
 
   // Initialize
   initialize: () => Promise<void>;
@@ -94,6 +134,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   isLoading: false,
   error: null,
+
+  // YouTube Import initial state
+  youtubeImport: {
+    url: '',
+    isLoading: false,
+    error: null,
+    result: null,
+    addResult: null,
+  },
 
   // Setters
   setStats: (stats) => set({ stats }),
@@ -192,6 +241,61 @@ export const useAppStore = create<AppState>((set, get) => ({
   getChatMessages: () => {
     const state = get();
     return state.targetLanguage === 'en' ? state.chatMessagesEn : state.chatMessagesIt;
+  },
+
+  // YouTube Import actions
+  setYouTubeUrl: (url) => {
+    set((state) => ({
+      youtubeImport: { ...state.youtubeImport, url }
+    }));
+  },
+
+  setYouTubeLoading: (isLoading) => {
+    set((state) => ({
+      youtubeImport: { ...state.youtubeImport, isLoading }
+    }));
+  },
+
+  setYouTubeError: (error) => {
+    set((state) => ({
+      youtubeImport: { ...state.youtubeImport, error }
+    }));
+  },
+
+  setYouTubeResult: (result) => {
+    set((state) => ({
+      youtubeImport: { ...state.youtubeImport, result, error: null }
+    }));
+  },
+
+  setYouTubeAddResult: (addResult) => {
+    set((state) => ({
+      youtubeImport: { ...state.youtubeImport, addResult }
+    }));
+  },
+
+  updateYouTubeWords: (newWords) => {
+    set((state) => ({
+      youtubeImport: {
+        ...state.youtubeImport,
+        result: state.youtubeImport.result ? {
+          ...state.youtubeImport.result,
+          newWords
+        } : null
+      }
+    }));
+  },
+
+  resetYouTubeImport: () => {
+    set({
+      youtubeImport: {
+        url: '',
+        isLoading: false,
+        error: null,
+        result: null,
+        addResult: null,
+      }
+    });
   },
 
   // Initialize app data
