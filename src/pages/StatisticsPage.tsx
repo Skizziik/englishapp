@@ -250,7 +250,7 @@ export const StatisticsPage: React.FC = () => {
                       }}
                       cursor={{ fill: 'rgba(255,255,255,0.1)' }}
                     />
-                    <Bar dataKey="wordsLearned" fill="#22c55e" name="Выучено" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="wordsLearned" fill="#22c55e" name="Начато новых" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="wordsReviewed" fill="#3b82f6" name="Повторено" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
