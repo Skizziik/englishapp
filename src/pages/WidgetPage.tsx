@@ -199,18 +199,18 @@ export const WidgetPage: React.FC = () => {
       const earnedXP = 5 + comboBonus;
       setXpEarned((prev) => prev + earnedXP);
 
-      // Record answer in SRS
+      // Record answer in SRS (don't await to prevent blocking)
       if (window.widgetAPI) {
-        await window.widgetAPI.recordAnswer(question.word.id, 4); // Good answer
-        await window.widgetAPI.addXP(earnedXP);
+        window.widgetAPI.recordAnswer(question.word.id, 4).catch(console.error);
+        window.widgetAPI.addXP(earnedXP).catch(console.error);
       }
     } else {
       setCombo(0);
       setWrongCount((prev) => prev + 1);
 
-      // Record wrong answer in SRS
+      // Record wrong answer in SRS (don't await to prevent blocking)
       if (window.widgetAPI) {
-        await window.widgetAPI.recordAnswer(question.word.id, 1); // Wrong answer
+        window.widgetAPI.recordAnswer(question.word.id, 1).catch(console.error);
       }
     }
 
