@@ -137,13 +137,23 @@ export const LearnPage: React.FC = () => {
 
   // Auto-speak word in preview phase when card changes
   useEffect(() => {
-    if (phase === 'preview' && cards.length > 0 && settings?.autoPlayAudio) {
+    if (phase === 'preview' && cards.length > 0) {
       const word = cards[previewIndex]?.word?.word;
       if (word) {
         speak(word);
       }
     }
-  }, [phase, previewIndex, cards, settings?.autoPlayAudio]);
+  }, [phase, previewIndex, cards]);
+
+  // Auto-speak word in quiz phase when card changes
+  useEffect(() => {
+    if (phase === 'quiz' && cards.length > 0) {
+      const word = cards[currentIndex]?.word?.word;
+      if (word) {
+        speak(word);
+      }
+    }
+  }, [phase, currentIndex, cards]);
 
   const startSession = async () => {
     let newCards: ReviewCard[] = [];

@@ -115,6 +115,7 @@ class TTSService {
 
   /**
    * Озвучить текст используя Chatterbox-Turbo
+   * Закэшированные файлы воспроизводятся без сервера!
    */
   async speak(text: string): Promise<boolean> {
     if (!window.electronAPI?.tts) {
@@ -122,37 +123,27 @@ class TTSService {
       return false;
     }
 
-    // Проверяем кэш
+    // Проверяем кэш в памяти
     const cached = this.audioCache.get(text);
     if (cached) {
       return this.playBase64Audio(cached);
     }
 
-    // Проверяем статус TTS
-    if (!this.status) {
-      await this.checkStatus();
-    }
-
-    // Если TTS не доступен - не пытаемся автозапуск
-    // Пользователь должен включить в настройках
-    if (!this.status?.available) {
-      console.log('TTS not available. Enable it in Settings.');
-      return false;
-    }
-
+    // Пробуем получить аудио - electron сначала проверит файловый кэш
+    // Если файл есть на диске - воспроизведёт без сервера
     try {
       const result = await window.electronAPI.tts.speak(text);
 
       if (result.success && result.audio) {
-        // Кэшируем результат
+        // Кэшируем результат в памяти
         this.audioCache.set(text, result.audio);
         return this.playBase64Audio(result.audio);
       } else {
-        console.error('TTS speak failed:', result.error);
+        // Нет кэша и сервер не запущен - тихо возвращаем false
         return false;
       }
     } catch (error) {
-      console.error('TTS speak error:', error);
+      // Ошибка - вероятно сервер не запущен и кэша нет
       return false;
     }
   }

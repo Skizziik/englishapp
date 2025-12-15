@@ -756,6 +756,13 @@ ipcMain.handle('widget:addXP', async (_, amount: number) => {
 // TTS handlers
 ipcMain.handle('tts:speak', async (_, text: string) => {
   try {
+    // First try to get from local file cache (works without server!)
+    const cached = ttsService.getCachedAudio(text);
+    if (cached) {
+      return { success: true, audio: cached.toString('base64'), fromCache: true };
+    }
+
+    // No cache - need to generate via server
     const audioBuffer = await ttsService.speak(text);
     return { success: true, audio: audioBuffer.toString('base64') };
   } catch (error: any) {

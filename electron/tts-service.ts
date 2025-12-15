@@ -10,6 +10,32 @@ import fs from 'fs';
 const TTS_PORT = 5123;
 const TTS_URL = `http://127.0.0.1:${TTS_PORT}`;
 
+// Audio cache directory path (same as Python server uses)
+function getAudioCacheDir(): string {
+  const appData = process.env.APPDATA || path.join(process.env.HOME || '', '.cache');
+  return path.join(appData, 'EnglishLearningApp', 'audio_cache');
+}
+
+// Get cache file path for text (same logic as Python server)
+function getAudioCachePath(text: string): string {
+  // Sanitize text for filename - keep only alphanumeric and spaces
+  const cleanText = text.toLowerCase().trim();
+  let safeName = cleanText.replace(/[^a-z0-9 ]/g, '').replace(/ /g, '_').slice(0, 50);
+
+  // If the name is too short or empty, use simple hash
+  if (safeName.length < 2) {
+    // Simple hash for short texts
+    let hash = 0;
+    for (let i = 0; i < cleanText.length; i++) {
+      hash = ((hash << 5) - hash) + cleanText.charCodeAt(i);
+      hash |= 0;
+    }
+    safeName = Math.abs(hash).toString(16).slice(0, 12);
+  }
+
+  return path.join(getAudioCacheDir(), `${safeName}.wav`);
+}
+
 interface HealthResponse {
   status: string;
   model_loaded: boolean;
@@ -195,8 +221,17 @@ class TTSService {
 
   /**
    * Generate speech from text
+   * First checks local file cache, then falls back to server
    */
   async speak(text: string): Promise<Buffer> {
+    // Check local file cache first (works without server!)
+    const cachePath = getAudioCachePath(text);
+    if (fs.existsSync(cachePath)) {
+      console.log(`[TTS] Cache hit: ${text} -> ${cachePath}`);
+      return fs.readFileSync(cachePath);
+    }
+
+    // No cache - need server to generate
     if (!this.isReady) {
       await this.start();
     }
@@ -263,6 +298,25 @@ class TTSService {
       modelLoaded: false,
       device: 'none'
     };
+  }
+
+  /**
+   * Check if audio is cached for text (can play without server)
+   */
+  hasCachedAudio(text: string): boolean {
+    const cachePath = getAudioCachePath(text);
+    return fs.existsSync(cachePath);
+  }
+
+  /**
+   * Get cached audio without needing server
+   */
+  getCachedAudio(text: string): Buffer | null {
+    const cachePath = getAudioCachePath(text);
+    if (fs.existsSync(cachePath)) {
+      return fs.readFileSync(cachePath);
+    }
+    return null;
   }
 }
 

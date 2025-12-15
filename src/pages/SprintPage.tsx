@@ -232,13 +232,13 @@ export const SprintPage: React.FC = () => {
 
   // Auto-speak word when card changes in sprint
   useEffect(() => {
-    if (phase === 'playing' && words.length > 0 && settings?.autoPlayAudio) {
+    if (phase === 'playing' && words.length > 0) {
       const word = words[currentIndex % words.length]?.word;
       if (word) {
         speak(word);
       }
     }
-  }, [currentIndex, phase, words, settings?.autoPlayAudio]);
+  }, [currentIndex, phase, words]);
 
   // End game - called when timer reaches 0
   const endGame = useCallback(async () => {

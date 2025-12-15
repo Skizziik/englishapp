@@ -30,13 +30,13 @@ export const ReviewPage: React.FC = () => {
 
   // Auto-speak word when card changes
   useEffect(() => {
-    if (cards.length > 0 && !isComplete && settings?.autoPlayAudio) {
+    if (cards.length > 0 && !isComplete) {
       const word = cards[currentIndex]?.word?.word;
       if (word) {
         speak(word);
       }
     }
-  }, [currentIndex, cards, isComplete, settings?.autoPlayAudio]);
+  }, [currentIndex, cards, isComplete]);
 
   const loadReviewCards = async () => {
     setIsLoading(true);
