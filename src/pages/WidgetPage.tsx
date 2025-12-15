@@ -100,9 +100,14 @@ export const WidgetPage: React.FC = () => {
     }
 
     try {
+      console.log('Widget: Loading words...', { bundleSize, targetLanguage });
       const reviewCards = await window.widgetAPI.getWords(bundleSize, targetLanguage);
+      console.log('Widget: Got review cards:', reviewCards);
 
-      if (reviewCards.length === 0) {
+      if (!reviewCards || reviewCards.length === 0) {
+        console.log('Widget: No words available, using mock data');
+        setQuestions(getMockQuestions(bundleSize));
+        setPhase('playing');
         return;
       }
 
@@ -111,11 +116,24 @@ export const WidgetPage: React.FC = () => {
 
       for (const card of reviewCards) {
         // Extract translation from ReviewCard structure
+        // card can be ReviewCard { word, progress, isNew } or direct Word object
         const wordData = card.word || card;
-        const primaryTranslation = wordData.translations?.find((t: any) => t.isPrimary);
-        const correctAnswer = primaryTranslation?.translation || wordData.translations?.[0]?.translation || '';
+        console.log('Widget: Processing word:', wordData);
 
-        if (!correctAnswer) continue;
+        // Handle different translation formats
+        let correctAnswer = '';
+        if (wordData.translations && Array.isArray(wordData.translations)) {
+          const primaryTranslation = wordData.translations.find((t: any) => t.isPrimary);
+          correctAnswer = primaryTranslation?.translation || wordData.translations[0]?.translation || '';
+        } else if (wordData.translation) {
+          // Direct translation field
+          correctAnswer = wordData.translation;
+        }
+
+        if (!correctAnswer) {
+          console.log('Widget: Skipping word without translation:', wordData);
+          continue;
+        }
 
         const options = await window.widgetAPI.getAnswerOptions(correctAnswer, targetLanguage);
 
@@ -131,7 +149,14 @@ export const WidgetPage: React.FC = () => {
         });
       }
 
-      setQuestions(questionsData);
+      console.log('Widget: Final questions:', questionsData);
+
+      if (questionsData.length === 0) {
+        console.log('Widget: No valid questions, using mock data');
+        setQuestions(getMockQuestions(bundleSize));
+      } else {
+        setQuestions(questionsData);
+      }
       setCurrentIndex(0);
       setCorrectCount(0);
       setWrongCount(0);
@@ -140,7 +165,16 @@ export const WidgetPage: React.FC = () => {
       setXpEarned(0);
       setPhase('playing');
     } catch (error) {
-      console.error('Failed to load words:', error);
+      console.error('Widget: Failed to load words:', error);
+      // Fallback to mock data on error
+      setQuestions(getMockQuestions(bundleSize));
+      setCurrentIndex(0);
+      setCorrectCount(0);
+      setWrongCount(0);
+      setCombo(0);
+      setMaxCombo(0);
+      setXpEarned(0);
+      setPhase('playing');
     }
   };
 
