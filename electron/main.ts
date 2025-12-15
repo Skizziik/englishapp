@@ -648,6 +648,14 @@ ipcMain.handle('widget:isAlwaysOnTop', async () => {
   return widgetWindow?.isAlwaysOnTop() ?? false;
 });
 
+// Notify main window to refresh data (called from widget after learning)
+ipcMain.handle('widget:notifyMainToRefresh', async () => {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('refresh-data');
+  }
+  return true;
+});
+
 ipcMain.handle('widget:getWords', async (_, count: number, targetLanguage: string) => {
   try {
     console.log('Widget: Getting words for', targetLanguage, 'count:', count);

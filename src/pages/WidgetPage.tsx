@@ -213,6 +213,8 @@ export const WidgetPage: React.FC = () => {
       if (window.widgetAPI) {
         window.widgetAPI.recordAnswer(question.word.id, 4).catch(console.error);
         window.widgetAPI.addXP(earnedXP).catch(console.error);
+        // Notify main window to refresh data
+        window.widgetAPI.notifyMainToRefresh().catch(console.error);
       }
     } else {
       setCombo(0);
@@ -221,6 +223,8 @@ export const WidgetPage: React.FC = () => {
       // Record wrong answer in SRS (don't await to prevent blocking)
       if (window.widgetAPI) {
         window.widgetAPI.recordAnswer(question.word.id, 1).catch(console.error);
+        // Notify main window to refresh data
+        window.widgetAPI.notifyMainToRefresh().catch(console.error);
       }
     }
 

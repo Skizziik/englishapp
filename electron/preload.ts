@@ -171,4 +171,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     close: () => ipcRenderer.invoke('widget:close'),
     isOpen: () => ipcRenderer.invoke('widget:isOpen'),
   },
+
+  // Event listeners for IPC events from main process
+  onRefreshData: (callback: () => void) => {
+    ipcRenderer.on('refresh-data', callback);
+    return () => ipcRenderer.removeListener('refresh-data', callback);
+  },
 });

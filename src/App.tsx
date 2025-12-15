@@ -17,11 +17,22 @@ import {
 import { useAppStore } from '@/stores/appStore';
 
 const App: React.FC = () => {
-  const { initialize, isLoading, error } = useAppStore();
+  const { initialize, isLoading, error, refreshData } = useAppStore();
 
   useEffect(() => {
     initialize();
   }, [initialize]);
+
+  // Listen for refresh events from widget
+  useEffect(() => {
+    if (window.electronAPI?.onRefreshData) {
+      const unsubscribe = window.electronAPI.onRefreshData(() => {
+        console.log('Received refresh-data event from widget');
+        refreshData();
+      });
+      return unsubscribe;
+    }
+  }, [refreshData]);
 
   if (isLoading) {
     return (

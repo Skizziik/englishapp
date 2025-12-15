@@ -213,6 +213,9 @@ interface ElectronAPI {
     close: () => Promise<boolean>;
     isOpen: () => Promise<boolean>;
   };
+
+  // Event listeners
+  onRefreshData: (callback: () => void) => () => void;
 }
 
 interface WidgetAPI {
@@ -234,6 +237,7 @@ interface WidgetAPI {
   getStats: (targetLanguage: string) => Promise<SRSStats>;
   getStreak: () => Promise<StreakInfo>;
   updateStreak: () => Promise<StreakUpdateResult>;
+  notifyMainToRefresh: () => Promise<boolean>;
 }
 
 declare global {

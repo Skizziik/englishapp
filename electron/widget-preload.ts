@@ -28,4 +28,7 @@ contextBridge.exposeInMainWorld('widgetAPI', {
   // Gamification
   getStreak: () => ipcRenderer.invoke('gamification:getStreak'),
   updateStreak: () => ipcRenderer.invoke('gamification:updateStreak'),
+
+  // Notify main window to refresh data
+  notifyMainToRefresh: () => ipcRenderer.invoke('widget:notifyMainToRefresh'),
 });
