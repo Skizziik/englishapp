@@ -10,6 +10,8 @@ import {
   GripVertical,
   Play,
   RotateCcw,
+  Pin,
+  PinOff,
 } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { gbFlag, itFlag } from '@/assets/flags';
@@ -52,6 +54,28 @@ export const WidgetPage: React.FC = () => {
   // Drag state
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
+
+  // Always on top state
+  const [alwaysOnTop, setAlwaysOnTop] = useState(true);
+
+  // Load initial always on top state
+  useEffect(() => {
+    const loadAlwaysOnTop = async () => {
+      if (window.widgetAPI) {
+        const isOnTop = await window.widgetAPI.isAlwaysOnTop();
+        setAlwaysOnTop(isOnTop);
+      }
+    };
+    loadAlwaysOnTop();
+  }, []);
+
+  const toggleAlwaysOnTop = async () => {
+    if (window.widgetAPI) {
+      const newValue = !alwaysOnTop;
+      await window.widgetAPI.setAlwaysOnTop(newValue);
+      setAlwaysOnTop(newValue);
+    }
+  };
 
   // Window controls
   const handleClose = async () => {
@@ -264,6 +288,16 @@ export const WidgetPage: React.FC = () => {
           <span className="text-sm font-medium text-white/70">Quick Learn</span>
         </div>
         <div className="flex items-center gap-1">
+          <button
+            onClick={toggleAlwaysOnTop}
+            className={cn(
+              "p-1.5 rounded transition-colors",
+              alwaysOnTop ? "bg-blue-500/20 text-blue-400" : "hover:bg-white/10 text-white/60"
+            )}
+            title={alwaysOnTop ? "Поверх всех окон (вкл)" : "Поверх всех окон (выкл)"}
+          >
+            {alwaysOnTop ? <Pin className="w-4 h-4" /> : <PinOff className="w-4 h-4" />}
+          </button>
           <button
             onClick={handleMinimize}
             className="p-1.5 rounded hover:bg-white/10 transition-colors"

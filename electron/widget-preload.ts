@@ -5,6 +5,8 @@ contextBridge.exposeInMainWorld('widgetAPI', {
   // Window controls
   close: () => ipcRenderer.invoke('widget:close'),
   minimize: () => ipcRenderer.invoke('widget:minimize'),
+  setAlwaysOnTop: (enabled: boolean) => ipcRenderer.invoke('widget:setAlwaysOnTop', enabled),
+  isAlwaysOnTop: () => ipcRenderer.invoke('widget:isAlwaysOnTop'),
 
   // Quiz data
   getWords: (count: number, targetLanguage: string) =>

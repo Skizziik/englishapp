@@ -626,14 +626,42 @@ ipcMain.handle('widget:minimize', async () => {
   widgetWindow?.minimize();
 });
 
-ipcMain.handle('widget:getWords', async (_, count: number, targetLanguage: string) => {
-  // Get mix of due words and new words for widget
-  const dueWords = srsEngine.getNextReviewWords(Math.ceil(count / 2), targetLanguage);
-  const newWords = srsEngine.getNewWordsToLearn(Math.ceil(count / 2), undefined, undefined, targetLanguage);
+ipcMain.handle('widget:setAlwaysOnTop', async (_, enabled: boolean) => {
+  if (widgetWindow) {
+    widgetWindow.setAlwaysOnTop(enabled, enabled ? 'floating' : undefined);
+  }
+  return enabled;
+});
 
-  // Combine and shuffle
-  const allWords = [...dueWords, ...newWords].slice(0, count);
-  return allWords.sort(() => Math.random() - 0.5);
+ipcMain.handle('widget:isAlwaysOnTop', async () => {
+  return widgetWindow?.isAlwaysOnTop() ?? false;
+});
+
+ipcMain.handle('widget:getWords', async (_, count: number, targetLanguage: string) => {
+  // First try to get due words for review
+  const dueWords = srsEngine.getNextReviewWords(count, targetLanguage);
+
+  // If we don't have enough due words, fill with new words
+  const remaining = count - dueWords.length;
+  let newWords: any[] = [];
+  if (remaining > 0) {
+    newWords = srsEngine.getNewWordsToLearn(remaining, undefined, undefined, targetLanguage);
+  }
+
+  // If still not enough, get random words from database
+  let allWords = [...dueWords, ...newWords];
+  if (allWords.length < count) {
+    const randomWords = database.getWords({ targetLanguage, limit: count * 2 });
+    const existingIds = new Set(allWords.map((w: any) => w.word?.id || w.id));
+    const additional = randomWords
+      .filter(w => !existingIds.has(w.id))
+      .slice(0, count - allWords.length)
+      .map(w => ({ word: w, progress: null, isNew: true }));
+    allWords = [...allWords, ...additional];
+  }
+
+  // Return exactly the requested count, shuffled
+  return allWords.slice(0, count).sort(() => Math.random() - 0.5);
 });
 
 ipcMain.handle('widget:getAnswerOptions', async (_, correctTranslation: string, targetLanguage: string) => {
