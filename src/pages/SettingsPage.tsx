@@ -17,6 +17,10 @@ import {
   EyeOff,
   Layout,
   ExternalLink,
+  Mic,
+  Loader2,
+  Power,
+  PowerOff,
 } from 'lucide-react';
 import {
   Card,
@@ -43,6 +47,11 @@ export const SettingsPage: React.FC = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
+  // TTS state
+  const [ttsEnabled, setTtsEnabled] = useState(false);
+  const [ttsStatus, setTtsStatus] = useState<{ available: boolean; modelLoaded: boolean; device: string } | null>(null);
+  const [ttsLoading, setTtsLoading] = useState(false);
+
   useEffect(() => {
     if (settings) {
       setLocalSettings(settings);
@@ -52,7 +61,42 @@ export const SettingsPage: React.FC = () => {
     }
     // Load masked API key
     loadMaskedKey();
+    // Check TTS status on mount
+    checkTtsStatus();
   }, [settings, profile]);
+
+  const checkTtsStatus = async () => {
+    if (window.electronAPI?.tts) {
+      const status = await window.electronAPI.tts.getStatus();
+      setTtsStatus(status);
+      setTtsEnabled(status.available);
+    }
+  };
+
+  const handleTtsToggle = async (enabled: boolean) => {
+    if (!window.electronAPI?.tts) return;
+
+    setTtsLoading(true);
+    try {
+      if (enabled) {
+        // Start TTS server
+        const result = await window.electronAPI.tts.start();
+        if (result.success) {
+          setTtsEnabled(true);
+          await checkTtsStatus();
+        } else {
+          console.error('Failed to start TTS:', result.error);
+        }
+      } else {
+        // Stop TTS server
+        await window.electronAPI.tts.stop();
+        setTtsEnabled(false);
+        setTtsStatus({ available: false, modelLoaded: false, device: 'none' });
+      }
+    } finally {
+      setTtsLoading(false);
+    }
+  };
 
   const loadMaskedKey = async () => {
     if (window.electronAPI) {
@@ -493,6 +537,66 @@ export const SettingsPage: React.FC = () => {
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Открыть виджет
               </Button>
+            </CardContent>
+          </Card>
+
+          {/* TTS (Chatterbox) */}
+          <Card className="border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Mic className="w-5 h-5 text-green-400" />
+                Озвучка слов (Chatterbox AI)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Локальная нейросетевая озвучка слов. Использует GPU для генерации.
+                При первом запуске загружает модель (~350MB).
+              </p>
+
+              <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border">
+                <div className="flex items-center gap-3">
+                  {ttsLoading ? (
+                    <Loader2 className="w-5 h-5 text-yellow-400 animate-spin" />
+                  ) : ttsEnabled ? (
+                    <Power className="w-5 h-5 text-green-400" />
+                  ) : (
+                    <PowerOff className="w-5 h-5 text-muted-foreground" />
+                  )}
+                  <div>
+                    <p className="font-medium">
+                      {ttsLoading ? 'Загрузка...' : ttsEnabled ? 'Сервер запущен' : 'Сервер выключен'}
+                    </p>
+                    {ttsStatus && ttsEnabled && (
+                      <p className="text-xs text-muted-foreground">
+                        Устройство: {ttsStatus.device.toUpperCase()}
+                        {ttsStatus.modelLoaded && ' • Модель загружена'}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleTtsToggle(!ttsEnabled)}
+                  disabled={ttsLoading}
+                  className={cn(
+                    'w-14 h-7 rounded-full transition-all duration-200 relative',
+                    ttsLoading ? 'opacity-50 cursor-not-allowed' : '',
+                    ttsEnabled ? 'bg-green-500' : 'bg-secondary'
+                  )}
+                >
+                  <div
+                    className={cn(
+                      'absolute top-1 w-5 h-5 rounded-full bg-white transition-all duration-200',
+                      ttsEnabled ? 'left-8' : 'left-1'
+                    )}
+                  />
+                </button>
+              </div>
+
+              <p className="text-xs text-muted-foreground">
+                Сервер автоматически выключится при закрытии приложения.
+                Аудио кэшируется для быстрого повторного воспроизведения.
+              </p>
             </CardContent>
           </Card>
 

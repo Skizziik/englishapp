@@ -13,6 +13,7 @@ class TTSService {
   private isInitializing: boolean = false;
   private audioCache: Map<string, string> = new Map(); // text -> base64 audio
   private currentAudio: HTMLAudioElement | null = null;
+  private autoStart: boolean = false; // Don't auto-start, user must enable in settings
 
   /**
    * Проверить статус TTS сервера
@@ -132,14 +133,11 @@ class TTSService {
       await this.checkStatus();
     }
 
-    // Если TTS не доступен, пытаемся запустить
+    // Если TTS не доступен - не пытаемся автозапуск
+    // Пользователь должен включить в настройках
     if (!this.status?.available) {
-      console.log('TTS not available, trying to start...');
-      const started = await this.initialize();
-      if (!started) {
-        console.error('Failed to start TTS server');
-        return false;
-      }
+      console.log('TTS not available. Enable it in Settings.');
+      return false;
     }
 
     try {

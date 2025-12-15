@@ -6,7 +6,7 @@ Runs on localhost:5123
 import os
 import sys
 import io
-import tempfile
+import hashlib
 from pathlib import Path
 
 from flask import Flask, request, send_file, jsonify
@@ -14,15 +14,34 @@ from flask_cors import CORS
 import torch
 import torchaudio
 
-# Set model cache directory to AppData
+# Set cache directories in AppData
 if sys.platform == 'win32':
-    CACHE_DIR = Path(os.environ.get('APPDATA', '')) / 'EnglishLearningApp' / 'models'
+    APP_DATA = Path(os.environ.get('APPDATA', '')) / 'EnglishLearningApp'
 else:
-    CACHE_DIR = Path.home() / '.cache' / 'EnglishLearningApp' / 'models'
+    APP_DATA = Path.home() / '.cache' / 'EnglishLearningApp'
+
+CACHE_DIR = APP_DATA / 'models'
+AUDIO_CACHE_DIR = APP_DATA / 'audio_cache'
 
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
+AUDIO_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
 os.environ['HF_HOME'] = str(CACHE_DIR)
 os.environ['TRANSFORMERS_CACHE'] = str(CACHE_DIR)
+
+def get_audio_cache_path(text: str) -> Path:
+    """Get cache file path for text (using sanitized filename)"""
+    # Sanitize text for filename - keep only alphanumeric and spaces
+    clean_text = text.lower().strip()
+    # Replace spaces with underscores, remove special chars
+    safe_name = ''.join(c if c.isalnum() or c == ' ' else '' for c in clean_text)
+    safe_name = safe_name.replace(' ', '_')[:50]  # Limit length
+
+    # If the name is too short or empty, use hash
+    if len(safe_name) < 2:
+        safe_name = hashlib.md5(clean_text.encode()).hexdigest()[:12]
+
+    return AUDIO_CACHE_DIR / f"{safe_name}.wav"
 
 app = Flask(__name__)
 CORS(app)
@@ -80,6 +99,18 @@ def speak():
         if not text:
             return jsonify({'error': 'No text provided'}), 400
 
+        # Check if audio is already cached
+        cache_path = get_audio_cache_path(text)
+        if cache_path.exists():
+            print(f"[Cache HIT] {text} -> {cache_path.name}")
+            return send_file(
+                str(cache_path),
+                mimetype='audio/wav',
+                as_attachment=False
+            )
+
+        print(f"[Cache MISS] Generating: {text}")
+
         # Load model if not loaded
         tts = load_model()
 
@@ -88,21 +119,21 @@ def speak():
 
         print(f"Generated wav shape: {wav.shape}, dim: {wav.dim()}")
 
-        # Convert to bytes - flatten to 2D (channels, samples) for torchaudio
-        buffer = io.BytesIO()
-        # Squeeze all extra dimensions until we get 1D or 2D
+        # Flatten to 2D (channels, samples) for torchaudio
         while wav.dim() > 2:
             wav = wav.squeeze(0)
-        # If 1D, add channel dimension
         if wav.dim() == 1:
             wav = wav.unsqueeze(0)
 
         print(f"Final wav shape: {wav.shape}")
-        torchaudio.save(buffer, wav.cpu(), 24000, format='wav')
-        buffer.seek(0)
 
+        # Save to cache file
+        torchaudio.save(str(cache_path), wav.cpu(), 24000, format='wav')
+        print(f"[Cached] {text} -> {cache_path.name}")
+
+        # Return the cached file
         return send_file(
-            buffer,
+            str(cache_path),
             mimetype='audio/wav',
             as_attachment=False
         )
