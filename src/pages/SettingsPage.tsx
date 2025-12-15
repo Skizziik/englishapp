@@ -15,6 +15,8 @@ import {
   Sparkles,
   Eye,
   EyeOff,
+  Layout,
+  ExternalLink,
 } from 'lucide-react';
 import {
   Card,
@@ -463,6 +465,34 @@ export const SettingsPage: React.FC = () => {
                   </a>
                 </p>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Widget */}
+          <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Layout className="w-5 h-5 text-blue-400" />
+                Виджет быстрого обучения
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Компактный виджет для быстрого повторения слов прямо на рабочем столе.
+                Всегда поверх других окон, с горячими клавишами 1-4.
+              </p>
+              <Button
+                variant="outline"
+                className="border-blue-500/30 hover:bg-blue-500/10"
+                onClick={async () => {
+                  if (window.electronAPI) {
+                    await window.electronAPI.widget.open();
+                  }
+                }}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Открыть виджет
+              </Button>
             </CardContent>
           </Card>
 

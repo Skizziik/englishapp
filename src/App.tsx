@@ -12,6 +12,7 @@ import {
   SettingsPage,
   AssistantPage,
   YouTubeImportPage,
+  WidgetPage,
 } from '@/pages';
 import { useAppStore } from '@/stores/appStore';
 
@@ -57,6 +58,10 @@ const App: React.FC = () => {
 
   return (
     <Routes>
+      {/* Widget route - no layout */}
+      <Route path="/widget" element={<WidgetPage />} />
+
+      {/* Main app routes with layout */}
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/learn" element={<LearnPage />} />

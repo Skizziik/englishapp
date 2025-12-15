@@ -8,3 +8,4 @@ export * from './AchievementsPage';
 export * from './SettingsPage';
 export * from './AssistantPage';
 export * from './YouTubeImportPage';
+export * from './WidgetPage';

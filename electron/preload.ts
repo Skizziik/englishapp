@@ -164,4 +164,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
     addWords: (words: any[], targetLanguage: string, source?: string) =>
       ipcRenderer.invoke('youtube:addWords', words, targetLanguage, source),
   },
+
+  // Widget
+  widget: {
+    open: () => ipcRenderer.invoke('widget:open'),
+    close: () => ipcRenderer.invoke('widget:close'),
+    isOpen: () => ipcRenderer.invoke('widget:isOpen'),
+  },
 });

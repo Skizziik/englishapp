@@ -15,6 +15,7 @@ import { GeminiService } from './gemini-service';
 import { YouTubeImportService, ProcessedWord } from './youtube-import-service';
 
 let mainWindow: BW | null = null;
+let widgetWindow: BW | null = null;
 let tray: TrayType | null = null;
 let database: DatabaseManager;
 let srsEngine: SRSEngine;
@@ -55,6 +56,55 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+}
+
+function createWidget() {
+  if (widgetWindow) {
+    widgetWindow.focus();
+    return;
+  }
+
+  const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
+
+  widgetWindow = new BrowserWindow({
+    width: 380,
+    height: 500,
+    minWidth: 320,
+    minHeight: 400,
+    maxWidth: 500,
+    maxHeight: 700,
+    frame: false,
+    alwaysOnTop: true,
+    transparent: false,
+    backgroundColor: '#1a1a2e',
+    skipTaskbar: false,
+    resizable: true,
+    icon: path.join(__dirname, '../public/icon.png'),
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, 'widget-preload.js'),
+    },
+  });
+
+  if (isDev) {
+    widgetWindow.loadURL('http://localhost:3000/#/widget');
+  } else {
+    const appPath = app.getAppPath();
+    const indexPath = path.join(appPath, 'dist/renderer/index.html');
+    widgetWindow.loadFile(indexPath, { hash: '/widget' });
+  }
+
+  widgetWindow.on('closed', () => {
+    widgetWindow = null;
+  });
+}
+
+function closeWidget() {
+  if (widgetWindow) {
+    widgetWindow.close();
+    widgetWindow = null;
+  }
 }
 
 function createTray() {
@@ -106,6 +156,12 @@ function updateTrayMenu() {
           mainWindow.show();
           mainWindow.webContents.send('navigate', '/sprint');
         }
+      },
+    },
+    {
+      label: '📱 Виджет',
+      click: () => {
+        createWidget();
       },
     },
     { type: 'separator' },
@@ -549,4 +605,58 @@ ipcMain.handle('db:words:update', async (_, wordId: string, data: any) => {
 
 ipcMain.handle('db:words:getSources', async (_, targetLanguage?: string) => {
   return database.getSources(targetLanguage || 'en');
+});
+
+// Widget handlers
+ipcMain.handle('widget:open', async () => {
+  createWidget();
+  return true;
+});
+
+ipcMain.handle('widget:close', async () => {
+  closeWidget();
+  return true;
+});
+
+ipcMain.handle('widget:isOpen', async () => {
+  return widgetWindow !== null;
+});
+
+ipcMain.handle('widget:minimize', async () => {
+  widgetWindow?.minimize();
+});
+
+ipcMain.handle('widget:getWords', async (_, count: number, targetLanguage: string) => {
+  // Get mix of due words and new words for widget
+  const dueWords = srsEngine.getNextReviewWords(Math.ceil(count / 2), targetLanguage);
+  const newWords = srsEngine.getNewWordsToLearn(Math.ceil(count / 2), undefined, undefined, targetLanguage);
+
+  // Combine and shuffle
+  const allWords = [...dueWords, ...newWords].slice(0, count);
+  return allWords.sort(() => Math.random() - 0.5);
+});
+
+ipcMain.handle('widget:getAnswerOptions', async (_, correctTranslation: string, targetLanguage: string) => {
+  // Get random words for wrong answers
+  const allWords = database.getWords({ targetLanguage, limit: 50 });
+  const wrongOptions = allWords
+    .map(w => {
+      const primary = w.translations?.find((t: any) => t.isPrimary);
+      return primary?.translation || w.translations?.[0]?.translation || '';
+    })
+    .filter(t => t && t !== correctTranslation)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+
+  // Add correct answer and shuffle
+  const options = [...wrongOptions, correctTranslation].sort(() => Math.random() - 0.5);
+  return options;
+});
+
+ipcMain.handle('widget:recordAnswer', async (_, wordId: string, quality: number) => {
+  return srsEngine.recordAnswer(wordId, quality);
+});
+
+ipcMain.handle('widget:addXP', async (_, amount: number) => {
+  return database.addXP(amount, 'widget');
 });

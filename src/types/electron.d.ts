@@ -207,11 +207,36 @@ interface ElectronAPI {
     import: (url: string, targetLanguage: string) => Promise<YouTubeImportResult>;
     addWords: (words: YouTubeProcessedWord[], targetLanguage: string, source?: string) => Promise<YouTubeAddWordsResult>;
   };
+
+  widget: {
+    open: () => Promise<boolean>;
+    close: () => Promise<boolean>;
+    isOpen: () => Promise<boolean>;
+  };
+}
+
+interface WidgetAPI {
+  close: () => Promise<void>;
+  minimize: () => Promise<void>;
+  getWords: (count: number, targetLanguage: string) => Promise<ReviewCard[]>;
+  getAnswerOptions: (correctTranslation: string, targetLanguage: string) => Promise<string[]>;
+  recordAnswer: (wordId: string, quality: number) => Promise<{
+    nextReview: string;
+    interval: number;
+    easeFactor: number;
+    isGraduated: boolean;
+  }>;
+  addXP: (amount: number) => Promise<number>;
+  getDueCount: (targetLanguage: string) => Promise<number>;
+  getStats: (targetLanguage: string) => Promise<SRSStats>;
+  getStreak: () => Promise<StreakInfo>;
+  updateStreak: () => Promise<StreakUpdateResult>;
 }
 
 declare global {
   interface Window {
     electronAPI: ElectronAPI;
+    widgetAPI: WidgetAPI;
   }
 }
 
